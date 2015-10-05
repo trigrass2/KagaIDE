@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using KagaIDE.Forms;
 
 namespace KagaIDE
 {
@@ -25,6 +26,12 @@ namespace KagaIDE
             {
                 this.Width = 730;
             }
+        }
+
+        private void button18_Click(object sender, EventArgs e)
+        {
+            AddFunForm addFunForm = new AddFunForm();
+            addFunForm.ShowDialog(this);
         }
 
 

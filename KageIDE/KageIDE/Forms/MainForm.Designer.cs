@@ -29,8 +29,12 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button16 = new System.Windows.Forms.Button();
+            this.button15 = new System.Windows.Forms.Button();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.listBox3 = new System.Windows.Forms.ListBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -45,15 +49,11 @@
             this.button12 = new System.Windows.Forms.Button();
             this.button13 = new System.Windows.Forms.Button();
             this.button14 = new System.Windows.Forms.Button();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.button15 = new System.Windows.Forms.Button();
-            this.button16 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.button17 = new System.Windows.Forms.Button();
             this.button18 = new System.Windows.Forms.Button();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.button19 = new System.Windows.Forms.Button();
-            this.listBox3 = new System.Windows.Forms.ListBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -77,6 +77,35 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "全局变量";
             // 
+            // button16
+            // 
+            this.button16.Location = new System.Drawing.Point(77, 284);
+            this.button16.Name = "button16";
+            this.button16.Size = new System.Drawing.Size(60, 23);
+            this.button16.TabIndex = 2;
+            this.button16.Text = "删除";
+            this.button16.UseVisualStyleBackColor = true;
+            // 
+            // button15
+            // 
+            this.button15.Location = new System.Drawing.Point(7, 284);
+            this.button15.Name = "button15";
+            this.button15.Size = new System.Drawing.Size(60, 23);
+            this.button15.TabIndex = 1;
+            this.button15.Text = "添加";
+            this.button15.UseVisualStyleBackColor = true;
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 12;
+            this.listBox1.Items.AddRange(new object[] {
+            "Guangji"});
+            this.listBox1.Location = new System.Drawing.Point(7, 22);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(130, 256);
+            this.listBox1.TabIndex = 0;
+            // 
             // tabControl1
             // 
             this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -99,6 +128,18 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "main";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // listBox3
+            // 
+            this.listBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listBox3.FormattingEnabled = true;
+            this.listBox3.ItemHeight = 12;
+            this.listBox3.Items.AddRange(new object[] {
+            "◆"});
+            this.listBox3.Location = new System.Drawing.Point(3, 3);
+            this.listBox3.Name = "listBox3";
+            this.listBox3.Size = new System.Drawing.Size(615, 622);
+            this.listBox3.TabIndex = 0;
             // 
             // button1
             // 
@@ -214,7 +255,7 @@
             this.button13.Name = "button13";
             this.button13.Size = new System.Drawing.Size(90, 31);
             this.button13.TabIndex = 16;
-            this.button13.Text = "单例调用";
+            this.button13.Text = "单次执行";
             this.button13.UseVisualStyleBackColor = true;
             // 
             // button14
@@ -225,35 +266,6 @@
             this.button14.TabIndex = 17;
             this.button14.Text = "代码片段";
             this.button14.UseVisualStyleBackColor = true;
-            // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 12;
-            this.listBox1.Items.AddRange(new object[] {
-            "Guangji"});
-            this.listBox1.Location = new System.Drawing.Point(7, 22);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(130, 256);
-            this.listBox1.TabIndex = 0;
-            // 
-            // button15
-            // 
-            this.button15.Location = new System.Drawing.Point(7, 284);
-            this.button15.Name = "button15";
-            this.button15.Size = new System.Drawing.Size(60, 23);
-            this.button15.TabIndex = 1;
-            this.button15.Text = "添加";
-            this.button15.UseVisualStyleBackColor = true;
-            // 
-            // button16
-            // 
-            this.button16.Location = new System.Drawing.Point(77, 284);
-            this.button16.Name = "button16";
-            this.button16.Size = new System.Drawing.Size(60, 23);
-            this.button16.TabIndex = 2;
-            this.button16.Text = "删除";
-            this.button16.UseVisualStyleBackColor = true;
             // 
             // groupBox2
             // 
@@ -284,6 +296,7 @@
             this.button18.TabIndex = 1;
             this.button18.Text = "添加";
             this.button18.UseVisualStyleBackColor = true;
+            this.button18.Click += new System.EventHandler(this.button18_Click);
             // 
             // listBox2
             // 
@@ -305,18 +318,6 @@
             this.button19.Text = "中断循环";
             this.button19.UseVisualStyleBackColor = true;
             // 
-            // listBox3
-            // 
-            this.listBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBox3.FormattingEnabled = true;
-            this.listBox3.ItemHeight = 12;
-            this.listBox3.Items.AddRange(new object[] {
-            "◆"});
-            this.listBox3.Location = new System.Drawing.Point(3, 3);
-            this.listBox3.Name = "listBox3";
-            this.listBox3.Size = new System.Drawing.Size(615, 622);
-            this.listBox3.TabIndex = 0;
-            // 
             // groupBox3
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -337,7 +338,7 @@
             this.groupBox3.Controls.Add(this.button9);
             this.groupBox3.Location = new System.Drawing.Point(796, 12);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(200, 367);
+            this.groupBox3.Size = new System.Drawing.Size(200, 364);
             this.groupBox3.TabIndex = 19;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "指令";
