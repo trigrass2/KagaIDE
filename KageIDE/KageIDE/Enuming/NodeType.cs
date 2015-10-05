@@ -11,7 +11,7 @@ namespace KageIDE.Enuming
         // 注释
         NOTE,
         // 开关定义
-        DEFINE_SWITCHES,
+        DEFINE_SWITCH,
         // 变量定义
         DEFINE_VARIABLE,
         // 表达式
