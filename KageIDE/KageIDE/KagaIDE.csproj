@@ -7,8 +7,8 @@
     <ProjectGuid>{A068162A-2398-4A1D-9E39-EB6A10F73B04}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>KageIDE</RootNamespace>
-    <AssemblyName>KageIDE</AssemblyName>
+    <RootNamespace>KagaIDE</RootNamespace>
+    <AssemblyName>KagaIDE</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -63,6 +63,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
