@@ -43,7 +43,8 @@ namespace KagaIDE
         public string forStep = "1";
         // 节点函数调用名称
         public string calling = "___KAGA__NO__FUNCALL___";
-
+        // 节点函数调用参数列表
+        public string callingParams = "___KAGA__NO__PARAS____";
 
         // 是否产生一个新的编译语句块
         public bool isNewBlock = false;
