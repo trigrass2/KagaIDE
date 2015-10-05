@@ -6,6 +6,7 @@ using KageIDE.Enuming;
 
 namespace KageIDE.Module
 {
+    // 符号管理器
     public class SymbolManager
     {
         // 工厂
@@ -33,6 +34,7 @@ namespace KageIDE.Module
             tableContainer = new List<KagaTable>();
             callfunContainer = new List<string>();
         }
+
         // 唯一实例
         private static SymbolManager synObject = null;
     }

@@ -41,6 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enuming\NodeType.cs" />
+    <Compile Include="Module\FileManager.cs" />
+    <Compile Include="Module\PileParser.cs" />
     <Compile Include="Module\SymbolManager.cs" />
     <Compile Include="Struct\KagaNode.cs" />
     <Compile Include="MainForm.cs">
