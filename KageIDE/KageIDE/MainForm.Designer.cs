@@ -370,6 +370,7 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "MainForm";
             this.Text = "Kaga IDE";
+            this.ResizeEnd += new System.EventHandler(this.MainForm_ResizeEnd);
             this.groupBox1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);

@@ -15,6 +15,18 @@ namespace KagaIDE
             InitializeComponent();
         }
 
+        private void MainForm_ResizeEnd(object sender, EventArgs e)
+        {
+            if (this.Height < 730)
+            {
+                this.Height = 730;
+            }
+            if (this.Width < 730)
+            {
+                this.Width = 730;
+            }
+        }
+
 
     }
 }
