@@ -9,8 +9,9 @@ namespace KageIDE.Struct
         // 构造器
         public KagaTable(int tableDepth)
         {
+            this.depth = tableDepth;
             this.symbols = new List<string>();
-            this.prefix = String.Format("___KAGA_VAR_{0}", tableDepth);
+            this.prefix = String.Format("___KAGA_VAR_{0}", this.depth);
         }
 
         // 编译模式取得所有符号
@@ -30,9 +31,10 @@ namespace KageIDE.Struct
             return this.symbols.Count;
         }
 
+        // 符号表深度
+        public int depth = 0;
         // 符号表前缀
         public string prefix = "___KAGA_";
-
         // 符号列表
         public List<string> symbols = null;
     }
