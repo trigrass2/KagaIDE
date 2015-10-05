@@ -1,4 +1,4 @@
-﻿namespace KageIDE
+﻿namespace KagaIDE
 {
     partial class MainForm
     {

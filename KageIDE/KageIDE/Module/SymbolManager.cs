@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using KageIDE.Struct;
-using KageIDE.Enuming;
+using KagaIDE.Struct;
+using KagaIDE.Enuming;
 
-namespace KageIDE.Module
+namespace KagaIDE.Module
 {
     // 符号管理器
     public class SymbolManager

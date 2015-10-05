@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using KageIDE.Enuming;
-using KageIDE.Struct;
+using KagaIDE.Enuming;
+using KagaIDE.Struct;
 
-namespace KageIDE
+namespace KagaIDE
 {
     public class KagaNode
     {

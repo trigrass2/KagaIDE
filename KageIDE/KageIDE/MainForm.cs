@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace KageIDE
+namespace KagaIDE
 {
     public partial class MainForm : Form
     {

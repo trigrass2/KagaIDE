@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace KageIDE.Enuming
+namespace KagaIDE.Enuming
 {
     public enum NodeType
     {
