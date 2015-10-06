@@ -287,6 +287,7 @@
             this.button17.TabIndex = 2;
             this.button17.Text = "删除";
             this.button17.UseVisualStyleBackColor = true;
+            this.button17.Click += new System.EventHandler(this.button17_Click);
             // 
             // button18
             // 

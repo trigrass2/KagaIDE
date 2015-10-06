@@ -34,6 +34,13 @@ namespace KagaIDE
             addFunForm.ShowDialog(this);
         }
 
+        // 删除函数
+        private void button17_Click(object sender, EventArgs e)
+        {
+
+
+        }
+
 
     }
 }

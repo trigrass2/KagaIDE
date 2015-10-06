@@ -31,5 +31,13 @@ namespace KagaIDE.Enuming
             "unsigned int",
             "unsigned char"
         };
+
+        // 把一个类型匹配成VarType枚举的类型
+        public static VarType parseToVarType(string parStr)
+        {
+            parStr = parStr.ToUpper().Replace(' ', '_');
+            return (VarType)Enum.Parse(typeof(VarType), parStr, true);
+        }
+
     }
 }
