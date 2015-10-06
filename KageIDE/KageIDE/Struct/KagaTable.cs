@@ -10,7 +10,7 @@ namespace KagaIDE.Struct
         public KagaTable(int tableDepth)
         {
             this.depth = tableDepth;
-            this.symbols = new List<string>();
+            this.symbols = new List<KagaVar>();
             this.prefix = String.Format("___KAGA_VAR_{0}", this.depth);
         }
 
@@ -18,9 +18,9 @@ namespace KagaIDE.Struct
         public List<string> getParseTable()
         {
             List<string> parList = new List<string>();
-            foreach (string s in symbols)
+            foreach (KagaVar s in symbols)
             {
-                parList.Add(String.Format("{0}_{1}___", this.prefix, s));
+                parList.Add(String.Format("{0}_{1}@{2}", this.prefix, s.varname, s.vartype));
             }
             return parList;
         }
@@ -36,6 +36,6 @@ namespace KagaIDE.Struct
         // 符号表前缀
         public string prefix = "___KAGA_";
         // 符号列表
-        public List<string> symbols = null;
+        public List<KagaVar> symbols = null;
     }
 }
