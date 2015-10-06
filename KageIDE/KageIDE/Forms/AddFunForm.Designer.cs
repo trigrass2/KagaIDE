@@ -81,7 +81,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(227, 267);
+            this.button1.Location = new System.Drawing.Point(227, 290);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(149, 41);
             this.button1.TabIndex = 5;
@@ -91,7 +91,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(301, 238);
+            this.button2.Location = new System.Drawing.Point(301, 261);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 6;
@@ -118,6 +118,8 @@
             // 
             this.Column1.HeaderText = "参数名";
             this.Column1.Name = "Column1";
+            this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Column1.Width = 90;
             // 
             // Column2
             // 
@@ -131,6 +133,8 @@
             "unsigned int",
             "unsigned char"});
             this.Column2.Name = "Column2";
+            this.Column2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Column2.Width = 110;
             // 
             // AddFunForm
             // 

@@ -39,4 +39,16 @@ namespace KagaIDE.Enuming
         // 代码片段
         CODEBLOCK
     }
+
+    public enum VarType
+    {
+        VOID,
+        INT,
+        CHAR,
+        LONG,
+        FLOAT,
+        DOUBLE,
+        UNSIGNED_INT,
+        UNSIGNED_CHAR
+    }
 }

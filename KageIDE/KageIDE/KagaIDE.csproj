@@ -41,7 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enuming\Consta.cs" />
-    <Compile Include="Enuming\NodeType.cs" />
+    <Compile Include="Struct\FunctionCell.cs" />
+    <Compile Include="Enuming\Enums.cs" />
     <Compile Include="Forms\AddFunForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -56,6 +57,7 @@
     </Compile>
     <Compile Include="Interface\IBasicInputForm.cs" />
     <Compile Include="Module\FileManager.cs" />
+    <Compile Include="Module\Interpreter.cs" />
     <Compile Include="Module\PileParser.cs" />
     <Compile Include="Module\SymbolManager.cs" />
     <Compile Include="Struct\KagaNode.cs" />
@@ -68,6 +70,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Struct\KagaTable.cs" />
+    <Compile Include="Struct\KagaVar.cs" />
     <EmbeddedResource Include="Forms\AddFunForm.resx">
       <DependentUpon>AddFunForm.cs</DependentUpon>
     </EmbeddedResource>
