@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enuming\Consta.cs" />
+    <Compile Include="Module\KagaController.cs" />
     <Compile Include="Struct\FunctionCell.cs" />
     <Compile Include="Enuming\Enums.cs" />
     <Compile Include="Forms\AddFunForm.cs">

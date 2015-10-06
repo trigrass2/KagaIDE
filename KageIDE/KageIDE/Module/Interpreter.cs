@@ -13,10 +13,6 @@ namespace KagaIDE.Module
             return synObject == null ? synObject = new Interpreter() : synObject;
         }
         
-        // 增加一个函数
-
-
-
 
         
         
