@@ -55,6 +55,12 @@ namespace KagaIDE
             this.functionListBox.Items.RemoveAt(this.functionListBox.SelectedIndex);
         }
 
+        // 点选某个项目
+        private void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            //MessageBox.Show( e.Node.Index.ToString() + " " + e.Node.Level.ToString());
+        }
+
 
     }
 }
