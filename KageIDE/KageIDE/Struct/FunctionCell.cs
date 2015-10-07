@@ -8,10 +8,7 @@ namespace KagaIDE.Enuming
     public class FunctionCell
     {
         // 构造器
-        public FunctionCell(
-            string fname,
-            List<KagaVar> args = null,
-            VarType rt = VarType.VOID)
+        public FunctionCell(string fname, List<KagaVar> args = null, VarType rt = VarType.VOID)
         {
             this.callname = fname;
             this.returnType = rt;
@@ -33,12 +30,11 @@ namespace KagaIDE.Enuming
             StringBuilder sb = new StringBuilder();
             sb.Append(this.returnType.ToString().ToLower().Replace('_', ' '));
             sb.Append(" ");
-            sb.Append(this.callname);
+            sb.Append(String.Format("{0}_{1}", Consta.prefix_fun, this.callname));
             sb.Append("(");
             for (int i = 0; i < this.paraList.Count; i++)
             {
-                sb.Append(String.Format(
-                    "{0} {1}", this.paraList[i].vartype, this.paraList[i].varname));
+                sb.Append(String.Format("{0} {1}", this.paraList[i].vartype, this.paraList[i].varname));
                 if (i != this.paraList.Count - 1)
                 {
                     sb.Append(", ");
@@ -53,7 +49,7 @@ namespace KagaIDE.Enuming
         }
 
         // 函数头
-        public string callname = "___KAGA_";
+        public string callname = Consta.prefix_fun;
         // 返回类型
         public VarType returnType = VarType.VOID;
         // 参数列表

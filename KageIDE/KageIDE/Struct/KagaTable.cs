@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using KagaIDE.Enuming;
 
 namespace KagaIDE.Struct
 {
@@ -12,7 +13,7 @@ namespace KagaIDE.Struct
             this.depth = tableDepth;
             this.belong = belonging;
             this.symbols = new List<KagaVar>();
-            this.prefix = String.Format("___KAGA_VAR_{0}", this.depth);
+            this.prefix = String.Format("{0}_{1}", Consta.prefix_var, this.depth);
         }
 
         // 编译模式取得所有符号
@@ -37,7 +38,7 @@ namespace KagaIDE.Struct
         // 属于哪个节点
         public KagaNode belong = null;
         // 符号表前缀
-        public string prefix = "___KAGA_";
+        public string prefix = Consta.prefix_var;
         // 符号列表
         public List<KagaVar> symbols = null;
     }

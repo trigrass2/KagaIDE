@@ -14,7 +14,7 @@ namespace KagaIDE.Struct
             this.vartype = sytype;
         }
         // 符号名字
-        public string varname = "@N_VAR@";
+        public string varname = Consta.const_none;
         // 符号类型
         public VarType vartype = VarType.VOID;
     }
