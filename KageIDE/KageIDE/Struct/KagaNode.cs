@@ -6,23 +6,29 @@ using KagaIDE.Struct;
 
 namespace KagaIDE
 {
+    // 语法树节点
     public class KagaNode
     {
         // 构造器
-        public KagaNode(NodeType nt) 
+        public KagaNode(NodeType nt, int nodeDepth, int nodeIndex, KagaNode paraParent) 
         {
+            // 初始化节点信息
             this.type = nt;
+            this.depth = nodeDepth;
+            this.parent = paraParent;
+            this.children = new List<KagaNode>();
+            // 如果是代码块，那就要生成符号表
+            if (nt.ToString().Contains(Consta.prefix_block))
+            {
+                this.isNewBlock = true;
+                this.symbolTable = new KagaTable(this.depth);
+            }
         }
 
         // 同辈份姐妹中的排位
-        public int place = 0;
+        public int index = 0;
         // 节点深度
         public int depth = 0;
-
-        // 特殊尾部节点（括号）标记
-        public bool isBrucketNode = false;
-        // 空节点标记位
-        public bool isNilNode = false;
 
         // 错误位
         public bool errorBit = false;
@@ -50,10 +56,9 @@ namespace KagaIDE
         public bool isNewBlock = false;
         // 符号表指针
         public KagaTable symbolTable = null;
+        // 双亲指针
+        public KagaNode parent = null;
         // 多路子树
-        public List<KagaNode> subNode = null;
-
-        // 私有的拷贝构造器，防止节点被意外复制
-        private KagaNode(KagaNode otherKagaNode) { }
+        public List<KagaNode> children = null;
     }
 }

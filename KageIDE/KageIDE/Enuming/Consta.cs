@@ -98,6 +98,9 @@ namespace KagaIDE.Enuming
             "volatile",
             "while"
         };
+
+        // 代码块枚举型前缀
+        public static readonly string prefix_block = "BLOCK__";
         #endregion
     }
 }
