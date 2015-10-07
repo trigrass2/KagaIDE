@@ -66,26 +66,26 @@ namespace KagaIDE.Forms
                 // 类型不能为空
                 if (this.argsGridDataView.Rows[i].Cells[1].Value == null)
                 {
-                    MessageBox.Show(String.Format("变量{0}类型不合法", varname), "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(String.Format("变量 {0} 类型不合法", varname), "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 string vartype = this.argsGridDataView.Rows[i].Cells[1].Value.ToString();
                 // 符号合法性
                 if (Consta.IsStdCSymbol(varname) == false)
                 {
-                    MessageBox.Show(String.Format("变量{0}命名不合法", varname), "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(String.Format("变量 {0} 命名不合法", varname), "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 // 符号唯一性
                 if (argvList.Find((x) => x.Split('@')[0] == varname) != null)
                 {
-                    MessageBox.Show(String.Format("变量名{0}重复", varname), "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(String.Format("变量名 {0} 重复", varname), "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 // 类型合法性
                 if (Consta.basicType.Find((x) => x == vartype) == null)
                 {
-                    MessageBox.Show(String.Format("变量{0}类型不合法", varname), "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(String.Format("变量 {0} 类型不合法", varname), "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 argvList.Add(String.Format("{0}@{1}", varname, vartype));
@@ -157,11 +157,15 @@ namespace KagaIDE.Forms
             // 左键时为类型赋初值
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
-                this.argsGridDataView.Rows[e.RowIndex].Cells[1].Value = Consta.basicType[0];
+                if ((this.argsGridDataView.Rows[e.RowIndex].Cells[0].Value) == null)
+                {
+                    this.argsGridDataView.Rows[e.RowIndex].Cells[1].Value = Consta.basicType[0];
+                }
             }
             // 右键删除变量
             else if (e.Button == System.Windows.Forms.MouseButtons.Right)
             {
+                // 边界要减一，因为最后一行是没有提交的
                 if (e.RowIndex != this.argsGridDataView.Rows.Count - 1)
                 {
                     this.argsGridDataView.Rows.RemoveAt(e.RowIndex);

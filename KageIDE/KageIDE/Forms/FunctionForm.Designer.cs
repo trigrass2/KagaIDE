@@ -37,6 +37,7 @@
             this.argsGridDataView = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.argsGridDataView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -144,12 +145,23 @@
             this.Column2.ToolTipText = "参数的数据类型";
             this.Column2.Width = 110;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.SystemColors.ButtonShadow;
+            this.label3.Location = new System.Drawing.Point(263, 236);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(113, 12);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "右键选中行删除变量";
+            // 
             // FunctionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(388, 341);
             this.ControlBox = false;
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.argsGridDataView);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -177,5 +189,6 @@
         private System.Windows.Forms.DataGridView argsGridDataView;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewComboBoxColumn Column2;
+        private System.Windows.Forms.Label label3;
     }
 }
