@@ -20,6 +20,24 @@ namespace KagaIDE
             InitializeComponent();
         }
 
+        // 加载窗体时发生
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            if (this.existTab("main", this.tabControl1) == false)
+            {
+                TabPage ntab = new TabPage("main");
+                ntab.Name = "tbmobile";
+                tabControl1.Controls.Add(ntab);
+                Platform form = new Platform();
+                form.TopLevel = false;
+                form.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom;
+                form.FormBorderStyle = FormBorderStyle.None;
+                form.Show();
+                ntab.Controls.Add(form);
+                tabControl1.SelectedTab = ntab;
+            }
+        }
+
         // 保证最小窗体尺寸
         private void MainForm_ResizeEnd(object sender, EventArgs e)
         {
@@ -61,6 +79,23 @@ namespace KagaIDE
             //MessageBox.Show( e.Node.Index.ToString() + " " + e.Node.Level.ToString());
         }
 
-
+        /// <summary>
+        /// <param name="MainTabControlKey">选项卡的键值</param>
+        /// <param name="objTabControl">要添加到的TabControl对象</param>
+        /// <returns>是否存在</returns>
+        /// </summary>
+        private bool existTab(string MainTabControlKey, TabControl objTabControl)
+        {
+            //遍历选项卡判断是否存在该子窗体
+            foreach (Control con in objTabControl.Controls)
+            {
+                TabPage tab = (TabPage)con;
+                if (tab.Name == MainTabControlKey)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }
