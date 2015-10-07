@@ -104,6 +104,7 @@
             this.globalvarListBox.Location = new System.Drawing.Point(7, 22);
             this.globalvarListBox.Name = "globalvarListBox";
             this.globalvarListBox.Size = new System.Drawing.Size(130, 256);
+            this.globalvarListBox.Sorted = true;
             this.globalvarListBox.TabIndex = 0;
             // 
             // tabControl1

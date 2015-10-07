@@ -167,7 +167,11 @@ namespace KagaIDE
             }
             // 把更新传到后台
             string[] splitItem = passBuffer.Split('@');
-            core.addGlobalVar(splitItem[0], splitItem[1]);
+            if (core.addGlobalVar(splitItem[0], splitItem[1]) == false)
+            {
+                MessageBox.Show("变量名重复，请重新命名", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             // 阻塞结束后，更新窗体
             this.globalvarListBox.Items.Add(passBuffer.Replace("@", " @ "));
             passBuffer = null;
