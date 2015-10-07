@@ -5,6 +5,7 @@ using KagaIDE.Enuming;
 
 namespace KagaIDE.Struct
 {
+    [Serializable]
     public class KagaTable
     {
         // 构造器

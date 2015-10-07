@@ -6,6 +6,7 @@ using KagaIDE.Enuming;
 namespace KagaIDE.Module
 {
     // 控制整棵代码树的类
+    [Serializable]
     public class CodeManager
     {
         

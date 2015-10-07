@@ -7,6 +7,7 @@ using KagaIDE.Struct;
 namespace KagaIDE
 {
     // 语法树节点
+    [Serializable]
     public class KagaNode
     {
         // 构造器

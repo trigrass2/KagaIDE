@@ -6,6 +6,7 @@ using KagaIDE.Enuming;
 namespace KagaIDE.Struct
 {
     // 表达一个符号的基本类
+    [Serializable]
     public class KagaVar
     {
         public KagaVar(string syname, VarType sytype)

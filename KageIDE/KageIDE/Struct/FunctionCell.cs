@@ -5,6 +5,7 @@ using KagaIDE.Struct;
 
 namespace KagaIDE.Enuming
 {
+    [Serializable]
     public class FunctionCell
     {
         // 构造器

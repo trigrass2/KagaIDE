@@ -7,6 +7,7 @@ using KagaIDE.Enuming;
 namespace KagaIDE.Module
 {
     // 符号管理器
+    [Serializable]
     public class SymbolManager
     {
         // 工厂
