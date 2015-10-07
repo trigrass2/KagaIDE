@@ -113,12 +113,15 @@
             this.dataGridView2.RowTemplate.Height = 23;
             this.dataGridView2.Size = new System.Drawing.Size(203, 315);
             this.dataGridView2.TabIndex = 8;
+            this.dataGridView2.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView2_CellMouseClick);
+            this.dataGridView2.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataGridView2_EditingControlShowing);
             // 
             // Column1
             // 
             this.Column1.HeaderText = "参数名";
             this.Column1.Name = "Column1";
             this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Column1.ToolTipText = "同一函数的不同参数名不可重复";
             this.Column1.Width = 90;
             // 
             // Column2
@@ -134,6 +137,7 @@
             "unsigned char"});
             this.Column2.Name = "Column2";
             this.Column2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Column2.ToolTipText = "参数的数据类型";
             this.Column2.Width = 110;
             // 
             // AddFunForm

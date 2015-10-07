@@ -28,13 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("◆ 定义变量：Guangzhi");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("◆ 变量操作：Guangzhi = LB()");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("◆ main", new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2});
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button16 = new System.Windows.Forms.Button();
             this.button15 = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.listBox3 = new System.Windows.Forms.ListBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -52,11 +56,12 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.button17 = new System.Windows.Forms.Button();
             this.button18 = new System.Windows.Forms.Button();
-            this.listBox2 = new System.Windows.Forms.ListBox();
+            this.functionListBox = new System.Windows.Forms.ListBox();
             this.button19 = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.treeView1 = new System.Windows.Forms.TreeView();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -120,7 +125,7 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.listBox3);
+            this.tabPage1.Controls.Add(this.treeView1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -128,18 +133,6 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "main";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // listBox3
-            // 
-            this.listBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBox3.FormattingEnabled = true;
-            this.listBox3.ItemHeight = 12;
-            this.listBox3.Items.AddRange(new object[] {
-            "◆"});
-            this.listBox3.Location = new System.Drawing.Point(3, 3);
-            this.listBox3.Name = "listBox3";
-            this.listBox3.Size = new System.Drawing.Size(615, 622);
-            this.listBox3.TabIndex = 0;
             // 
             // button1
             // 
@@ -271,7 +264,7 @@
             // 
             this.groupBox2.Controls.Add(this.button17);
             this.groupBox2.Controls.Add(this.button18);
-            this.groupBox2.Controls.Add(this.listBox2);
+            this.groupBox2.Controls.Add(this.functionListBox);
             this.groupBox2.Location = new System.Drawing.Point(12, 342);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(143, 324);
@@ -299,16 +292,16 @@
             this.button18.UseVisualStyleBackColor = true;
             this.button18.Click += new System.EventHandler(this.button18_Click);
             // 
-            // listBox2
+            // functionListBox
             // 
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.ItemHeight = 12;
-            this.listBox2.Items.AddRange(new object[] {
+            this.functionListBox.FormattingEnabled = true;
+            this.functionListBox.ItemHeight = 12;
+            this.functionListBox.Items.AddRange(new object[] {
             "main"});
-            this.listBox2.Location = new System.Drawing.Point(7, 22);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(130, 268);
-            this.listBox2.TabIndex = 0;
+            this.functionListBox.Location = new System.Drawing.Point(7, 22);
+            this.functionListBox.Name = "functionListBox";
+            this.functionListBox.Size = new System.Drawing.Size(130, 268);
+            this.functionListBox.TabIndex = 0;
             // 
             // button19
             // 
@@ -360,6 +353,25 @@
             this.statusStrip1.TabIndex = 3;
             this.statusStrip1.Text = "statusStrip1";
             // 
+            // treeView1
+            // 
+            this.treeView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.treeView1.Location = new System.Drawing.Point(0, 0);
+            this.treeView1.Name = "treeView1";
+            treeNode1.Name = "节点1";
+            treeNode1.Text = "◆ 定义变量：Guangzhi";
+            treeNode2.Name = "节点3";
+            treeNode2.Text = "◆ 变量操作：Guangzhi = LB()";
+            treeNode3.ForeColor = System.Drawing.Color.DarkMagenta;
+            treeNode3.Name = "节点0";
+            treeNode3.Text = "◆ main";
+            this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode3});
+            this.treeView1.Size = new System.Drawing.Size(621, 628);
+            this.treeView1.TabIndex = 0;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -410,12 +422,12 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button button17;
         private System.Windows.Forms.Button button18;
-        private System.Windows.Forms.ListBox listBox2;
         private System.Windows.Forms.Button button19;
-        private System.Windows.Forms.ListBox listBox3;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.StatusStrip statusStrip1;
+        public System.Windows.Forms.ListBox functionListBox;
+        private System.Windows.Forms.TreeView treeView1;
     }
 }
 
