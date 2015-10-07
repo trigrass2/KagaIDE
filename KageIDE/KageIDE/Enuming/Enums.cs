@@ -39,13 +39,13 @@ namespace KagaIDE.Enuming
         // 编译控制：枚举边界
         PILE__PROCESS_BORDER_DO_NOT_USE,
         // 编译控制：根节点
-        PILE__ROOT,
+        PILE__BLOCK__ROOT,
         // 编译控制：函数签名
-        PILE__FUNCTION,
+        PILE__BLOCK__FUNCTION,
         // 编译控制：代码块左边界
-        PILE__BLOCK_LEFT_BRUCKET,
+        PILE__BLEFT_BRUCKET,
         // 编译控制：代码块右边界
-        PILE__BLOCK_RIGHT_BRUCKET,
+        PILE__BRIGHT_BRUCKET,
         // 编译控制：待插入光标
         PILE__PADDING_CURSOR
     }

@@ -9,19 +9,18 @@ namespace KagaIDE.Module
     [Serializable]
     public class CodeManager
     {
-        
         // 初始化
         public void initCodeTree()
         {
             // 建立一个根节点
-            this.parseTree = new KagaNode(NodeType.PILE__ROOT, 0, 0, null);
+            this.parseTree = new KagaNode("TreeRoot", NodeType.PILE__BLOCK__ROOT, 0, 0, null);
             // 为根节点追加一个main函数节点
-            KagaNode mainFunNode = new KagaNode(NodeType.PILE__FUNCTION, 1, 0, this.parseTree);
+            KagaNode mainFunNode = new KagaNode("main", NodeType.PILE__BLOCK__FUNCTION, 1, 0, this.parseTree);
             this.parseTree.children.Add(mainFunNode);
             // 为main函数节点追加代码块左边界、光标节点、代码块右边界
-            mainFunNode.children.Add(new KagaNode(NodeType.PILE__BLOCK_LEFT_BRUCKET, 2, 0, mainFunNode));
-            mainFunNode.children.Add(new KagaNode(NodeType.PILE__PADDING_CURSOR, 2, 1, mainFunNode));
-            mainFunNode.children.Add(new KagaNode(NodeType.PILE__BLOCK_RIGHT_BRUCKET, 2, 2, mainFunNode));
+            mainFunNode.children.Add(new KagaNode("main__BLEFT_BRUCKET", NodeType.PILE__BLEFT_BRUCKET, 2, 0, mainFunNode));
+            mainFunNode.children.Add(new KagaNode("main__PADDING_CURSOR", NodeType.PILE__PADDING_CURSOR, 2, 1, mainFunNode));
+            mainFunNode.children.Add(new KagaNode("main__BRIGHT_BRUCKET", NodeType.PILE__BRIGHT_BRUCKET, 2, 2, mainFunNode));
         }
 
         // 直接返回根节点

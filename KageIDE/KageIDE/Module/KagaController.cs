@@ -10,7 +10,7 @@ namespace KagaIDE.Module
     // 程序前后台交互总控制器
     public class KagaController
     {
-        #region 函数管理器相关函数
+        #region 函数管理器函数
         // 增加一个函数
         public bool addFunction(string fcname, List<string> args, string retType)
         {
@@ -62,11 +62,36 @@ namespace KagaIDE.Module
             FunctionCell nfc = new FunctionCell(newname, argsList, Consta.parseCTypeToVarType(retType));
             return symbolMana.editFunction(fcname, nfc);
         }
-
         #endregion
 
 
-        #region 主窗口指令操作相关函数
+        #region 全局变量操作函数
+        // 增加一个全局变量
+        public bool addGlobalVar(string varname, string cvartype)
+        {
+            // 获取全局符号表，并查找符号是否已存在
+            KagaTable globalTable = symbolMana.getGlobalTable();
+            KagaVar xvar = globalTable.symbols.Find((x) => x.varname == varname);
+            if (xvar != null)
+            {
+                return false;
+            }
+            globalTable.symbols.Add(new KagaVar(varname, Consta.parseCTypeToVarType(cvartype)));
+            return true;
+        }
+
+        // 删除一个全局变量
+        public void deleteGlobalVar(string varname)
+        {
+            // 获取全局符号表
+            KagaTable globalTable = symbolMana.getGlobalTable();
+            // 移除符号
+            globalTable.symbols.RemoveAll((x) => x.varname == varname);
+        }
+        #endregion
+
+
+        #region 主窗口指令操作函数
 
         // 获得宏定义
         public string getMarcos()
@@ -94,11 +119,14 @@ namespace KagaIDE.Module
         {
             sematicer = PileParser.getInstance();
             symbolMana = SymbolManager.getInstance();
+            codeMana = CodeManager.getInstance();
         }
         // 唯一实例
         private static KagaController synObject = null;
         // 语法匹配器
         private PileParser sematicer = null;
+        // 代码管理器
+        private CodeManager codeMana = null;
         // 符号管理器
         private SymbolManager symbolMana = null;
     }

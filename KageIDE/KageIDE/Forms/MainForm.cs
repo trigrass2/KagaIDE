@@ -7,10 +7,11 @@ using System.Text;
 using System.Windows.Forms;
 using KagaIDE.Forms;
 using KagaIDE.Module;
+using KagaIDE.Enuming;
 
 namespace KagaIDE
 {
-    public partial class MainForm : Form
+    public partial class MainForm : Form, IBasicInputForm
     {
         // 控制器变量
         private KagaController core = KagaController.getInstance();
@@ -49,6 +50,11 @@ namespace KagaIDE
         // 删除函数
         private void button17_Click(object sender, EventArgs e)
         {
+            // 如果没选中就不管
+            if (this.functionListBox.SelectedIndex == -1)
+            {
+                return;
+            }
             // 如果是main函数就不可以删除
             if (((string)this.functionListBox.SelectedItem) == "main")
             {
@@ -147,6 +153,47 @@ namespace KagaIDE
             CodeInputForm cif = new CodeInputForm("宏定义", core.getMarcos());
             cif.ShowDialog(this);
         }
+
+        // 添加全局变量按钮
+        private void button15_Click(object sender, EventArgs e)
+        {
+            // 开启简单输入窗口并阻塞
+            BasicInputForm rif = new BasicInputForm("新建全局变量", Consta.basicType);
+            rif.ShowDialog(this);
+            // 如果没有传回任何东西就结束
+            if (passBuffer == null)
+            {
+                return;
+            }
+            // 把更新传到后台
+            string[] splitItem = passBuffer.Split('@');
+            core.addGlobalVar(splitItem[0], splitItem[1]);
+            // 阻塞结束后，更新窗体
+            this.globalvarListBox.Items.Add(passBuffer.Replace("@", " @ "));
+            passBuffer = null;
+        }
+
+        // 删除全局变量按钮
+        private void button16_Click(object sender, EventArgs e)
+        {
+            // 如果没选中就不管
+            if (this.globalvarListBox.SelectedIndex == -1)
+            {
+                return;
+            }
+            // 把更新传到后台
+            string[] splitItem = ((string)this.globalvarListBox.Items[this.globalvarListBox.SelectedIndex]).Split('@');
+            core.deleteGlobalVar(splitItem[0].TrimEnd(' '));
+            // 从窗体删除这个项目
+            this.globalvarListBox.Items.Remove(this.globalvarListBox.SelectedItem);
+        }
+
+        // 基础输入窗口接受函数
+        public void passByBasicSubForm(string passer)
+        {
+            this.passBuffer = passer;
+        }
+        private string passBuffer = null;
 
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using KagaIDE.Enuming;
+using KagaIDE.Module;
 
 namespace KagaIDE.Struct
 {
@@ -15,6 +16,9 @@ namespace KagaIDE.Struct
             this.belong = belonging;
             this.symbols = new List<KagaVar>();
             this.prefix = String.Format("{0}_{1}", Consta.prefix_var, this.depth);
+            // 把自己追加到符号表里
+            this.symbolMana = SymbolManager.getInstance();
+            this.symbolMana.addSymbolTable(this);
         }
 
         // 编译模式取得所有符号
@@ -42,5 +46,7 @@ namespace KagaIDE.Struct
         public string prefix = Consta.prefix_var;
         // 符号列表
         public List<KagaVar> symbols = null;
+        // 符号管理器指针
+        private SymbolManager symbolMana = null;
     }
 }

@@ -122,6 +122,12 @@ namespace KagaIDE.Module
             return false;
         }
 
+        // 返回全局符号表
+        public KagaTable getGlobalTable()
+        {
+            return tableContainer.Count > 0 ? tableContainer[0] : null;
+        }
+
         // 清空表
         public void clear(int flag = 0)
         {

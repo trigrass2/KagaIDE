@@ -171,6 +171,7 @@
             this.Controls.Add(this.textBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "FunctionForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "添加函数";
             ((System.ComponentModel.ISupportInitialize)(this.argsGridDataView)).EndInit();
             this.ResumeLayout(false);

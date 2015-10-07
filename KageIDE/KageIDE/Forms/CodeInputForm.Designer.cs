@@ -64,6 +64,7 @@
             this.MinimizeBox = false;
             this.Name = "CodeInputForm";
             this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "代码片段";
             this.ResumeLayout(false);
             this.PerformLayout();

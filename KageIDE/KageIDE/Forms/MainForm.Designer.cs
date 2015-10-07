@@ -32,7 +32,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button16 = new System.Windows.Forms.Button();
             this.button15 = new System.Windows.Forms.Button();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.globalvarListBox = new System.Windows.Forms.ListBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -69,7 +69,7 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox1.Controls.Add(this.button16);
             this.groupBox1.Controls.Add(this.button15);
-            this.groupBox1.Controls.Add(this.listBox1);
+            this.groupBox1.Controls.Add(this.globalvarListBox);
             this.groupBox1.Location = new System.Drawing.Point(7, 351);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(143, 315);
@@ -85,6 +85,7 @@
             this.button16.TabIndex = 2;
             this.button16.Text = "删除";
             this.button16.UseVisualStyleBackColor = true;
+            this.button16.Click += new System.EventHandler(this.button16_Click);
             // 
             // button15
             // 
@@ -94,17 +95,16 @@
             this.button15.TabIndex = 1;
             this.button15.Text = "添加";
             this.button15.UseVisualStyleBackColor = true;
+            this.button15.Click += new System.EventHandler(this.button15_Click);
             // 
-            // listBox1
+            // globalvarListBox
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 12;
-            this.listBox1.Items.AddRange(new object[] {
-            "Guangji"});
-            this.listBox1.Location = new System.Drawing.Point(7, 22);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(130, 256);
-            this.listBox1.TabIndex = 0;
+            this.globalvarListBox.FormattingEnabled = true;
+            this.globalvarListBox.ItemHeight = 12;
+            this.globalvarListBox.Location = new System.Drawing.Point(7, 22);
+            this.globalvarListBox.Name = "globalvarListBox";
+            this.globalvarListBox.Size = new System.Drawing.Size(130, 256);
+            this.globalvarListBox.TabIndex = 0;
             // 
             // tabControl1
             // 
@@ -361,6 +361,7 @@
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.groupBox1);
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Kaga IDE";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResizeEnd += new System.EventHandler(this.MainForm_ResizeEnd);
@@ -394,7 +395,6 @@
         private System.Windows.Forms.Button button14;
         private System.Windows.Forms.Button button16;
         private System.Windows.Forms.Button button15;
-        private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button button17;
         private System.Windows.Forms.Button button18;
@@ -405,6 +405,7 @@
         public System.Windows.Forms.ListBox functionListBox;
         public System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.BindingSource symbolManagerBindingSource;
+        public System.Windows.Forms.ListBox globalvarListBox;
     }
 }
 
