@@ -50,11 +50,11 @@
     <Compile Include="Module\KagaController.cs" />
     <Compile Include="Struct\FunctionCell.cs" />
     <Compile Include="Enuming\Enums.cs" />
-    <Compile Include="Forms\AddFunForm.cs">
+    <Compile Include="Forms\FunctionForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\AddFunForm.Designer.cs">
-      <DependentUpon>AddFunForm.cs</DependentUpon>
+    <Compile Include="Forms\FunctionForm.Designer.cs">
+      <DependentUpon>FunctionForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\BasicInputForm.cs">
       <SubType>Form</SubType>
@@ -78,8 +78,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Struct\KagaTable.cs" />
     <Compile Include="Struct\KagaVar.cs" />
-    <EmbeddedResource Include="Forms\AddFunForm.resx">
-      <DependentUpon>AddFunForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\FunctionForm.resx">
+      <DependentUpon>FunctionForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\BasicInputForm.resx">
       <DependentUpon>BasicInputForm.cs</DependentUpon>
@@ -109,6 +109,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\DataSources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

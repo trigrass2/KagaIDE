@@ -20,11 +20,13 @@ namespace KagaIDE.Module
         {
             tableContainer.Clear();
             callfunContainer.Clear();
+            marcoContainer.Clear();
         }
 
         // 私有的构造器
         private SymbolManager()
         {
+            marcoContainer = new List<string>();
             tableContainer = new List<KagaTable>();
             callfunContainer = new List<FunctionCell>();
         }
@@ -66,7 +68,7 @@ namespace KagaIDE.Module
             {
                 return false;
             }
-            return (ofc = nfc) != null;
+            return ofc.editSign(nfc) != null;
         }
 
         // 获得函数名列表
@@ -103,7 +105,7 @@ namespace KagaIDE.Module
             return this.tableContainer;
         }
         
-        // 清空双表
+        // 清空表
         public void clear(int flag = 0)
         {
             switch (flag)
@@ -114,13 +116,19 @@ namespace KagaIDE.Module
                 case 2:
                     this.callfunContainer.Clear();
                     break;
+                case 3:
+                    this.marcoContainer.Clear();
+                    break;
                 default:
                     this.callfunContainer.Clear();
                     this.tableContainer.Clear();
+                    this.marcoContainer.Clear();
                     break;
             }
         }
 
+        // 宏定义向量
+        private List<string> marcoContainer = null;
         // 符号表向量
         private List<KagaTable> tableContainer = null;
         // 函数名向量

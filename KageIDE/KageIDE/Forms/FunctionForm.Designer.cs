@@ -1,6 +1,6 @@
 ﻿namespace KagaIDE.Forms
 {
-    partial class AddFunForm
+    partial class FunctionForm
     {
         /// <summary>
         /// Required designer variable.
@@ -34,10 +34,10 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.argsGridDataView = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.argsGridDataView)).BeginInit();
             this.SuspendLayout();
             // 
             // textBox1
@@ -72,8 +72,12 @@
             this.comboBox1.Items.AddRange(new object[] {
             "void",
             "int",
+            "long",
             "char",
-            "double"});
+            "float",
+            "double",
+            "unsigned int",
+            "unsigned char"});
             this.comboBox1.Location = new System.Drawing.Point(223, 93);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(153, 20);
@@ -99,22 +103,22 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // dataGridView2
+            // argsGridDataView
             // 
-            this.dataGridView2.AllowUserToResizeColumns = false;
-            this.dataGridView2.AllowUserToResizeRows = false;
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.argsGridDataView.AllowUserToResizeColumns = false;
+            this.argsGridDataView.AllowUserToResizeRows = false;
+            this.argsGridDataView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.argsGridDataView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2});
-            this.dataGridView2.Location = new System.Drawing.Point(12, 16);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.RowHeadersVisible = false;
-            this.dataGridView2.RowTemplate.Height = 23;
-            this.dataGridView2.Size = new System.Drawing.Size(203, 315);
-            this.dataGridView2.TabIndex = 8;
-            this.dataGridView2.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView2_CellMouseClick);
-            this.dataGridView2.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataGridView2_EditingControlShowing);
+            this.argsGridDataView.Location = new System.Drawing.Point(12, 16);
+            this.argsGridDataView.Name = "argsGridDataView";
+            this.argsGridDataView.RowHeadersVisible = false;
+            this.argsGridDataView.RowTemplate.Height = 23;
+            this.argsGridDataView.Size = new System.Drawing.Size(203, 315);
+            this.argsGridDataView.TabIndex = 8;
+            this.argsGridDataView.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView2_CellMouseClick);
+            this.argsGridDataView.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataGridView2_EditingControlShowing);
             // 
             // Column1
             // 
@@ -140,13 +144,13 @@
             this.Column2.ToolTipText = "参数的数据类型";
             this.Column2.Width = 110;
             // 
-            // AddFunForm
+            // FunctionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(388, 341);
             this.ControlBox = false;
-            this.Controls.Add(this.dataGridView2);
+            this.Controls.Add(this.argsGridDataView);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.comboBox1);
@@ -154,9 +158,9 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Name = "AddFunForm";
+            this.Name = "FunctionForm";
             this.Text = "添加函数";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.argsGridDataView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -170,7 +174,7 @@
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.DataGridView argsGridDataView;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewComboBoxColumn Column2;
     }

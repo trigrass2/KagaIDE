@@ -18,12 +18,13 @@ namespace KagaIDE.Enuming
             this.paraList = args;
         }
 
-        // 拷贝构造器
-        public FunctionCell(FunctionCell other)
+        // 以另一个函数的形式修改自己
+        public FunctionCell editSign(FunctionCell other)
         {
             this.callname = other.callname;
             this.returnType = other.returnType;
             this.paraList = new List<KagaVar>(other.paraList.ToArray());
+            return this;
         }
 
         // 获得编译时函数签名

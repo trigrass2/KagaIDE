@@ -9,10 +9,16 @@ namespace KagaIDE.Enuming
     public static class Consta
     {
         // 把一个类型匹配成VarType枚举的类型
-        public static VarType parseToVarType(string parStr)
+        public static VarType parseCTypeToVarType(string parStr)
         {
             parStr = parStr.ToUpper().Replace(' ', '_');
             return (VarType)Enum.Parse(typeof(VarType), parStr, true);
+        }
+
+        // 把一个类型匹配成VarType枚举的类型
+        public static string parseVarTypeToCType(VarType parEnum)
+        {
+            return parEnum.ToString().ToLower().Replace('_', ' ');
         }
 
         // 测试一个字符串是否可以作为一个C语言符号
