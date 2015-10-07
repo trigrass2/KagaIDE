@@ -109,6 +109,18 @@ namespace KagaIDE.Module
             return this.tableContainer;
         }
         
+        // 删除一张符号表
+        public bool deleteSymbolTable(KagaNode belonging)
+        {
+            KagaTable kt;
+            if ((kt = this.tableContainer.Find((x) => x.belong == belonging)) != null)
+            {
+                this.tableContainer.Remove(kt);
+                return true;
+            }
+            return false;
+        }
+
         // 清空表
         public void clear(int flag = 0)
         {

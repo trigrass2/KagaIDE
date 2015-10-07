@@ -37,10 +37,10 @@ namespace KagaIDE.Module
         }        
 
         // 在指定的深度和广度处插入一个节点
-        public bool insert(int dep, int bre, KagaNode obj)
+        public bool insertNode(int dep, int bre, KagaNode obj)
         {
-            // 插入深度必须大于1
-            if (dep <= 1)
+            // 插入深度必须大于0
+            if (dep < 1)
             {
                 return false;
             }
@@ -56,14 +56,65 @@ namespace KagaIDE.Module
             // 接下来找姐妹中自己的排位并插入
             father.children.Insert(bre, obj);
             // 更新子树信息
-            this.update(father);
+            this.update(father, false);
+            return true;
+        }
+
+        // 把指定的深度和广度处的节点移除掉，并销毁掉它的符号表
+        public bool deleteNode(int dep, int bre)
+        {
+            // 删除深度必须大于0
+            if (dep < 1)
+            {
+                return false;
+            }
+            // 首先找到父亲节点
+            KagaNode father = this.getSubTree((t) => t.depth == dep - 1);
+            if (father == null || father.children.Count < bre)
+            {
+                return false;
+            }
+            // 移除自己
+            father.children.RemoveAt(bre);
+            // 更新姐妹和姐妹后代的信息
+            this.update(father, true);
             return true;
         }
 
         // 更新某个节点的子树的信息
-        private void update(KagaNode subTreeRoot)
+        private void update(KagaNode subTreeRoot, bool disposeFlag)
         {
-            this.DFS((x) => x != null, (x) => this.updateChildrenInfo(x), false);
+            this.DFS(
+                match:
+                (x) => 
+                {
+                    // 删除子树时
+                    if (disposeFlag == true)
+                    {
+                        return x.isNewBlock == true;
+                    }
+                    // 更新信息时
+                    else
+                    {
+                        return x != null;
+                    }
+                },
+                func:
+                (x) => 
+                {
+                    // 消除符号表
+                    if (disposeFlag == true)
+                    {
+                        return this.disposeChildrenSymbolTable(x);
+                    }
+                    // 更新信息
+                    else
+                    {
+                        return this.updateChildrenInfo(x);
+                    }
+                },
+                unique: false
+            );
         }
 
         // 更新某节点所有直接孩子的深度和广度信息
@@ -73,6 +124,20 @@ namespace KagaIDE.Module
             {
                 father.children[i].index = i;
                 father.children[i].depth = father.depth + 1;
+            }
+            return father;
+        }
+
+        // 更新某节点所有直接孩子的符号表
+        private KagaNode disposeChildrenSymbolTable(KagaNode father)
+        {
+            for (int i = 0; i < father.children.Count; i++)
+            {
+                if (father.children[i].symbolTable != null)
+                {
+                    symbolMana.deleteSymbolTable(father.children[i]);
+                    father.children[i].symbolTable = null;
+                }
             }
             return father;
         }

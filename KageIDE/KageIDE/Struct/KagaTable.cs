@@ -7,9 +7,10 @@ namespace KagaIDE.Struct
     public class KagaTable
     {
         // 构造器
-        public KagaTable(int tableDepth)
+        public KagaTable(int tableDepth, KagaNode belonging)
         {
             this.depth = tableDepth;
+            this.belong = belonging;
             this.symbols = new List<KagaVar>();
             this.prefix = String.Format("___KAGA_VAR_{0}", this.depth);
         }
@@ -33,6 +34,8 @@ namespace KagaIDE.Struct
 
         // 符号表深度
         public int depth = 0;
+        // 属于哪个节点
+        public KagaNode belong = null;
         // 符号表前缀
         public string prefix = "___KAGA_";
         // 符号列表

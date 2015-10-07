@@ -21,11 +21,11 @@ namespace KagaIDE
             if (nt.ToString().Contains(Consta.prefix_block))
             {
                 this.isNewBlock = true;
-                this.symbolTable = new KagaTable(this.depth);
+                this.symbolTable = new KagaTable(this.depth, this);
             }
         }
 
-        // 同辈份姐妹中的排位
+        // 姐妹中的排位
         public int index = 0;
         // 节点深度
         public int depth = 0;
