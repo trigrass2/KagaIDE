@@ -66,7 +66,21 @@ namespace KagaIDE.Module
         #endregion
 
 
+        #region 主窗口指令操作相关函数
 
+        // 获得宏定义
+        public string getMarcos()
+        {
+            return symbolMana.getMarcoContainer();
+        }
+
+        // 设置宏定义
+        public void setMarcos(string newMarcos)
+        {
+            symbolMana.setMarcoContainer(newMarcos);
+        }
+
+        #endregion
 
 
 
@@ -78,13 +92,13 @@ namespace KagaIDE.Module
         // 私有构造器
         private KagaController()
         {
-            sematicer = Interpreter.getInstance();
+            sematicer = PileParser.getInstance();
             symbolMana = SymbolManager.getInstance();
         }
         // 唯一实例
         private static KagaController synObject = null;
         // 语法匹配器
-        private Interpreter sematicer = null;
+        private PileParser sematicer = null;
         // 符号管理器
         private SymbolManager symbolMana = null;
     }

@@ -14,19 +14,11 @@ namespace KagaIDE.Module
         {
             return synObject == null ? synObject = new SymbolManager() : synObject;
         }
-        
-        // 清空符号表
-        public void clear()
-        {
-            tableContainer.Clear();
-            callfunContainer.Clear();
-            marcoContainer.Clear();
-        }
 
         // 私有的构造器
         private SymbolManager()
         {
-            marcoContainer = new List<string>();
+            marcoContainer = "";
             tableContainer = new List<KagaTable>();
             callfunContainer = new List<FunctionCell>();
         }
@@ -93,6 +85,18 @@ namespace KagaIDE.Module
             return pfList;
         }
 
+        // 获得宏定义
+        public string getMarcoContainer()
+        {
+            return this.marcoContainer;
+        }
+
+        // 修改宏定义
+        public void setMarcoContainer(string newMarcoContainer)
+        {
+            this.marcoContainer = newMarcoContainer;
+        }
+
         // 添加一张符号表
         public void addSymbolTable(KagaTable kt)
         {
@@ -117,18 +121,18 @@ namespace KagaIDE.Module
                     this.callfunContainer.Clear();
                     break;
                 case 3:
-                    this.marcoContainer.Clear();
+                    this.marcoContainer = "";
                     break;
                 default:
                     this.callfunContainer.Clear();
                     this.tableContainer.Clear();
-                    this.marcoContainer.Clear();
+                    this.marcoContainer = "";
                     break;
             }
         }
 
-        // 宏定义向量
-        private List<string> marcoContainer = null;
+        // 宏定义语句块
+        private string marcoContainer = null;
         // 符号表向量
         private List<KagaTable> tableContainer = null;
         // 函数名向量

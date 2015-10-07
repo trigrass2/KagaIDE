@@ -144,6 +144,7 @@
             this.button3.TabIndex = 6;
             this.button3.Text = "宏定义";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button4
             // 
@@ -243,6 +244,7 @@
             this.button14.TabIndex = 17;
             this.button14.Text = "代码片段";
             this.button14.UseVisualStyleBackColor = true;
+            this.button14.Click += new System.EventHandler(this.button14_Click);
             // 
             // groupBox2
             // 

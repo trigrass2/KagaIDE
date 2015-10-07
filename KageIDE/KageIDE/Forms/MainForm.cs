@@ -133,5 +133,20 @@ namespace KagaIDE
             }
         }
 
+        // 代码片段按钮
+        private void button14_Click(object sender, EventArgs e)
+        {
+            CodeInputForm cif = new CodeInputForm("代码片段");
+            cif.ShowDialog(this);
+
+        }
+
+        // 宏定义按钮
+        private void button3_Click(object sender, EventArgs e)
+        {
+            CodeInputForm cif = new CodeInputForm("宏定义", core.getMarcos());
+            cif.ShowDialog(this);
+        }
+
     }
 }
