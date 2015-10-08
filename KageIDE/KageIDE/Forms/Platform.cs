@@ -14,5 +14,12 @@ namespace KagaIDE.Forms
         {
             InitializeComponent();
         }
+
+        // 窗体加载时
+        private void Platform_Load(object sender, EventArgs e)
+        {
+            // 展开所有树节点
+            this.treeView1.ExpandAll();
+        }
     }
 }

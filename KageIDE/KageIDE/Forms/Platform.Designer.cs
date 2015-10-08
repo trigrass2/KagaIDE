@@ -91,6 +91,7 @@
             treeNode10.Text = "◆ void main()";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode10});
+            this.treeView1.ShowNodeToolTips = true;
             this.treeView1.Size = new System.Drawing.Size(621, 628);
             this.treeView1.TabIndex = 1;
             // 
@@ -102,6 +103,7 @@
             this.Controls.Add(this.treeView1);
             this.Name = "Platform";
             this.Text = "Platform";
+            this.Load += new System.EventHandler(this.Platform_Load);
             this.ResumeLayout(false);
 
         }
