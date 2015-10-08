@@ -4,16 +4,23 @@ using System.Text;
 
 namespace KagaIDE.Module
 {
-    // 解释器
+    /// <summary>
+    /// 代码转换翻译器
+    /// </summary>
     public class PileParser
     {
-        // 工厂方法
+        /// <summary>
+        /// 工厂方法：获得唯一实例
+        /// </summary>
+        /// <returns>返回翻译器的唯一实例</returns>
         public static PileParser getInstance()
         {
             return synObject == null ? synObject = new PileParser() : synObject;
         }
 
-        // 私有构造器
+        /// <summary>
+        /// 私有构造器
+        /// </summary>
         private PileParser() { }
 
         // 唯一实例

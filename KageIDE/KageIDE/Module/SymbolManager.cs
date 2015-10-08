@@ -6,25 +6,26 @@ using KagaIDE.Enuming;
 
 namespace KagaIDE.Module
 {
-    // 符号管理器
+    /// <summary>
+    /// 符号管理器
+    /// </summary>
     [Serializable]
     public class SymbolManager
     {
-        // 工厂
+        /// <summary>
+        /// 工厂方法：获得唯一实例
+        /// </summary>
+        /// <returns>返回符号管理器的唯一实例</returns>
         public static SymbolManager getInstance()
         {
             return synObject == null ? synObject = new SymbolManager() : synObject;
         }
 
-        // 私有的构造器
-        private SymbolManager()
-        {
-            marcoContainer = "";
-            tableContainer = new List<KagaTable>();
-            callfunContainer = new List<FunctionCell>();
-        }
-
-        // 添加一个函数到符号表
+        /// <summary>
+        /// 添加一个函数到符号表
+        /// </summary>
+        /// <param name="fc">待添加函数单元</param>
+        /// <returns>操作成功与否</returns>
         public bool addFunction(FunctionCell fc)
         {
             if (fc == null || this.isExistFunction(fc.callname))
@@ -35,25 +36,42 @@ namespace KagaIDE.Module
             return true;
         }
 
-        // 查找一个函数是否存在
+        /// <summary>
+        /// 查找一个函数是否存在
+        /// </summary>
+        /// <param name="fname">查找函数的名称</param>
+        /// <returns>操作成功与否</returns>
         public bool isExistFunction(string fname)
         {
             return this.callfunContainer.Find((x) => x.callname == fname) != null;
         }
 
-        // 删除一个函数
+        /// <summary>
+        /// 删除一个函数
+        /// </summary>
+        /// <param name="fname">待删除函数的名称</param>
+        /// <returns>操作成功与否</returns>
         public bool deleteFunction(string fname)
         {
             return this.callfunContainer.RemoveAll((x) => x.callname == fname) != 0;
         }
 
-        // 获取一个函数的引用
+        /// <summary>
+        /// 获取一个函数的引用
+        /// </summary>
+        /// <param name="fname">查找函数的名称</param>
+        /// <returns>该函数的函数单元</returns>
         public FunctionCell getFunction(string fname)
         {
             return this.callfunContainer.Find((x) => x.callname == fname);
         }
 
-        // 修改一个函数的签名
+        /// <summary>
+        /// 修改一个函数的签名
+        /// </summary>
+        /// <param name="fname">查找函数的名称</param>
+        /// <param name="nfc">待复制的新函数签名的函数单元</param>
+        /// <returns>新节点是否为空</returns>
         public bool editFunction(string fname, FunctionCell nfc)
         {
             FunctionCell ofc = this.getFunction(fname);
@@ -64,7 +82,10 @@ namespace KagaIDE.Module
             return ofc.editSign(nfc) != null;
         }
 
-        // 获得函数名列表
+        /// <summary>
+        /// 获得所有函数名列表
+        /// </summary>
+        /// <returns>所有函数名字符串的列表</returns>
         public List<string> getFunctionNameList()
         {
             List<string> fnList = new List<string>();
@@ -75,7 +96,10 @@ namespace KagaIDE.Module
             return fnList;
         }
 
-        // 获得编译时函数签名列表
+        /// <summary>
+        /// 获得编译时函数签名列表
+        /// </summary>
+        /// <returns>所有函数编译时签名符串的列表</returns>
         public List<string> getPiledFunctionSignList()
         {
             List<string> pfList = new List<string>();
@@ -86,31 +110,47 @@ namespace KagaIDE.Module
             return pfList;
         }
 
-        // 获得宏定义
+        /// <summary>
+        /// 获得宏定义
+        /// </summary>
+        /// <returns>所有宏定义字符串的列表</returns>
         public string getMarcoContainer()
         {
             return this.marcoContainer;
         }
 
-        // 修改宏定义
+        /// <summary>
+        /// 修改宏定义
+        /// </summary>
+        /// <param name="newMarcoContainer">待替换掉目前宏定义容器的新宏定义字符串</param>
         public void setMarcoContainer(string newMarcoContainer)
         {
             this.marcoContainer = newMarcoContainer;
         }
 
-        // 添加一张符号表
+        /// <summary>
+        /// 添加一张符号表
+        /// </summary>
+        /// <param name="kt">待添加符号表</param>
         public void addSymbolTable(KagaTable kt)
         {
             this.tableContainer.Add(kt);
         }
 
-        // 获取符号表
+        /// <summary>
+        /// 获取所有符号表
+        /// </summary>
+        /// <returns>包含所有符号表引用的列表</returns>
         public List<KagaTable> getSymbolTableList()
         {
             return this.tableContainer;
         }
         
-        // 删除一张符号表
+        /// <summary>
+        /// 删除一张符号表
+        /// </summary>
+        /// <param name="belonging">待删除符号表的属节点</param>
+        /// <returns>操作成功与否</returns>
         public bool deleteSymbolTable(KagaNode belonging)
         {
             KagaTable kt;
@@ -122,13 +162,19 @@ namespace KagaIDE.Module
             return false;
         }
 
-        // 返回全局符号表
+        /// <summary>
+        /// 返回全局变量符号表
+        /// </summary>
+        /// <returns>全局变量符号表的引用</returns>
         public KagaTable getGlobalTable()
         {
             return tableContainer.Count > 0 ? tableContainer[0] : null;
         }
 
-        // 清空表
+        /// <summary>
+        /// 清空指定的符号管理器单元
+        /// </summary>
+        /// <param name="flag">待清除的单元：0 - 所有符号；1 - 符号表容器；2 - 函数容器；3 - 宏定义容器</param>
         public void clear(int flag = 0)
         {
             switch (flag)
@@ -150,6 +196,13 @@ namespace KagaIDE.Module
             }
         }
 
+        // 私有的构造器
+        private SymbolManager()
+        {
+            marcoContainer = "";
+            tableContainer = new List<KagaTable>();
+            callfunContainer = new List<FunctionCell>();
+        }
         // 宏定义语句块
         private string marcoContainer = null;
         // 符号表向量

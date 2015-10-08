@@ -6,11 +6,20 @@ using KagaIDE.Struct;
 
 namespace KagaIDE
 {
-    // 语法树节点
+    /// <summary>
+    /// 基础数据结构：代码树节点
+    /// </summary>
     [Serializable]
     public class KagaNode
     {
-        // 构造器
+        /// <summary>
+        /// 代码树节点构造器
+        /// </summary>
+        /// <param name="nname">节点名字</param>
+        /// <param name="nt">节点类型</param>
+        /// <param name="nodeDepth">节点深度</param>
+        /// <param name="nodeIndex">节点广度</param>
+        /// <param name="paraParent">节点双亲</param>
         public KagaNode(string nname, NodeType nt, int nodeDepth, int nodeIndex, KagaNode paraParent) 
         {
             // 初始化节点信息

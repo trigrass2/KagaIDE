@@ -5,11 +5,15 @@ using KagaIDE.Enuming;
 
 namespace KagaIDE.Module
 {
-    // 控制整棵代码树的类
+    /// <summary>
+    /// 控制整棵代码树的类
+    /// </summary>
     [Serializable]
     public class CodeManager
     {
-        // 初始化
+        /// <summary>
+        /// 初始化代码管理器，获得一棵带有root和main函数块的树
+        /// </summary>
         public void initCodeTree()
         {
             // 建立一个根节点
@@ -22,21 +26,34 @@ namespace KagaIDE.Module
             mainFunNode.children.Add(new KagaNode("main__PADDING_CURSOR", NodeType.PILE__PADDING_CURSOR, 2, 1, mainFunNode));
             mainFunNode.children.Add(new KagaNode("main__BRIGHT_BRUCKET", NodeType.PILE__BRIGHT_BRUCKET, 2, 2, mainFunNode));
         }
-
-        // 直接返回根节点
+        
+        /// <summary>
+        /// 获得代码树的根节点
+        /// </summary>
+        /// <returns>语法树根节点</returns>
         public KagaNode getRoot()
         {
             return this.parseTree;
         }
 
-        // 返回满足指定条件的广度优先遍历得到的第一个根节点的子树
+        /// <summary>
+        /// 获得满足指定条件的广度优先遍历得到的第一个根节点的子树
+        /// </summary>
+        /// <param name="match">匹配条件</param>
+        /// <returns>满足条件的子树根节点</returns>
         public KagaNode getSubTree(Predicate<KagaNode> match)
         {
             List<KagaNode> res = this.BFS(match, null, true);
             return res != null ? res[0] : null;
         }        
 
-        // 在指定的深度和广度处插入一个节点
+        /// <summary>
+        /// 在指定的深度和广度处插入一个节点
+        /// </summary>
+        /// <param name="dep">插入深度</param>
+        /// <param name="bre">插入广度</param>
+        /// <param name="obj">待插入节点</param>
+        /// <returns>插入是否成功</returns>
         public bool insertNode(int dep, int bre, KagaNode obj)
         {
             // 插入深度必须大于0
@@ -60,7 +77,12 @@ namespace KagaIDE.Module
             return true;
         }
 
-        // 把指定的深度和广度处的节点移除掉，并销毁掉它的符号表
+        /// <summary>
+        /// 把指定的深度和广度处的节点移除掉，并销毁掉它的符号表
+        /// </summary>
+        /// <param name="dep">待删除节点的深度</param>
+        /// <param name="bre">待删除节点的广度</param>
+        /// <returns>删除是否成功</returns>
         public bool deleteNode(int dep, int bre)
         {
             // 删除深度必须大于0
@@ -80,8 +102,12 @@ namespace KagaIDE.Module
             this.update(father, true);
             return true;
         }
-
-        // 更新某个节点的子树的信息
+        
+        /// <summary>
+        /// 更新某个节点的子树的信息
+        /// </summary>
+        /// <param name="subTreeRoot">子树根节点</param>
+        /// <param name="disposeFlag">操作标记：true - 删除操作; false - 更新操作</param>
         private void update(KagaNode subTreeRoot, bool disposeFlag)
         {
             this.DFS(
@@ -117,7 +143,11 @@ namespace KagaIDE.Module
             );
         }
 
-        // 更新某节点所有直接孩子的深度和广度信息
+        /// <summary>
+        /// 更新某节点所有直接孩子的深度和广度信息
+        /// </summary>
+        /// <param name="father">待处理节点</param>
+        /// <returns>返回参数自身</returns>
         private KagaNode updateChildrenInfo(KagaNode father)
         {
             for (int i = 0; i < father.children.Count; i++)
@@ -128,7 +158,11 @@ namespace KagaIDE.Module
             return father;
         }
 
-        // 更新某节点所有直接孩子的符号表
+        /// <summary>
+        /// 更新某节点所有直接孩子的符号表
+        /// </summary>
+        /// <param name="father">待处理节点</param>
+        /// <returns>返回参数自身</returns>
         private KagaNode disposeChildrenSymbolTable(KagaNode father)
         {
             for (int i = 0; i < father.children.Count; i++)
@@ -142,7 +176,13 @@ namespace KagaIDE.Module
             return father;
         }
 
-        // 广度优先遍历语法树，对满足条件的节点进行func，并返回他们
+        /// <summary>
+        /// 广度优先遍历语法树，对满足条件的节点进行func，并返回他们
+        /// </summary>
+        /// <param name="match">节点匹配条件</param>
+        /// <param name="func">满足条件的节点处理函数</param>
+        /// <param name="unique">是否命中一个节点就结束</param>
+        /// <returns>符合要求的节点向量，若没有符合的节点就返回null</returns>
         private List<KagaNode> BFS(Predicate<KagaNode> match, Func<KagaNode, KagaNode> func = null, bool unique = true)
         {
             List<KagaNode> resultContainer = new List<KagaNode>();
@@ -181,7 +221,13 @@ namespace KagaIDE.Module
             return resultContainer.Count > 0 ? resultContainer : null;
         }
 
-        // 深度优先遍历语法树，对满足条件的节点进行func，并返回他们
+        /// <summary>
+        /// 深度优先遍历语法树，对满足条件的节点进行func，并返回他们
+        /// </summary>
+        /// <param name="match">节点匹配条件</param>
+        /// <param name="func">满足条件的节点处理函数</param>
+        /// <param name="unique">是否命中一个节点就结束</param>
+        /// <returns>符合要求的节点向量，若没有符合的节点就返回null</returns>
         private List<KagaNode> DFS(Predicate<KagaNode> match, Func<KagaNode, KagaNode> func = null, bool unique = true)
         {
             List<KagaNode> resultContainer = new List<KagaNode>();
@@ -220,17 +266,24 @@ namespace KagaIDE.Module
             return resultContainer.Count > 0 ? resultContainer : null; 
         }
 
-        // 工厂方法
+        /// <summary>
+        /// 工厂方法：获得唯一实例
+        /// </summary>
+        /// <returns>返回代码管理器的唯一实例</returns>
         public static CodeManager getInstance()
         {
             return synObject == null ? synObject = new CodeManager() : synObject;
         }
-        // 私有构造器
+
+        /// <summary>
+        /// 私有构造器
+        /// </summary>
         private CodeManager()
         {
             symbolMana = SymbolManager.getInstance();
             this.initCodeTree();
         }
+
         // 唯一实例
         private static CodeManager synObject = null;
         // 符号管理器

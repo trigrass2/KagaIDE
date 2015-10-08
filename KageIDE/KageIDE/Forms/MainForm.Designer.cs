@@ -329,7 +329,7 @@
             this.groupBox3.Size = new System.Drawing.Size(200, 364);
             this.groupBox3.TabIndex = 19;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "指令";
+            this.groupBox3.Text = "插入指令";
             // 
             // toolStripStatusLabel1
             // 

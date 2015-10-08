@@ -6,10 +6,17 @@ using KagaIDE.Module;
 
 namespace KagaIDE.Struct
 {
+    /// <summary>
+    /// 基础数据结构：层次符号表
+    /// </summary>
     [Serializable]
     public class KagaTable
     {
-        // 构造器
+        /// <summary>
+        /// 层次符号表的构造器
+        /// </summary>
+        /// <param name="tableDepth">符号表深度</param>
+        /// <param name="belonging">符号表的属节点</param>
         public KagaTable(int tableDepth, KagaNode belonging)
         {
             this.depth = tableDepth;
@@ -21,7 +28,10 @@ namespace KagaIDE.Struct
             this.symbolMana.addSymbolTable(this);
         }
 
-        // 编译模式取得所有符号
+        /// <summary>
+        /// 取得编译模式时所有符号的签名
+        /// </summary>
+        /// <returns>编译模式时符号签名字符串向量</returns>
         public List<string> getParseTable()
         {
             List<string> parList = new List<string>();
@@ -32,21 +42,38 @@ namespace KagaIDE.Struct
             return parList;
         }
 
-        // 符号表数量
+        /// <summary>
+        /// 获得符号表的数量
+        /// </summary>
+        /// <returns>符号表的尺寸</returns>
         public int size()
         {
             return this.symbols.Count;
         }
 
-        // 符号表深度
+        /// <summary>
+        /// 符号表深度
+        /// </summary>
         public int depth = 0;
-        // 属于哪个节点
+
+        /// <summary>
+        /// 属于哪个代码树节点
+        /// </summary>
         public KagaNode belong = null;
-        // 符号表前缀
+
+        /// <summary>
+        /// 符号表前缀
+        /// </summary>
         public string prefix = Consta.prefix_var;
-        // 符号列表
+
+        /// <summary>
+        /// 符号列表
+        /// </summary>
         public List<KagaVar> symbols = null;
-        // 符号管理器指针
+
+        /// <summary>
+        /// 符号管理器指针
+        /// </summary>
         private SymbolManager symbolMana = null;
     }
 }

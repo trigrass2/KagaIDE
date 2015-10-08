@@ -5,10 +5,18 @@ using KagaIDE.Struct;
 
 namespace KagaIDE.Enuming
 {
+    /// <summary>
+    /// 基础数据结构：函数单元
+    /// </summary>
     [Serializable]
     public class FunctionCell
     {
-        // 构造器
+        /// <summary>
+        /// 函数单元的构造器
+        /// </summary>
+        /// <param name="fname">函数名</param>
+        /// <param name="args">参数列表</param>
+        /// <param name="rt">返回类型</param>
         public FunctionCell(string fname, List<KagaVar> args = null, VarType rt = VarType.VOID)
         {
             this.callname = fname;
@@ -16,7 +24,11 @@ namespace KagaIDE.Enuming
             this.paraList = args;
         }
 
-        // 以另一个函数的形式修改自己
+        /// <summary>
+        /// 以另一个函数的形式修改自己
+        /// </summary>
+        /// <param name="other">待复制函数单元</param>
+        /// <returns>返回更新后的自身</returns>
         public FunctionCell editSign(FunctionCell other)
         {
             this.callname = other.callname;
@@ -25,7 +37,11 @@ namespace KagaIDE.Enuming
             return this;
         }
 
-        // 获得编译时函数签名
+        /// <summary>
+        /// 获得编译时函数签名
+        /// </summary>
+        /// <param name="containLeftBrucket">是否包含右花括号</param>
+        /// <returns>编译时函数签名字符串</returns>
         public string getSign(bool containLeftBrucket = false)
         {
             StringBuilder sb = new StringBuilder();
@@ -49,11 +65,19 @@ namespace KagaIDE.Enuming
             return sb.ToString();
         }
 
-        // 函数头
+        /// <summary>
+        /// 函数名称
+        /// </summary>
         public string callname = Consta.prefix_fun;
-        // 返回类型
+
+        /// <summary>
+        /// 返回类型
+        /// </summary>
         public VarType returnType = VarType.VOID;
-        // 参数列表
+
+        /// <summary>
+        /// 参数列表
+        /// </summary>
         public List<KagaVar> paraList = new List<KagaVar>();
 
     }

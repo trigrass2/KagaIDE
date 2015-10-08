@@ -4,6 +4,9 @@ using System.Text;
 
 namespace KagaIDE.Enuming
 {
+    /// <summary>
+    /// 枚举类型：代码树节点类型
+    /// </summary>
     public enum NodeType
     {
         // 空操作
@@ -50,6 +53,9 @@ namespace KagaIDE.Enuming
         PILE__PADDING_CURSOR
     }
 
+    /// <summary>
+    /// 枚举类型：基本变量类型
+    /// </summary>
     public enum VarType
     {
         VOID,

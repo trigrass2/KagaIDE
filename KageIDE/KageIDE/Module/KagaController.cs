@@ -7,7 +7,9 @@ using KagaIDE.Struct;
 
 namespace KagaIDE.Module
 {
-    // 程序前后台交互总控制器
+    /// <summary>
+    /// 程序前后台交互总控制器
+    /// </summary>
     public class KagaController
     {
         #region 函数管理器函数
@@ -120,6 +122,7 @@ namespace KagaIDE.Module
             sematicer = PileParser.getInstance();
             symbolMana = SymbolManager.getInstance();
             codeMana = CodeManager.getInstance();
+            fileMana = FileManager.getInstance();
         }
         // 唯一实例
         private static KagaController synObject = null;
@@ -129,5 +132,7 @@ namespace KagaIDE.Module
         private CodeManager codeMana = null;
         // 符号管理器
         private SymbolManager symbolMana = null;
+        // 文件管理器
+        private FileManager fileMana = null;
     }
 }
