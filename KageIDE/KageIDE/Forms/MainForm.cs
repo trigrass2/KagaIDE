@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 using KagaIDE.Forms;
 using KagaIDE.Module;
 using KagaIDE.Enuming;
@@ -13,6 +14,9 @@ namespace KagaIDE
 {
     public partial class MainForm : Form, IBasicInputForm
     {
+        [DllImport("user32.dll")]
+        private static extern int SetCursorPos(int x, int y);
+
         // 控制器变量
         private KagaController core = KagaController.getInstance();
 
@@ -198,6 +202,88 @@ namespace KagaIDE
             this.passBuffer = passer;
         }
         private string passBuffer = null;
+
+        // 插入命令时动态移动指针
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                Point currentPoint = Cursor.Position;
+                SetCursorPos((int)(currentPoint.X + cur_dx), (int)(currentPoint.Y + cur_dy));
+                timerEncounter++;
+                if (timerEncounter >= 6)
+                {
+                    timerEncounter = 0;
+                    this.timer1.Stop();
+                }
+            }
+            catch (Exception ex)
+            {
+                this.timer1.Stop();
+                throw ex;
+            }
+        }
+
+        // 菜单栏：编辑->插入命令
+        private void 插入命令ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Point pointToScreen = this.button1.PointToScreen(this.button1.Location);
+                Point currentPoint = Cursor.Position;
+                cur_dx = (pointToScreen.X + (this.button1.Size.Width / 3) - currentPoint.X) / 6.0;
+                cur_dy = (pointToScreen.Y + (this.button1.Size.Height / 4) - currentPoint.Y) / 6.0;
+                timer1.Start();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        private double cur_dx = 0, cur_dy = 0;
+        private int timerEncounter = 0;
+
+        // 菜单栏：视图->函数窗体
+        private void 函数窗体ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.函数窗体ToolStripMenuItem.Checked = !this.函数窗体ToolStripMenuItem.Checked;
+            if (this.函数窗体ToolStripMenuItem.Checked == true)
+            {
+                this.groupBox2.Visible = true;
+                this.tabControl1.Location = new Point(161, 34);
+                this.tabControl1.Size = new Size(629, 654);
+            }
+            else
+            {
+                this.groupBox2.Visible = false;
+                if (groupBox1.Visible == false)
+                {
+                    this.tabControl1.Location = new Point(7, 34);
+                    this.tabControl1.Size = new Size(783, 654);
+                }
+            }
+        }
+
+        // 菜单栏：视图->全局变量窗体
+        private void 全局变量窗体ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.全局变量窗体ToolStripMenuItem.Checked = !this.全局变量窗体ToolStripMenuItem.Checked;
+            if (this.全局变量窗体ToolStripMenuItem.Checked == true)
+            {
+                this.groupBox1.Visible = true;
+                this.tabControl1.Location = new Point(161, 34);
+                this.tabControl1.Size = new Size(629, 654);
+            }
+            else
+            {
+                this.groupBox1.Visible = false;
+                if (groupBox2.Visible == false)
+                {
+                    this.tabControl1.Location = new Point(7, 34);
+                    this.tabControl1.Size = new Size(783, 654);
+                }
+            }
+        }
 
     }
 }

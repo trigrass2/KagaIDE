@@ -56,27 +56,31 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.打开ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.保存ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripTextBox1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.关闭ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.编辑ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.插入命令ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.修改命令ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.删除命令ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.工程ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.编译ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.函数管理器ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.变量管理器ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.宏定义ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.关于KagaIDEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.编译ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.编译代码ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.关闭ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripTextBox1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.翻译代码ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.翻译选项ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.关于KagaIDEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.视图ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.函数窗体ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.全局变量窗体ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.symbolManagerBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -133,7 +137,7 @@
             this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Location = new System.Drawing.Point(159, 34);
+            this.tabControl1.Location = new System.Drawing.Point(161, 34);
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -359,6 +363,7 @@
             this.编辑ToolStripMenuItem,
             this.工程ToolStripMenuItem,
             this.编译ToolStripMenuItem,
+            this.视图ToolStripMenuItem,
             this.关于ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -380,6 +385,13 @@
             this.文件ToolStripMenuItem.Size = new System.Drawing.Size(58, 21);
             this.文件ToolStripMenuItem.Text = "文件(&F)";
             // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(190, 22);
+            this.toolStripMenuItem1.Text = "新建";
+            // 
             // 打开ToolStripMenuItem
             // 
             this.打开ToolStripMenuItem.Name = "打开ToolStripMenuItem";
@@ -393,6 +405,25 @@
             this.保存ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.保存ToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.保存ToolStripMenuItem.Text = "保存";
+            // 
+            // toolStripTextBox1
+            // 
+            this.toolStripTextBox1.Name = "toolStripTextBox1";
+            this.toolStripTextBox1.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.S)));
+            this.toolStripTextBox1.Size = new System.Drawing.Size(190, 22);
+            this.toolStripTextBox1.Text = "另存为";
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(187, 6);
+            // 
+            // 关闭ToolStripMenuItem
+            // 
+            this.关闭ToolStripMenuItem.Name = "关闭ToolStripMenuItem";
+            this.关闭ToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+            this.关闭ToolStripMenuItem.Text = "关闭";
             // 
             // 编辑ToolStripMenuItem
             // 
@@ -410,6 +441,7 @@
             this.插入命令ToolStripMenuItem.Name = "插入命令ToolStripMenuItem";
             this.插入命令ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.插入命令ToolStripMenuItem.Text = "插入命令";
+            this.插入命令ToolStripMenuItem.Click += new System.EventHandler(this.插入命令ToolStripMenuItem_Click);
             // 
             // 修改命令ToolStripMenuItem
             // 
@@ -434,27 +466,6 @@
             this.工程ToolStripMenuItem.Size = new System.Drawing.Size(59, 21);
             this.工程ToolStripMenuItem.Text = "工程(&P)";
             // 
-            // 编译ToolStripMenuItem
-            // 
-            this.编译ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.编译代码ToolStripMenuItem,
-            this.toolStripSeparator1,
-            this.翻译代码ToolStripMenuItem,
-            this.翻译选项ToolStripMenuItem});
-            this.编译ToolStripMenuItem.Name = "编译ToolStripMenuItem";
-            this.编译ToolStripMenuItem.ShortcutKeyDisplayString = "C";
-            this.编译ToolStripMenuItem.Size = new System.Drawing.Size(60, 21);
-            this.编译ToolStripMenuItem.Text = "编译(&C)";
-            // 
-            // 关于ToolStripMenuItem
-            // 
-            this.关于ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.关于KagaIDEToolStripMenuItem});
-            this.关于ToolStripMenuItem.Name = "关于ToolStripMenuItem";
-            this.关于ToolStripMenuItem.ShortcutKeyDisplayString = "Z";
-            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(59, 21);
-            this.关于ToolStripMenuItem.Text = "关于(&Z)";
-            // 
             // 函数管理器ToolStripMenuItem
             // 
             this.函数管理器ToolStripMenuItem.Name = "函数管理器ToolStripMenuItem";
@@ -473,62 +484,89 @@
             this.宏定义ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.宏定义ToolStripMenuItem.Text = "宏定义";
             // 
+            // 编译ToolStripMenuItem
+            // 
+            this.编译ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.编译代码ToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.翻译代码ToolStripMenuItem,
+            this.翻译选项ToolStripMenuItem});
+            this.编译ToolStripMenuItem.Name = "编译ToolStripMenuItem";
+            this.编译ToolStripMenuItem.ShortcutKeyDisplayString = "C";
+            this.编译ToolStripMenuItem.Size = new System.Drawing.Size(60, 21);
+            this.编译ToolStripMenuItem.Text = "编译(&C)";
+            // 
+            // 编译代码ToolStripMenuItem
+            // 
+            this.编译代码ToolStripMenuItem.Name = "编译代码ToolStripMenuItem";
+            this.编译代码ToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F7;
+            this.编译代码ToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.编译代码ToolStripMenuItem.Text = "编译代码";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(142, 6);
+            // 
+            // 翻译代码ToolStripMenuItem
+            // 
+            this.翻译代码ToolStripMenuItem.Name = "翻译代码ToolStripMenuItem";
+            this.翻译代码ToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F8;
+            this.翻译代码ToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.翻译代码ToolStripMenuItem.Text = "翻译代码";
+            // 
+            // 翻译选项ToolStripMenuItem
+            // 
+            this.翻译选项ToolStripMenuItem.Name = "翻译选项ToolStripMenuItem";
+            this.翻译选项ToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.翻译选项ToolStripMenuItem.Text = "翻译选项";
+            // 
+            // 关于ToolStripMenuItem
+            // 
+            this.关于ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.关于KagaIDEToolStripMenuItem});
+            this.关于ToolStripMenuItem.Name = "关于ToolStripMenuItem";
+            this.关于ToolStripMenuItem.ShortcutKeyDisplayString = "Z";
+            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(59, 21);
+            this.关于ToolStripMenuItem.Text = "关于(&Z)";
+            // 
             // 关于KagaIDEToolStripMenuItem
             // 
             this.关于KagaIDEToolStripMenuItem.Name = "关于KagaIDEToolStripMenuItem";
             this.关于KagaIDEToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.关于KagaIDEToolStripMenuItem.Text = "关于Kaga IDE";
             // 
-            // 编译代码ToolStripMenuItem
+            // timer1
             // 
-            this.编译代码ToolStripMenuItem.Name = "编译代码ToolStripMenuItem";
-            this.编译代码ToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F7;
-            this.编译代码ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.编译代码ToolStripMenuItem.Text = "编译代码";
+            this.timer1.Interval = 1;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // 关闭ToolStripMenuItem
+            // 视图ToolStripMenuItem
             // 
-            this.关闭ToolStripMenuItem.Name = "关闭ToolStripMenuItem";
-            this.关闭ToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
-            this.关闭ToolStripMenuItem.Text = "关闭";
+            this.视图ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.函数窗体ToolStripMenuItem,
+            this.全局变量窗体ToolStripMenuItem});
+            this.视图ToolStripMenuItem.Name = "视图ToolStripMenuItem";
+            this.视图ToolStripMenuItem.Size = new System.Drawing.Size(60, 21);
+            this.视图ToolStripMenuItem.Text = "视图(&V)";
             // 
-            // toolStripMenuItem2
+            // 函数窗体ToolStripMenuItem
             // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(187, 6);
+            this.函数窗体ToolStripMenuItem.Checked = true;
+            this.函数窗体ToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.函数窗体ToolStripMenuItem.Name = "函数窗体ToolStripMenuItem";
+            this.函数窗体ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.函数窗体ToolStripMenuItem.Text = "函数窗体";
+            this.函数窗体ToolStripMenuItem.Click += new System.EventHandler(this.函数窗体ToolStripMenuItem_Click);
             // 
-            // toolStripTextBox1
+            // 全局变量窗体ToolStripMenuItem
             // 
-            this.toolStripTextBox1.Name = "toolStripTextBox1";
-            this.toolStripTextBox1.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.S)));
-            this.toolStripTextBox1.Size = new System.Drawing.Size(190, 22);
-            this.toolStripTextBox1.Text = "另存为";
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(190, 22);
-            this.toolStripMenuItem1.Text = "新建";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(121, 6);
-            // 
-            // 翻译代码ToolStripMenuItem
-            // 
-            this.翻译代码ToolStripMenuItem.Name = "翻译代码ToolStripMenuItem";
-            this.翻译代码ToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F8;
-            this.翻译代码ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.翻译代码ToolStripMenuItem.Text = "翻译代码";
-            // 
-            // 翻译选项ToolStripMenuItem
-            // 
-            this.翻译选项ToolStripMenuItem.Name = "翻译选项ToolStripMenuItem";
-            this.翻译选项ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-            this.翻译选项ToolStripMenuItem.Text = "翻译选项";
+            this.全局变量窗体ToolStripMenuItem.Checked = true;
+            this.全局变量窗体ToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.全局变量窗体ToolStripMenuItem.Name = "全局变量窗体ToolStripMenuItem";
+            this.全局变量窗体ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.全局变量窗体ToolStripMenuItem.Text = "全局变量窗体";
+            this.全局变量窗体ToolStripMenuItem.Click += new System.EventHandler(this.全局变量窗体ToolStripMenuItem_Click);
             // 
             // symbolManagerBindingSource
             // 
@@ -612,6 +650,10 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem 翻译代码ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 翻译选项ToolStripMenuItem;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.ToolStripMenuItem 视图ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 函数窗体ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 全局变量窗体ToolStripMenuItem;
     }
 }
 
