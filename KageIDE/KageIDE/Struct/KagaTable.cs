@@ -22,7 +22,7 @@ namespace KagaIDE.Struct
             this.depth = tableDepth;
             this.belong = belonging;
             this.symbols = new List<KagaVar>();
-            this.prefix = String.Format("{0}_{1}", Consta.prefix_var, this.depth);
+            this.prefix = String.Format("{0}_{1}_{2}", Consta.prefix_var, this.depth, this.belong.index);
             // 把自己追加到符号表里
             this.symbolMana = SymbolManager.getInstance();
             this.symbolMana.addSymbolTable(this);
