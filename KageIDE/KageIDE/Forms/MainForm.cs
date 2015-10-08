@@ -88,7 +88,7 @@ namespace KagaIDE
                 TabPage ntab = new TabPage(fcname);
                 ntab.Name = fcname;
                 tabControl1.Controls.Add(ntab);
-                Platform form = new Platform();
+                Platform form = new Platform(this);
                 form.TopLevel = false;
                 form.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom;
                 form.FormBorderStyle = FormBorderStyle.None;
@@ -227,21 +227,8 @@ namespace KagaIDE
         // 菜单栏：编辑->插入命令
         private void 插入命令ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
-            {
-                Point pointToScreen = this.button1.PointToScreen(this.button1.Location);
-                Point currentPoint = Cursor.Position;
-                cur_dx = (pointToScreen.X + (this.button1.Size.Width / 3) - currentPoint.X) / 6.0;
-                cur_dy = (pointToScreen.Y + (this.button1.Size.Height / 4) - currentPoint.Y) / 6.0;
-                timer1.Start();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            this.moveCursorToInsertPlane();
         }
-        private double cur_dx = 0, cur_dy = 0;
-        private int timerEncounter = 0;
 
         // 菜单栏：视图->函数窗体
         private void 函数窗体ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -284,6 +271,25 @@ namespace KagaIDE
                 }
             }
         }
+
+        // 移动鼠标到插入命令处
+        public void moveCursorToInsertPlane()
+        {
+            try
+            {
+                Point pointToScreen = this.button1.PointToScreen(this.button1.Location);
+                Point currentPoint = Cursor.Position;
+                cur_dx = (pointToScreen.X + (this.button1.Size.Width / 3) - currentPoint.X) / 6.0;
+                cur_dy = (pointToScreen.Y + (this.button1.Size.Height / 4) - currentPoint.Y) / 6.0;
+                timer1.Start();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        private double cur_dx = 0, cur_dy = 0;
+        private int timerEncounter = 0;
 
     }
 }

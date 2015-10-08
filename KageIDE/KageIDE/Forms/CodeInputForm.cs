@@ -34,6 +34,7 @@ namespace KagaIDE.Forms
             {
                 core.setMarcos(this.codeTextBox.Text);
             }
+            this.Close();
         }
     }
 }

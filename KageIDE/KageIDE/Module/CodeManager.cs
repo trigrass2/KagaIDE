@@ -177,7 +177,7 @@ namespace KagaIDE.Module
         }
 
         /// <summary>
-        /// 广度优先遍历语法树，对满足条件的节点进行func，并返回他们
+        /// 广度优先遍历语法树，对满足条件的节点执行委托func，并返回他们
         /// </summary>
         /// <param name="match">节点匹配条件</param>
         /// <param name="func">满足条件的节点处理函数</param>
@@ -222,7 +222,7 @@ namespace KagaIDE.Module
         }
 
         /// <summary>
-        /// 深度优先遍历语法树，对满足条件的节点进行func，并返回他们
+        /// 深度优先遍历语法树，对满足条件的节点执行委托func，并返回他们
         /// </summary>
         /// <param name="match">节点匹配条件</param>
         /// <param name="func">满足条件的节点处理函数</param>
