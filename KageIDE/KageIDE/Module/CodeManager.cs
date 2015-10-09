@@ -25,6 +25,8 @@ namespace KagaIDE.Module
             mainFunNode.children.Add(new KagaNode("main__BLEFT_BRUCKET", NodeType.PILE__BLEFT_BRUCKET, 2, 0, mainFunNode));
             mainFunNode.children.Add(new KagaNode("main__PADDING_CURSOR", NodeType.PILE__PADDING_CURSOR, 2, 1, mainFunNode));
             mainFunNode.children.Add(new KagaNode("main__BRIGHT_BRUCKET", NodeType.PILE__BRIGHT_BRUCKET, 2, 2, mainFunNode));
+            // 追加main函数到符号管理器
+            symbolMana.addFunction(new FunctionCell("main", null, VarType.VOID));
         }
         
         /// <summary>
@@ -43,7 +45,7 @@ namespace KagaIDE.Module
         /// <returns>满足条件的子树根节点</returns>
         public KagaNode getSubTree(Predicate<KagaNode> match)
         {
-            List<KagaNode> res = this.BFS(match, null, true);
+            List<KagaNode> res = this.BFS(match, this.parseTree, null, true);
             return res != null ? res[0] : null;
         }        
 
@@ -62,7 +64,7 @@ namespace KagaIDE.Module
                 return false;
             }
             // 首先找到父亲节点
-            KagaNode father = this.getSubTree((t) => t.depth == dep - 1);
+            KagaNode father = this.getSubTree((t) => t.depth == dep - 1); /* 这个条件有误，t不唯一 */
             if (father == null || father.children.Count < bre)
             {
                 return false;
@@ -139,7 +141,8 @@ namespace KagaIDE.Module
                         return this.updateChildrenInfo(x);
                     }
                 },
-                unique: false
+                unique: false,
+                startNode: this.parseTree
             );
         }
 
@@ -180,14 +183,24 @@ namespace KagaIDE.Module
         /// 广度优先遍历语法树，对满足条件的节点执行委托func，并返回他们
         /// </summary>
         /// <param name="match">节点匹配条件</param>
+        /// <param name="startNode">搜索开始的节点</param>
         /// <param name="func">满足条件的节点处理函数</param>
         /// <param name="unique">是否命中一个节点就结束</param>
         /// <returns>符合要求的节点向量，若没有符合的节点就返回null</returns>
-        private List<KagaNode> BFS(Predicate<KagaNode> match, Func<KagaNode, KagaNode> func = null, bool unique = true)
+        public List<KagaNode> BFS(
+            Predicate<KagaNode> match,
+            KagaNode startNode,
+            Func<KagaNode, KagaNode> func = null,
+            bool unique = true)
         {
+            // 如果节点为空就直接退出
+            if (startNode == null)
+            {
+                return null;
+            }
             List<KagaNode> resultContainer = new List<KagaNode>();
             Queue<KagaNode> pendingList = new Queue<KagaNode>();
-            pendingList.Enqueue(this.parseTree);
+            pendingList.Enqueue(startNode);
             while (pendingList.Count > 0)
             {
                 KagaNode currentNode = pendingList.Dequeue();
@@ -225,14 +238,24 @@ namespace KagaIDE.Module
         /// 深度优先遍历语法树，对满足条件的节点执行委托func，并返回他们
         /// </summary>
         /// <param name="match">节点匹配条件</param>
+        /// <param name="startNode">搜索开始的节点</param>
         /// <param name="func">满足条件的节点处理函数</param>
         /// <param name="unique">是否命中一个节点就结束</param>
         /// <returns>符合要求的节点向量，若没有符合的节点就返回null</returns>
-        private List<KagaNode> DFS(Predicate<KagaNode> match, Func<KagaNode, KagaNode> func = null, bool unique = true)
+        public List<KagaNode> DFS(
+            Predicate<KagaNode> match,
+            KagaNode startNode,
+            Func<KagaNode, KagaNode> func = null,
+            bool unique = true)
         {
+            // 如果节点为空就直接退出
+            if (startNode == null)
+            {
+                return null;
+            }
             List<KagaNode> resultContainer = new List<KagaNode>();
             Stack<KagaNode> iStack = new Stack<KagaNode>();
-            iStack.Push(this.parseTree);
+            iStack.Push(startNode);
             KagaNode currentNode;
             while (iStack.Count > 0)
             {

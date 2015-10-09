@@ -15,6 +15,10 @@ namespace KagaIDE.Forms
         // 控制器实例
         private KagaController core = KagaController.getInstance();
 
+        // 主窗体引用
+        private MainForm mainFormRef = null;
+        private SymbolForm symbolFormRef = null;
+
         // 函数旧名字
         private string oldfcname = "";
 
@@ -27,25 +31,45 @@ namespace KagaIDE.Forms
             this.oldfcname = fname;
             if (title == "编辑函数")
             {
-                string rettype;
-                List<string> args;
-                core.getFunction(fname, out args, out rettype);
-                // 处理函数头
-                this.textBox1.Text = fname;
-                // 处理返回类型
-                this.comboBox1.SelectedIndex = this.comboBox1.Items.IndexOf(rettype);
-                // 处理参数列表
-                if (args != null)
+                this.refreshContext(fname);
+            }
+            else if (title == "管理函数")
+            {
+                this.button2.Visible = false;
+                this.button1.Text = "应用";
+            }
+        }
+
+        // 刷新函数管理内容
+        public void refreshContext(string fname = "")
+        {
+            this.oldfcname = fname;
+            string rettype;
+            List<string> args;
+            core.getFunction(fname, out args, out rettype);
+            // 处理函数头
+            this.textBox1.Text = fname;
+            // 处理返回类型
+            this.comboBox1.SelectedIndex = this.comboBox1.Items.IndexOf(rettype);
+            // 处理参数列表
+            this.argsGridDataView.Rows.Clear();
+            if (args != null)
+            {
+                for (int i = 0; i < args.Count; i++)
                 {
-                    for (int i = 0; i < args.Count; i++)
-                    {
-                        this.argsGridDataView.Rows.Add();
-                        string[] splitItem = args[i].Split('@');
-                        this.argsGridDataView.Rows[i].Cells[0].Value = splitItem[0];
-                        this.argsGridDataView.Rows[i].Cells[1].Value = splitItem[1];
-                    }
+                    this.argsGridDataView.Rows.Add();
+                    string[] splitItem = args[i].Split('@');
+                    this.argsGridDataView.Rows[i].Cells[0].Value = splitItem[0];
+                    this.argsGridDataView.Rows[i].Cells[1].Value = splitItem[1];
                 }
             }
+        }
+
+        // 设置主窗体指针
+        public void setMainFormPointer(MainForm mf, SymbolForm sf)
+        {
+            this.mainFormRef = mf;
+            this.symbolFormRef = sf;
         }
 
         // 取消
@@ -54,7 +78,7 @@ namespace KagaIDE.Forms
             this.Close();
         }
 
-        // 确定
+        // 确定或应用
         private void button1_Click(object sender, EventArgs e)
         {
             // 处理参数列表
@@ -128,12 +152,35 @@ namespace KagaIDE.Forms
                     return;
                 }
                 // 刷新前台
-                MainForm father = (MainForm)(this.Owner);
-                father.closeTabCard(this.oldfcname);
-                father.functionListBox.Items.Remove(this.oldfcname);
-                father.functionListBox.Items.Add(callname);
-                father.addTabCard(callname);
-                this.Close();
+                if (this.Text == "编辑函数")
+                {
+                    MainForm father = (MainForm)(this.Owner);
+                    father.closeTabCard(this.oldfcname);
+                    father.functionListBox.Items.Remove(this.oldfcname);
+                    father.functionListBox.Items.Add(callname);
+                    father.addTabCard(callname);
+                    this.Close();
+                }
+                else if (this.Text == "管理函数")
+                {
+                    if (this.mainFormRef != null)
+                    {
+                        this.mainFormRef.tabControl1.TabPages[this.oldfcname].Text = callname;
+                        this.mainFormRef.tabControl1.TabPages[this.oldfcname].Name = callname;
+                        int flid = this.mainFormRef.functionListBox.Items.IndexOf(this.oldfcname);
+                        this.mainFormRef.functionListBox.Items[flid] = callname;
+                        SymbolForm ownSf = (SymbolForm)this.symbolFormRef;
+                        ownSf.funListBox.Items.Clear();
+                        List<string> funList = core.getAllFunction();
+                        foreach (string s in funList)
+                        {
+                            ownSf.funListBox.Items.Add(s);
+                        }
+                        flid = ownSf.funListBox.Items.IndexOf(callname);
+                        ownSf.funListBox.SelectedIndex = flid;
+                        this.refreshContext(callname);
+                    }
+                }
             }
 
         }
@@ -154,23 +201,40 @@ namespace KagaIDE.Forms
         // 点击某个单元格
         private void dataGridView2_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            // 左键时为类型赋初值
-            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            try
             {
-                if ((this.argsGridDataView.Rows[e.RowIndex].Cells[0].Value) == null)
+                // 单元格不存在时
+                if (e.RowIndex == -1 || e.ColumnIndex == -1)
                 {
-                    this.argsGridDataView.Rows[e.RowIndex].Cells[1].Value = Consta.basicType[0];
+                    return;
+                }
+                // 左键时为类型赋初值
+                if (e.Button == System.Windows.Forms.MouseButtons.Left)
+                {
+                    if ((this.argsGridDataView.Rows[e.RowIndex].Cells[0].Value) == null)
+                    {
+                        this.argsGridDataView.Rows[e.RowIndex].Cells[1].Value = Consta.basicType[0];
+                    }
+                }
+                // 右键删除变量
+                else if (e.Button == System.Windows.Forms.MouseButtons.Right)
+                {
+                    // 边界要减一，因为最后一行是没有提交的
+                    if (e.RowIndex != this.argsGridDataView.Rows.Count - 1)
+                    {
+                        this.argsGridDataView.Rows.RemoveAt(e.RowIndex);
+                    }
                 }
             }
-            // 右键删除变量
-            else if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            catch (Exception ex)
             {
-                // 边界要减一，因为最后一行是没有提交的
-                if (e.RowIndex != this.argsGridDataView.Rows.Count - 1)
-                {
-                    this.argsGridDataView.Rows.RemoveAt(e.RowIndex);
-                }
+                throw ex;
             }
+        }
+
+        private void argsGridDataView_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            /* 这里不写 */
         }
 
     }

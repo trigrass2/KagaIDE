@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button16 = new System.Windows.Forms.Button();
             this.button15 = new System.Windows.Forms.Button();
@@ -422,7 +423,8 @@
             // 
             this.关闭ToolStripMenuItem.Name = "关闭ToolStripMenuItem";
             this.关闭ToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
-            this.关闭ToolStripMenuItem.Text = "关闭";
+            this.关闭ToolStripMenuItem.Text = "关闭程序";
+            this.关闭ToolStripMenuItem.Click += new System.EventHandler(this.关闭ToolStripMenuItem_Click);
             // 
             // 编辑ToolStripMenuItem
             // 
@@ -468,20 +470,22 @@
             // 函数管理器ToolStripMenuItem
             // 
             this.函数管理器ToolStripMenuItem.Name = "函数管理器ToolStripMenuItem";
-            this.函数管理器ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.函数管理器ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.函数管理器ToolStripMenuItem.Text = "函数管理器";
+            this.函数管理器ToolStripMenuItem.Click += new System.EventHandler(this.函数管理器ToolStripMenuItem_Click);
             // 
             // 变量管理器ToolStripMenuItem
             // 
             this.变量管理器ToolStripMenuItem.Name = "变量管理器ToolStripMenuItem";
-            this.变量管理器ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.变量管理器ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.变量管理器ToolStripMenuItem.Text = "变量管理器";
             // 
             // 宏定义ToolStripMenuItem
             // 
             this.宏定义ToolStripMenuItem.Name = "宏定义ToolStripMenuItem";
-            this.宏定义ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.宏定义ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.宏定义ToolStripMenuItem.Text = "宏定义";
+            this.宏定义ToolStripMenuItem.Click += new System.EventHandler(this.宏定义ToolStripMenuItem_Click);
             // 
             // 编译ToolStripMenuItem
             // 
@@ -561,6 +565,7 @@
             this.关于KagaIDEToolStripMenuItem.Name = "关于KagaIDEToolStripMenuItem";
             this.关于KagaIDEToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.关于KagaIDEToolStripMenuItem.Text = "关于Kaga IDE";
+            this.关于KagaIDEToolStripMenuItem.Click += new System.EventHandler(this.关于KagaIDEToolStripMenuItem_Click);
             // 
             // timer1
             // 
@@ -577,6 +582,7 @@
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.groupBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

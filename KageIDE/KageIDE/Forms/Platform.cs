@@ -23,7 +23,7 @@ namespace KagaIDE.Forms
         private void Platform_Load(object sender, EventArgs e)
         {
             // 展开所有树节点
-            this.treeView1.ExpandAll();
+            this.codeTreeView.ExpandAll();
         }
 
         // 单击节点时发生
@@ -32,7 +32,7 @@ namespace KagaIDE.Forms
             // 弹出右键菜单时
             if (e.Button == System.Windows.Forms.MouseButtons.Right)
             {
-                this.treeView1.SelectedNode = e.Node;
+                this.codeTreeView.SelectedNode = e.Node;
                 //Point pos = new Point(e.Node.Bounds.X + e.Node.Bounds.Width, e.Node.Bounds.Y + e.Node.Bounds.Height / 2);
                 Point pos = new Point(Cursor.Position.X, Cursor.Position.Y);
                 //this.contextMenuStrip1.Show(this.treeView1, pos);

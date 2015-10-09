@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
 using System.Text;
 using KagaIDE.Enuming;
 using KagaIDE.Module;
@@ -46,9 +48,12 @@ namespace KagaIDE.Module
             retType = Consta.parseVarTypeToCType(fc.returnType);
             // 处理参数列表
             args = new List<string>();
-            foreach (KagaVar v in fc.paraList)
+            if (fc.paraList != null)
             {
-                args.Add(String.Format("{0}@{1}", v.varname, Consta.parseVarTypeToCType(v.vartype)));
+                foreach (KagaVar v in fc.paraList)
+                {
+                    args.Add(String.Format("{0}@{1}", v.varname, Consta.parseVarTypeToCType(v.vartype)));
+                }
             }
         }
 
@@ -111,6 +116,62 @@ namespace KagaIDE.Module
 
 
 
+
+        #region 前台刷新相关函数 
+
+        // 设置MainForm的引用
+        public void setMainForm(MainForm mainRef)
+        {
+            this.mainFormPointer = mainRef;
+        }
+
+        // 更新编辑器内容
+        public void refreshAll()
+        {
+            // 遍历所有Tab
+            foreach (TabPage p in this.mainFormPointer.tabControl1.TabPages)
+            {
+                // 取得函数在代码树上的根节点
+                string tabFunName = p.Text;
+                KagaNode funNode = codeMana.getSubTree(
+                    (x) => x.type == NodeType.PILE__BLOCK__FUNCTION && x.nodeName == tabFunName);
+                // 清空当前tab页
+                Control[] controls = p.Controls.Find("codeTreeView", true);
+                if (controls.Length < 1)
+                {
+                    throw new Exception("Tab刷新时遇到空错误");
+                }
+                TreeView codeTreeView = controls[0] as TreeView;
+                codeTreeView.Nodes.Clear();
+                // 深度优先搜索代码树，绘制窗体
+                this.codeMana.DFS(
+                    match: (x) => x != null,
+                    startNode: funNode, 
+                    func: (x) => this.drawGraphTreeView(x), 
+                    unique: false);
+            }
+        }
+
+        // 窗体绘制函数
+        private KagaNode drawGraphTreeView(KagaNode node)
+        {
+            return node;
+        }
+
+        #endregion
+
+
+
+        #region 符号管理器界面相关函数
+        // 获取所有函数名字
+        public List<string> getAllFunction()
+        {
+            return this.symbolMana.getFunctionNameList();
+        }
+        #endregion
+
+
+
         // 工厂方法
         public static KagaController getInstance()
         {
@@ -134,5 +195,7 @@ namespace KagaIDE.Module
         private SymbolManager symbolMana = null;
         // 文件管理器
         private FileManager fileMana = null;
+        // 主窗体指针
+        private MainForm mainFormPointer = null;
     }
 }

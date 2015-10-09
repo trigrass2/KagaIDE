@@ -23,12 +23,16 @@ namespace KagaIDE
         public MainForm()
         {
             InitializeComponent();
+            core.setMainForm(this);
         }
 
         // 加载窗体时发生
         private void MainForm_Load(object sender, EventArgs e)
         {
+            // 添加main函数
             this.addTabCard("main");
+            // 放置焦点
+            this.tabControl1.Focus();
         }
 
         // 保证最小窗体尺寸
@@ -138,6 +142,12 @@ namespace KagaIDE
             if (index != System.Windows.Forms.ListBox.NoMatches)
             {
                 string fcname = (string)this.functionListBox.Items[index];
+                // main函数不可编辑
+                if (fcname == "main")
+                {
+                    MessageBox.Show("主函数main的函数签名不可编辑", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
                 FunctionForm addFunForm = new FunctionForm("编辑函数", fcname);
                 addFunForm.ShowDialog(this);
             }
@@ -290,6 +300,39 @@ namespace KagaIDE
         }
         private double cur_dx = 0, cur_dy = 0;
         private int timerEncounter = 0;
+
+        // 菜单->关于
+        private void 关于KagaIDEToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutBox af = new AboutBox();
+            af.ShowDialog(this);
+        }
+
+        // 菜单->宏定义
+        private void 宏定义ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CodeInputForm cif = new CodeInputForm("宏定义", core.getMarcos());
+            cif.ShowDialog(this);
+        }
+
+        // 菜单->退出程序
+        private void 关闭ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = MessageBox.Show(
+                String.Format("真的要退出吗？{0}未保存的文件或修改将会丢失", Environment.NewLine),
+                "警告", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+            if (dr == System.Windows.Forms.DialogResult.OK)
+            {
+                System.Environment.Exit(0);
+            }
+        }
+
+        // 菜单->函数管理器
+        private void 函数管理器ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SymbolForm sf = new SymbolForm(0);
+            sf.ShowDialog(this);
+        }
 
     }
 }

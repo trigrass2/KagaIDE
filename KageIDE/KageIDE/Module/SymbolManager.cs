@@ -71,15 +71,40 @@ namespace KagaIDE.Module
         /// </summary>
         /// <param name="fname">查找函数的名称</param>
         /// <param name="nfc">待复制的新函数签名的函数单元</param>
-        /// <returns>新节点是否为空</returns>
+        /// <returns>操作成功与否</returns>
         public bool editFunction(string fname, FunctionCell nfc)
         {
+            // 更新
             FunctionCell ofc = this.getFunction(fname);
             if (ofc == null)
             {
                 return false;
             }
-            return ofc.editSign(nfc) != null;
+            // 复制一个备份等待需要的回滚
+            FunctionCell backupOfc = new FunctionCell("_BACKUP_NODE");
+            backupOfc.editSign(ofc);
+            ofc.editSign(nfc);
+            // 检查是否有重复
+            bool rollbackFlag = false;
+            for (int i = 0; i < this.callfunContainer.Count; i++)
+            {
+                for (int j = i + 1; j < this.callfunContainer.Count; j++)
+                {
+                    if (this.callfunContainer[i].callname == this.callfunContainer[j].callname)
+                    {
+                        rollbackFlag = true;
+                        // 弹出两层循环
+                        i = j = this.callfunContainer.Count + 1;
+                    }
+                }
+            }
+            // 如果重名就要回滚操作
+            if (rollbackFlag == true)
+            {
+                ofc.editSign(backupOfc);
+                return false;
+            }
+            return true;
         }
 
         /// <summary>
