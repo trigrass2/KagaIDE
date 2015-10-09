@@ -135,7 +135,26 @@ namespace KagaIDE.Forms
                     return;
                 }
                 // 刷新前台
-                MainForm father = (MainForm)(this.Owner);
+                MainForm father = (MainForm)this.Owner;
+                father.functionListBox.Items.Add(callname);
+                father.addTabCard(callname);
+                this.Close();
+            }
+            else if (this.Text == "从管理器新建函数")
+            {
+                // 通过控制器传递给后台
+                bool flag = core.addFunction(callname, argvList, rettype);
+                // 重名错误时
+                if (flag == false)
+                {
+                    MessageBox.Show("函数名已经存在，\n请修改函数名！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                // 刷新前台
+                SymbolForm parentForm = (SymbolForm)this.Owner;
+                parentForm.funListBox.Items.Add(callname);
+                parentForm.funListBox.SelectedItem = callname;
+                MainForm father = (MainForm)(parentForm.Owner);
                 father.functionListBox.Items.Add(callname);
                 father.addTabCard(callname);
                 this.Close();
@@ -145,10 +164,10 @@ namespace KagaIDE.Forms
             {
                 // 通过控制器传递给后台
                 bool flag = core.editFunction(this.oldfcname, callname, argvList, rettype);
-                // 空引用错误时
+                // 重名错误时
                 if (flag == false)
                 {
-                    MessageBox.Show("未知错误", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("函数名已经存在，\n请修改函数名！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 // 刷新前台

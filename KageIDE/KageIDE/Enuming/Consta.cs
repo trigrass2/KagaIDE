@@ -63,6 +63,11 @@ namespace KagaIDE.Enuming
             return ckeyword.Find((x) => x == parStr) != null;
         }
 
+        /// <summary>
+        /// 控制前台内容刷新是否被阻塞
+        /// </summary>
+        public static bool refreshMutex = false;
+
         #region 全局常量区
         // 基础数据类型
         public static readonly List<string> basicType = new List<string>()

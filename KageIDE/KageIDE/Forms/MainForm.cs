@@ -72,6 +72,7 @@ namespace KagaIDE
             // 否则，调用控制器删除方法
             core.deleteFunction((string)this.functionListBox.SelectedItem);
             // 刷新前台
+            this.closeTabCard((string)this.functionListBox.SelectedItem);
             this.functionListBox.Items.RemoveAt(this.functionListBox.SelectedIndex);
         }
 
