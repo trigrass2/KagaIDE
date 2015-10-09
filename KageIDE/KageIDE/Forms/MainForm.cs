@@ -69,17 +69,26 @@ namespace KagaIDE
                 MessageBox.Show("主函数main不可以被删除", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            // 否则，调用控制器删除方法
-            core.deleteFunction((string)this.functionListBox.SelectedItem);
-            // 刷新前台
-            this.closeTabCard((string)this.functionListBox.SelectedItem);
-            this.functionListBox.Items.RemoveAt(this.functionListBox.SelectedIndex);
-        }
-
-        // 点选某个项目
-        private void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
-        {
-            //MessageBox.Show( e.Node.Index.ToString() + " " + e.Node.Level.ToString());
+            // 提示警告
+            DialogResult dr = MessageBox.Show(
+                String.Format("删除函数是不可撤销的操作！{0}真的要继续吗？", Environment.NewLine),
+                "警告", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+            if (dr == System.Windows.Forms.DialogResult.OK)
+            {
+                System.Threading.Thread.Sleep(800);
+                dr = MessageBox.Show(
+                String.Format("再次警告！{0}删除函数是不可撤销的操作！{1}确认真的要继续吗？", Environment.NewLine, Environment.NewLine),
+                "警告", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button3);
+                if (dr == System.Windows.Forms.DialogResult.Yes)
+                {
+                    // 调用控制器删除方法
+                    core.deleteFunction((string)this.functionListBox.SelectedItem);
+                    // 刷新前台
+                    this.closeTabCard((string)this.functionListBox.SelectedItem);
+                    this.functionListBox.Items.RemoveAt(this.functionListBox.SelectedIndex);
+                }
+            }
+            return;
         }
 
         /// <summary>
@@ -332,6 +341,13 @@ namespace KagaIDE
         private void 函数管理器ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SymbolForm sf = new SymbolForm(0);
+            sf.ShowDialog(this);
+        }
+
+        // 菜单->变量管理器
+        private void 变量管理器ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SymbolForm sf = new SymbolForm(1);
             sf.ShowDialog(this);
         }
 

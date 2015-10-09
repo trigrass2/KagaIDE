@@ -95,6 +95,33 @@ namespace KagaIDE.Module
             // 移除符号
             globalTable.symbols.RemoveAll((x) => x.varname == varname);
         }
+
+        // 取得全局变量表
+        public List<string> getGlobalVar()
+        {
+            // 获取全局符号表
+            KagaTable globalTable = symbolMana.getGlobalTable();
+            // 处理符号表
+            List<string> globalVector = new List<string>();
+            foreach (KagaVar kv in globalTable.symbols)
+            {
+                globalVector.Add(String.Format("{0}@{1}", kv.varname, Consta.parseVarTypeToCType(kv.vartype)));
+            }
+            return globalVector;
+        }
+
+        // 重置一份新的全局变量表
+        public void setNewGlobalVar(List<string> newlist)
+        {
+            KagaTable gt = symbolMana.getGlobalTable();
+            gt.symbols.Clear();
+            foreach (string s in newlist)
+            {
+                string[] splitItem = s.Split('@');
+                gt.symbols.Add(new KagaVar(splitItem[0], Consta.parseCTypeToVarType(splitItem[1])));
+            }
+        }
+
         #endregion
 
 

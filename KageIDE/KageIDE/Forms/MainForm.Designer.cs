@@ -82,10 +82,18 @@
             this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.关于KagaIDEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.button20 = new System.Windows.Forms.Button();
+            this.button21 = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -431,6 +439,7 @@
             this.编辑ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.插入命令ToolStripMenuItem,
             this.修改命令ToolStripMenuItem,
+            this.toolStripSeparator2,
             this.删除命令ToolStripMenuItem});
             this.编辑ToolStripMenuItem.Name = "编辑ToolStripMenuItem";
             this.编辑ToolStripMenuItem.ShortcutKeyDisplayString = "";
@@ -470,20 +479,23 @@
             // 函数管理器ToolStripMenuItem
             // 
             this.函数管理器ToolStripMenuItem.Name = "函数管理器ToolStripMenuItem";
-            this.函数管理器ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.函数管理器ToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
+            this.函数管理器ToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.函数管理器ToolStripMenuItem.Text = "函数管理器";
             this.函数管理器ToolStripMenuItem.Click += new System.EventHandler(this.函数管理器ToolStripMenuItem_Click);
             // 
             // 变量管理器ToolStripMenuItem
             // 
             this.变量管理器ToolStripMenuItem.Name = "变量管理器ToolStripMenuItem";
-            this.变量管理器ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.变量管理器ToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F6;
+            this.变量管理器ToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.变量管理器ToolStripMenuItem.Text = "变量管理器";
+            this.变量管理器ToolStripMenuItem.Click += new System.EventHandler(this.变量管理器ToolStripMenuItem_Click);
             // 
             // 宏定义ToolStripMenuItem
             // 
             this.宏定义ToolStripMenuItem.Name = "宏定义ToolStripMenuItem";
-            this.宏定义ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.宏定义ToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.宏定义ToolStripMenuItem.Text = "宏定义";
             this.宏定义ToolStripMenuItem.Click += new System.EventHandler(this.宏定义ToolStripMenuItem_Click);
             // 
@@ -491,6 +503,7 @@
             // 
             this.编译ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.编译代码ToolStripMenuItem,
+            this.toolStripMenuItem3,
             this.toolStripSeparator1,
             this.翻译代码ToolStripMenuItem,
             this.翻译选项ToolStripMenuItem});
@@ -503,25 +516,25 @@
             // 
             this.编译代码ToolStripMenuItem.Name = "编译代码ToolStripMenuItem";
             this.编译代码ToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F7;
-            this.编译代码ToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.编译代码ToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.编译代码ToolStripMenuItem.Text = "编译代码";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(142, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(171, 6);
             // 
             // 翻译代码ToolStripMenuItem
             // 
             this.翻译代码ToolStripMenuItem.Name = "翻译代码ToolStripMenuItem";
-            this.翻译代码ToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F8;
-            this.翻译代码ToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.翻译代码ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F7)));
+            this.翻译代码ToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.翻译代码ToolStripMenuItem.Text = "翻译代码";
             // 
             // 翻译选项ToolStripMenuItem
             // 
             this.翻译选项ToolStripMenuItem.Name = "翻译选项ToolStripMenuItem";
-            this.翻译选项ToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.翻译选项ToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.翻译选项ToolStripMenuItem.Text = "翻译选项";
             // 
             // 视图ToolStripMenuItem
@@ -538,7 +551,8 @@
             this.函数窗体ToolStripMenuItem.Checked = true;
             this.函数窗体ToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.函数窗体ToolStripMenuItem.Name = "函数窗体ToolStripMenuItem";
-            this.函数窗体ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.函数窗体ToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F3;
+            this.函数窗体ToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
             this.函数窗体ToolStripMenuItem.Text = "函数窗体";
             this.函数窗体ToolStripMenuItem.Click += new System.EventHandler(this.函数窗体ToolStripMenuItem_Click);
             // 
@@ -547,7 +561,8 @@
             this.全局变量窗体ToolStripMenuItem.Checked = true;
             this.全局变量窗体ToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.全局变量窗体ToolStripMenuItem.Name = "全局变量窗体ToolStripMenuItem";
-            this.全局变量窗体ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.全局变量窗体ToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F4;
+            this.全局变量窗体ToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
             this.全局变量窗体ToolStripMenuItem.Text = "全局变量窗体";
             this.全局变量窗体ToolStripMenuItem.Click += new System.EventHandler(this.全局变量窗体ToolStripMenuItem_Click);
             // 
@@ -572,11 +587,65 @@
             this.timer1.Interval = 1;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.button21);
+            this.groupBox4.Controls.Add(this.button20);
+            this.groupBox4.Location = new System.Drawing.Point(796, 404);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(200, 68);
+            this.groupBox4.TabIndex = 21;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "操作";
+            // 
+            // button20
+            // 
+            this.button20.Location = new System.Drawing.Point(6, 20);
+            this.button20.Name = "button20";
+            this.button20.Size = new System.Drawing.Size(90, 31);
+            this.button20.TabIndex = 19;
+            this.button20.Text = "编译";
+            this.button20.UseVisualStyleBackColor = true;
+            // 
+            // button21
+            // 
+            this.button21.Location = new System.Drawing.Point(104, 20);
+            this.button21.Name = "button21";
+            this.button21.Size = new System.Drawing.Size(90, 31);
+            this.button21.TabIndex = 20;
+            this.button21.Text = "下载";
+            this.button21.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.Image = global::KagaIDE.Properties.Resources.KK;
+            this.pictureBox1.Location = new System.Drawing.Point(821, 509);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(150, 150);
+            this.pictureBox1.TabIndex = 22;
+            this.pictureBox1.TabStop = false;
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.ShortcutKeys = System.Windows.Forms.Keys.F8;
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(174, 22);
+            this.toolStripMenuItem3.Text = "下载到设备";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 697);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.menuStrip1);
@@ -594,6 +663,8 @@
             this.groupBox3.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -653,6 +724,12 @@
         private System.Windows.Forms.ToolStripMenuItem 视图ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 函数窗体ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 全局变量窗体ToolStripMenuItem;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Button button21;
+        private System.Windows.Forms.Button button20;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
     }
 }
 
