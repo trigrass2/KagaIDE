@@ -154,6 +154,16 @@ namespace KagaIDE.Module
         }
 
         /// <summary>
+        /// 修改一个开关的名称
+        /// </summary>
+        /// <param name="sid"></param>
+        /// <param name="nname"></param>
+        public void editSwitchName(int sid, string nname)
+        {
+            this.switchContainer[sid] = nname;
+        }
+
+        /// <summary>
         /// 添加一张符号表
         /// </summary>
         /// <param name="kt">待添加符号表</param>
@@ -230,6 +240,8 @@ namespace KagaIDE.Module
         }
         // 宏定义语句块
         private string marcoContainer = null;
+        // 开关组向量
+        private List<string> switchContainer = null;
         // 符号表向量
         private List<KagaTable> tableContainer = null;
         // 函数名向量

@@ -45,8 +45,6 @@ namespace KagaIDE.Enuming
         PILE__BLOCK__ROOT,
         // 编译控制：函数签名
         PILE__BLOCK__FUNCTION,
-        // 编译控制：代码块左边界
-        PILE__BLEFT_BRUCKET,
         // 编译控制：代码块右边界
         PILE__BRIGHT_BRUCKET,
         // 编译控制：待插入光标

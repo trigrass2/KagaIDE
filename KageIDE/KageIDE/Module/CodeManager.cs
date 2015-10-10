@@ -23,10 +23,9 @@ namespace KagaIDE.Module
             FunctionCell mainFunCell = new FunctionCell("main", null, VarType.VOID);
             mainFunNode.funBinding = mainFunCell;
             this.parseTree.children.Add(mainFunNode);
-            // 为main函数节点追加代码块左边界、光标节点、代码块右边界
-            mainFunNode.children.Add(new KagaNode("main__BLEFT_BRUCKET", NodeType.PILE__BLEFT_BRUCKET, 2, 0, mainFunNode));
-            mainFunNode.children.Add(new KagaNode("main__PADDING_CURSOR", NodeType.PILE__PADDING_CURSOR, 2, 1, mainFunNode));
-            mainFunNode.children.Add(new KagaNode("main__BRIGHT_BRUCKET", NodeType.PILE__BRIGHT_BRUCKET, 2, 2, mainFunNode));
+            // 为main函数节点追加代码块光标节点、代码块右边界
+            mainFunNode.children.Add(new KagaNode("main__PADDING_CURSOR", NodeType.PILE__PADDING_CURSOR, 2, 0, mainFunNode));
+            mainFunNode.children.Add(new KagaNode("main__BRIGHT_BRUCKET", NodeType.PILE__BRIGHT_BRUCKET, 2, 1, mainFunNode));
             // 追加main函数到符号管理器
             symbolMana.addFunction(mainFunCell);
         }
@@ -57,6 +56,7 @@ namespace KagaIDE.Module
         /// <param name="dep">插入深度</param>
         /// <param name="bre">插入广度</param>
         /// <param name="obj">待插入节点</param>
+        /// <param name="parent">双亲节点</param>
         /// <returns>插入是否成功</returns>
         public bool insertNode(int dep, int bre, KagaNode obj)
         {
@@ -65,9 +65,7 @@ namespace KagaIDE.Module
             {
                 return false;
             }
-            // 首先找到父亲节点
-            KagaNode father = this.getSubTree((t) => t.depth == dep - 1); /* 这个条件有误，t不唯一 */
-            if (father == null || father.children.Count < bre)
+            if (obj.parent == null || obj.parent.children.Count < bre)
             {
                 return false;
             }
@@ -75,9 +73,9 @@ namespace KagaIDE.Module
             obj.depth = dep;
             obj.index = bre;
             // 接下来找姐妹中自己的排位并插入
-            father.children.Insert(bre, obj);
+            obj.parent.children.Insert(bre, obj);
             // 更新子树信息
-            this.update(father, false);
+            this.update(obj.parent, false);
             return true;
         }
 

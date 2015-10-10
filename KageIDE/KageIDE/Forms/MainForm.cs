@@ -33,6 +33,8 @@ namespace KagaIDE
             this.addTabCard("main");
             // 放置焦点
             this.tabControl1.Focus();
+            // 刷新
+            core.refreshAll();
         }
 
         // 保证最小窗体尺寸
@@ -223,27 +225,6 @@ namespace KagaIDE
         }
         private string passBuffer = null;
 
-        // 插入命令时动态移动指针
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            try
-            {
-                Point currentPoint = Cursor.Position;
-                SetCursorPos((int)(currentPoint.X + cur_dx), (int)(currentPoint.Y + cur_dy));
-                timerEncounter++;
-                if (timerEncounter >= 6)
-                {
-                    timerEncounter = 0;
-                    this.timer1.Stop();
-                }
-            }
-            catch (Exception ex)
-            {
-                this.timer1.Stop();
-                throw ex;
-            }
-        }
-
         // 菜单栏：编辑->插入命令
         private void 插入命令ToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -295,12 +276,24 @@ namespace KagaIDE
         // 移动鼠标到插入命令处
         public void moveCursorToInsertPlane()
         {
+            this.moveCursorToPoint(
+                this.button1,
+                this.button1.Location,
+                Cursor.Position,
+                this.button1.Size.Width / 3,
+                this.button1.Size.Height / 4);
+        }
+        private double cur_dx = 0, cur_dy = 0;
+        private int timerEncounter = 0;
+
+        // 移动鼠标到目标点
+        public void moveCursorToPoint(Control control, Point desPoint, Point curPoint, double offsetX, double offsetY, double div = 6.0)
+        {
             try
             {
-                Point pointToScreen = this.button1.PointToScreen(this.button1.Location);
-                Point currentPoint = Cursor.Position;
-                cur_dx = (pointToScreen.X + (this.button1.Size.Width / 3) - currentPoint.X) / 6.0;
-                cur_dy = (pointToScreen.Y + (this.button1.Size.Height / 4) - currentPoint.Y) / 6.0;
+                Point pointToScreen = control.PointToScreen(desPoint);
+                cur_dx = (pointToScreen.X - Cursor.Position.X + offsetX) / div;
+                cur_dy = (pointToScreen.Y - Cursor.Position.Y + offsetY) / div;
                 timer1.Start();
             }
             catch (Exception ex)
@@ -308,8 +301,27 @@ namespace KagaIDE
                 throw ex;
             }
         }
-        private double cur_dx = 0, cur_dy = 0;
-        private int timerEncounter = 0;
+
+        // 插入命令时动态移动指针
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                Point currentPoint = Cursor.Position;
+                SetCursorPos((int)(currentPoint.X + cur_dx), (int)(currentPoint.Y + cur_dy));
+                timerEncounter++;
+                if (timerEncounter >= 6)
+                {
+                    timerEncounter = 0;
+                    this.timer1.Stop();
+                }
+            }
+            catch (Exception ex)
+            {
+                this.timer1.Stop();
+                throw ex;
+            }
+        }
 
         // 菜单->关于
         private void 关于KagaIDEToolStripMenuItem_Click(object sender, EventArgs e)
@@ -354,6 +366,28 @@ namespace KagaIDE
         private void button22_Click(object sender, EventArgs e)
         {
             core.refreshAll();
+        }
+
+        // 插入指令：变量定义
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // 检查这个节点可否插入变量
+            if (core.isAbleInsertDefineVar() == false)
+            {
+                MessageBox.Show("这个节点不可以插入变量定义", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            this.moveCursorToPoint(this, new Point(this.Size.Width / 2, this.Size.Height / 2), Cursor.Position, 0, 0);
+            BasicInputForm bif = new BasicInputForm("定义变量", Consta.basicType);
+            bif.ShowDialog(this);
+            // 如果没有传回任何东西就结束
+            if (passBuffer == null)
+            {
+                return;
+            }
+            // 插入定义变量操作
+            core.dash_defineVariable(passBuffer);
+            passBuffer = null;
         }
     }
 }

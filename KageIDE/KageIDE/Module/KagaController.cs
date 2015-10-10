@@ -127,7 +127,6 @@ namespace KagaIDE.Module
 
 
         #region 主窗口指令操作函数
-
         // 获得宏定义
         public string getMarcos()
         {
@@ -140,17 +139,62 @@ namespace KagaIDE.Module
             symbolMana.setMarcoContainer(newMarcos);
         }
 
+        // 操作：定义变量
+        public void dash_defineVariable(string arg)
+        {
+            string[] splitItem = arg.Split('@');
+            // 刷新前台
+            TreeView curTree = this.getActiveTreeView();
+            int insertPoint = curTree.SelectedNode.Index;
+            TreeNode np = new TreeNode(
+                String.Format("{0} 变量定义：{1} ({2})", Consta.prefix_frontend, splitItem[0], splitItem[1]));
+            np.ForeColor = Color.Blue;
+            curTree.SelectedNode.Parent.Nodes.Insert(insertPoint, np);
+            // 把修改提交到代码管理器
+            KagaNode codeParentNode = codeMana.getSubTree((x) =>
+                x.index == curTree.SelectedNode.Parent.Index &&
+                x.depth == curTree.SelectedNode.Parent.Level + 1);
+            KagaNode nkn = new KagaNode(
+                codeParentNode.nodeName + "__" + NodeType.DEFINE_VARIABLE.ToString(),
+                NodeType.DEFINE_VARIABLE,
+                codeParentNode.depth + 1,
+                insertPoint,
+                codeParentNode);
+            codeMana.insertNode(codeParentNode.depth + 1, insertPoint, nkn);
+            // 为父节点的符号表增加符号
+            codeParentNode.symbolTable.symbols.Add(new KagaVar(splitItem[0], Consta.parseCTypeToVarType(splitItem[1])));
+        }
+
+        // 检查一个节点是否可以插入变量
+        public bool isAbleInsertDefineVar()
+        {
+            TreeView curTree = this.getActiveTreeView();
+            if (curTree.SelectedNode.Parent == null)
+            {
+                return false;
+            }
+            KagaNode codeParentNode = codeMana.getSubTree((x) =>
+                x.index == curTree.SelectedNode.Parent.Index &&
+                x.depth == curTree.SelectedNode.Parent.Level + 1);
+            return codeParentNode.isNewBlock;    
+        }
+
         #endregion
 
 
-
-
         #region 前台刷新相关函数 
-
         // 设置MainForm的引用
         public void setMainForm(MainForm mainRef)
         {
             this.mainFormPointer = mainRef;
+        }
+
+        // 获取当前活跃的TabPage里的编辑器
+        public TreeView getActiveTreeView()
+        {
+            TabPage p = this.mainFormPointer.tabControl1.SelectedTab;
+            Control[] controlItem = p.Controls.Find("codeTreeView", true);
+            return controlItem != null ? (TreeView)controlItem[0] : null;
         }
 
         // 更新编辑器内容
@@ -190,11 +234,8 @@ namespace KagaIDE.Module
                 // 代码块：函数签名
                 case NodeType.PILE__BLOCK__FUNCTION:
                     currentParent = this.treeViewPointer.Nodes.Add(
-                        String.Format("◆ {0}",parseNode.funBinding.getSign()));
+                        String.Format("{0} {1}", Consta.prefix_frontend, parseNode.funBinding.getSign()));
                     currentParent.ForeColor = Color.Purple;
-                    break;
-                // 编译控制：左边界
-                case NodeType.PILE__BLEFT_BRUCKET:
                     break;
                 // 编译控制：右边界
                 case NodeType.PILE__BRIGHT_BRUCKET:
@@ -202,7 +243,7 @@ namespace KagaIDE.Module
                     break;
                 // 编译控制：插入节点
                 case NodeType.PILE__PADDING_CURSOR:
-                    currentParent.Nodes.Add("◆ ");
+                    currentParent.Nodes.Add(Consta.prefix_frontend + " ");
                     break;
                 default:
                     throw new Exception("匹配树类型错误");

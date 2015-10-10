@@ -137,6 +137,10 @@ namespace KagaIDE.Enuming
         public static readonly string prefix_fun = "";
         // 自定义变量前缀
         public static readonly string prefix_var = "___KAGA_VAR";
+        // 前台语句前缀
+        public static readonly string prefix_frontend = "◆";
+        // 自定义开关数组名
+        public static readonly string switch_name = "___KAGA_SWITCHES";
         // 待命名变量名
         public static readonly string const_none = "#NVAR#";
         #endregion
