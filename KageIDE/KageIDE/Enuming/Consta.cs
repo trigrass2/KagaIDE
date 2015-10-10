@@ -134,7 +134,7 @@ namespace KagaIDE.Enuming
         // 代码块枚举型前缀
         public static readonly string prefix_block = "BLOCK__";
         // 自定义函数前缀
-        public static readonly string prefix_fun = "___KAGA_FUNC";
+        public static readonly string prefix_fun = "";
         // 自定义变量前缀
         public static readonly string prefix_var = "___KAGA_VAR";
         // 待命名变量名

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
 using System.Text;
+using System.Drawing;
 using KagaIDE.Enuming;
 using KagaIDE.Module;
 using KagaIDE.Struct;
@@ -168,23 +169,48 @@ namespace KagaIDE.Module
                 {
                     throw new Exception("Tab刷新时遇到空错误");
                 }
-                TreeView codeTreeView = controls[0] as TreeView;
-                codeTreeView.Nodes.Clear();
+                this.treeViewPointer = controls[0] as TreeView;
+                this.treeViewPointer.Nodes.Clear();
                 // 深度优先搜索代码树，绘制窗体
                 this.codeMana.DFS(
                     match: (x) => x != null,
                     startNode: funNode, 
-                    func: (x) => this.drawGraphTreeView(x), 
+                    func: (x) => this.drawTreeContext(x), 
                     unique: false);
             }
+            // 展开所有节点
+            treeViewPointer.ExpandAll();
         }
 
         // 窗体绘制函数
-        private KagaNode drawGraphTreeView(KagaNode node)
+        private KagaNode drawTreeContext(KagaNode parseNode)
         {
-            return node;
+            switch (parseNode.type)
+            {
+                // 代码块：函数签名
+                case NodeType.PILE__BLOCK__FUNCTION:
+                    currentParent = this.treeViewPointer.Nodes.Add(
+                        String.Format("◆ {0}",parseNode.funBinding.getSign()));
+                    currentParent.ForeColor = Color.Purple;
+                    break;
+                // 编译控制：左边界
+                case NodeType.PILE__BLEFT_BRUCKET:
+                    break;
+                // 编译控制：右边界
+                case NodeType.PILE__BRIGHT_BRUCKET:
+                    currentParent = currentParent.Parent;
+                    break;
+                // 编译控制：插入节点
+                case NodeType.PILE__PADDING_CURSOR:
+                    currentParent.Nodes.Add("◆ ");
+                    break;
+                default:
+                    throw new Exception("匹配树类型错误");
+            }
+            return parseNode;
         }
-
+        private TreeNode currentParent = null;
+        private TreeView treeViewPointer = null;
         #endregion
 
 

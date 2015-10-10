@@ -349,7 +349,11 @@ namespace KagaIDE
         {
             SymbolForm sf = new SymbolForm(1);
             sf.ShowDialog(this);
+        }
 
+        private void button22_Click(object sender, EventArgs e)
+        {
+            core.refreshAll();
         }
     }
 }

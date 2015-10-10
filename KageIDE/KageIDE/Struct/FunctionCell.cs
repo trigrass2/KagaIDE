@@ -47,14 +47,17 @@ namespace KagaIDE.Enuming
             StringBuilder sb = new StringBuilder();
             sb.Append(this.returnType.ToString().ToLower().Replace('_', ' '));
             sb.Append(" ");
-            sb.Append(String.Format("{0}_{1}", Consta.prefix_fun, this.callname));
+            sb.Append(String.Format(Consta.prefix_fun == "" ? "{0}{1}" : "{0}_{1}", Consta.prefix_fun, this.callname));
             sb.Append("(");
-            for (int i = 0; i < this.paraList.Count; i++)
+            if (this.paraList != null)
             {
-                sb.Append(String.Format("{0} {1}", this.paraList[i].vartype, this.paraList[i].varname));
-                if (i != this.paraList.Count - 1)
+                for (int i = 0; i < this.paraList.Count; i++)
                 {
-                    sb.Append(", ");
+                    sb.Append(String.Format("{0} {1}", this.paraList[i].vartype, this.paraList[i].varname));
+                    if (i != this.paraList.Count - 1)
+                    {
+                        sb.Append(", ");
+                    }
                 }
             }
             sb.Append(")");

@@ -65,6 +65,8 @@ namespace KagaIDE
         // 节点函数调用参数列表
         public string callingParams = "___KAGA__NO__PARAS____";
 
+        // 函数绑定
+        public FunctionCell funBinding = null;
         // 是否产生一个新的编译语句块
         public bool isNewBlock = false;
         // 符号表指针
