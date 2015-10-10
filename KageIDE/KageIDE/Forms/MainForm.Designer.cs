@@ -71,6 +71,7 @@
             this.工程ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.函数管理器ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.变量管理器ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.宏定义ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.编译ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.编译代码ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -88,7 +89,6 @@
             this.button21 = new System.Windows.Forms.Button();
             this.button20 = new System.Windows.Forms.Button();
             this.button22 = new System.Windows.Forms.Button();
-            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -188,6 +188,7 @@
             this.button4.TabIndex = 7;
             this.button4.Text = "开关操作";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button5
             // 
@@ -450,25 +451,25 @@
             // 插入命令ToolStripMenuItem
             // 
             this.插入命令ToolStripMenuItem.Name = "插入命令ToolStripMenuItem";
-            this.插入命令ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.插入命令ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.插入命令ToolStripMenuItem.Text = "插入命令";
             this.插入命令ToolStripMenuItem.Click += new System.EventHandler(this.插入命令ToolStripMenuItem_Click);
             // 
             // 修改命令ToolStripMenuItem
             // 
             this.修改命令ToolStripMenuItem.Name = "修改命令ToolStripMenuItem";
-            this.修改命令ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.修改命令ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.修改命令ToolStripMenuItem.Text = "修改命令";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(121, 6);
             // 
             // 删除命令ToolStripMenuItem
             // 
             this.删除命令ToolStripMenuItem.Name = "删除命令ToolStripMenuItem";
-            this.删除命令ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.删除命令ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.删除命令ToolStripMenuItem.Text = "删除命令";
             // 
             // 工程ToolStripMenuItem
@@ -498,6 +499,14 @@
             this.变量管理器ToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.变量管理器ToolStripMenuItem.Text = "变量管理器";
             this.变量管理器ToolStripMenuItem.Click += new System.EventHandler(this.变量管理器ToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.ShortcutKeys = System.Windows.Forms.Keys.F4;
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(157, 22);
+            this.toolStripMenuItem4.Text = "开关管理器";
+            this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
             // 
             // 宏定义ToolStripMenuItem
             // 
@@ -640,14 +649,6 @@
             this.button22.Text = "button22";
             this.button22.UseVisualStyleBackColor = true;
             this.button22.Click += new System.EventHandler(this.button22_Click);
-            // 
-            // toolStripMenuItem4
-            // 
-            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.ShortcutKeys = System.Windows.Forms.Keys.F4;
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(157, 22);
-            this.toolStripMenuItem4.Text = "开关管理器";
-            this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
             // 
             // MainForm
             // 

@@ -239,6 +239,8 @@ namespace KagaIDE.Forms
             }
             // 把更新提交到后台
             core.updateSwitchDescriptionVector(argvList);
+            // 刷新前台
+            core.refreshAll();
         }
     }
 }

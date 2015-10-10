@@ -44,10 +44,10 @@
             this.变量名 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.类型 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.button2 = new System.Windows.Forms.Button();
             this.switchDataGridView = new System.Windows.Forms.DataGridView();
             this.开关序号 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.描述 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button2 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -221,6 +221,16 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "开关管理";
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(485, 315);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 2;
+            this.button2.Text = "保存";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // switchDataGridView
             // 
             this.switchDataGridView.AllowUserToAddRows = false;
@@ -231,6 +241,7 @@
             this.开关序号,
             this.描述});
             this.switchDataGridView.Location = new System.Drawing.Point(8, 12);
+            this.switchDataGridView.MultiSelect = false;
             this.switchDataGridView.Name = "switchDataGridView";
             this.switchDataGridView.RowHeadersVisible = false;
             this.switchDataGridView.RowTemplate.Height = 23;
@@ -252,16 +263,6 @@
             this.描述.HeaderText = "描述";
             this.描述.Name = "描述";
             this.描述.Width = 490;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(485, 315);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "保存";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // SymbolForm
             // 

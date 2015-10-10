@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Drawing;
 
 namespace KagaIDE.Enuming
 {
@@ -62,6 +63,53 @@ namespace KagaIDE.Enuming
         {
             return ckeyword.Find((x) => x == parStr) != null;
         }
+
+        /// <summary>
+        /// 获取NodeType的前端色彩
+        /// </summary>
+        /// <param name="tp">NodeType类型</param>
+        /// <returns>前端颜色</returns>
+        public static Color getColoring(NodeType tp)
+        {
+            switch (tp)
+            {
+                case NodeType.PILE__BLOCK__FUNCTION:
+                    return Color.Purple;
+                case NodeType.BLOCK__IF:
+                    return Color.Blue;
+                case NodeType.BLOCK__IF_ELSE:
+                    return Color.Blue;
+                case NodeType.BLOCK__DO_WHILE:
+                    return Color.Blue;
+                case NodeType.BLOCK__WHILE:
+                    return Color.Blue;
+                case NodeType.BLOCK__FOR:
+                    return Color.Blue;
+                case NodeType.BREAK:
+                    return Color.Blue;
+                case NodeType.CALL:
+                    return Color.Orange;
+                case NodeType.EXPRESSION:
+                    return Color.Red;
+                case NodeType.USING_SWITCHES:
+                    return Color.Red;
+                case NodeType.RETURN:
+                    return Color.Blue;
+                case NodeType.NOTE:
+                    return Color.Green;
+                case NodeType.CODEBLOCK:
+                    return Color.Gray;
+                case NodeType.DEFINE_VARIABLE:
+                    return Color.Red;
+                case NodeType.RUNONCE:
+                    return Color.OrangeRed;
+                case NodeType.PILE__PADDING_CURSOR:
+                    return Color.Black;
+                default:
+                    return Color.Black;
+            }
+        }
+
 
         /// <summary>
         /// 控制前台内容刷新是否被阻塞

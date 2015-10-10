@@ -397,5 +397,13 @@ namespace KagaIDE
             passBuffer = null;
         }
 
+        // 插入指令：开关操作
+        private void button4_Click(object sender, EventArgs e)
+        {
+            this.moveCursorToPoint(this, new Point(this.Size.Width / 2, this.Size.Height / 2), Cursor.Position, 0, 0);
+            SwitchForm sf = new SwitchForm();
+            sf.ShowDialog(this);
+        }
+
     }
 }

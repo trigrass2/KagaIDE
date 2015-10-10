@@ -162,7 +162,7 @@ namespace KagaIDE.Module
             int insertPoint = curTree.SelectedNode.Index;
             TreeNode np = new TreeNode(
                 String.Format("{0} 变量定义：{1} ({2})", Consta.prefix_frontend, splitItem[0], splitItem[1]));
-            np.ForeColor = Color.Blue;
+            np.ForeColor = Consta.getColoring(NodeType.DEFINE_VARIABLE);
             curTree.SelectedNode.Parent.Nodes.Insert(insertPoint, np);
             // 把修改提交到代码管理器
             KagaNode codeParentNode = codeMana.getSubTree((x) =>
@@ -174,9 +174,37 @@ namespace KagaIDE.Module
                 codeParentNode.depth + 1,
                 insertPoint,
                 codeParentNode);
+            nkn.defineVarName = splitItem[0];
+            nkn.defineVarType = Consta.parseCTypeToVarType(splitItem[1]);
             codeMana.insertNode(codeParentNode.depth + 1, insertPoint, nkn);
             // 为父节点的符号表增加符号
             codeParentNode.symbolTable.symbols.Add(new KagaVar(splitItem[0], Consta.parseCTypeToVarType(splitItem[1])));
+        }
+
+        // 操作：开关操作
+        public void dash_switchOperate(int sid, bool state)
+        {
+            // 刷新前台
+            TreeView curTree = this.getActiveTreeView();
+            int insertPoint = curTree.SelectedNode.Index;
+            TreeNode np = new TreeNode(
+                String.Format("{0} 开关操作：[{1}:{2}] 状态设置为 {3}", Consta.prefix_frontend,
+                sid.ToString(), symbolMana.getSwitchVector()[sid], state ? "打开" : "关闭"));
+            np.ForeColor = Consta.getColoring(NodeType.USING_SWITCHES);
+            curTree.SelectedNode.Parent.Nodes.Insert(insertPoint, np);
+            // 把修改提交到代码管理器
+            KagaNode codeParentNode = codeMana.getSubTree((x) =>
+                x.index == curTree.SelectedNode.Parent.Index &&
+                x.depth == curTree.SelectedNode.Parent.Level + 1);
+            KagaNode nkn = new KagaNode(
+                codeParentNode.nodeName + "__" + NodeType.USING_SWITCHES.ToString(),
+                NodeType.USING_SWITCHES,
+                codeParentNode.depth + 1,
+                insertPoint,
+                codeParentNode);
+            nkn.switchFlag = state;
+            nkn.switchId = sid;
+            codeMana.insertNode(codeParentNode.depth + 1, insertPoint, nkn);
         }
 
         // 检查一个节点是否可以插入变量
@@ -249,7 +277,7 @@ namespace KagaIDE.Module
                 case NodeType.PILE__BLOCK__FUNCTION:
                     currentParent = this.treeViewPointer.Nodes.Add(
                         String.Format("{0} {1}", Consta.prefix_frontend, parseNode.funBinding.getSign()));
-                    currentParent.ForeColor = Color.Purple;
+                    currentParent.ForeColor = Consta.getColoring(parseNode.type);
                     break;
                 // 编译控制：右边界
                 case NodeType.PILE__BRIGHT_BRUCKET:
@@ -258,6 +286,22 @@ namespace KagaIDE.Module
                 // 编译控制：插入节点
                 case NodeType.PILE__PADDING_CURSOR:
                     currentParent.Nodes.Add(Consta.prefix_frontend + " ");
+                    break;
+                // 操作：变量定义
+                case NodeType.DEFINE_VARIABLE:
+                    TreeNode tdefvar = new TreeNode(String.Format("{0} 变量定义：{1} ({2})", Consta.prefix_frontend,
+                        parseNode.defineVarName, Consta.parseVarTypeToCType(parseNode.defineVarType)));
+                    tdefvar.ForeColor = Consta.getColoring(parseNode.type);
+                    currentParent.Nodes.Add(tdefvar);
+                    break;
+                // 操作：开关操作
+                case NodeType.USING_SWITCHES:
+                    TreeNode tuseswt = new TreeNode(
+                        String.Format("{0} 开关操作：[{1}:{2}] 状态设置为 {3}", Consta.prefix_frontend,
+                        parseNode.switchId.ToString(), symbolMana.getSwitchVector()[parseNode.switchId],
+                        parseNode.switchFlag ? "打开" : "关闭"));
+                    tuseswt.ForeColor = Consta.getColoring(parseNode.type);
+                    currentParent.Nodes.Add(tuseswt);
                     break;
                 default:
                     throw new Exception("匹配树类型错误");
