@@ -274,6 +274,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "SymbolForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "符号管理器";
             this.Load += new System.EventHandler(this.SymbolForm_Load);
             this.tabControl1.ResumeLayout(false);

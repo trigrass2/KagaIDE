@@ -33,9 +33,7 @@ namespace KagaIDE.Forms
             if (e.Button == System.Windows.Forms.MouseButtons.Right)
             {
                 this.codeTreeView.SelectedNode = e.Node;
-                //Point pos = new Point(e.Node.Bounds.X + e.Node.Bounds.Width, e.Node.Bounds.Y + e.Node.Bounds.Height / 2);
                 Point pos = new Point(Cursor.Position.X, Cursor.Position.Y);
-                //this.contextMenuStrip1.Show(this.treeView1, pos);
                 this.contextMenuStrip1.Show(pos);
             }
         }
@@ -52,5 +50,6 @@ namespace KagaIDE.Forms
             e.Node.Expand();
             this.parentForm.moveCursorToInsertPlane();
         }
+
     }
 }

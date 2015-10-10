@@ -225,7 +225,7 @@ namespace KagaIDE.Forms
         {
             // 处理参数列表
             List<string> argvList = new List<string>();
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < Consta.switch_max; i++)
             {
                 if (this.switchDataGridView.Rows[i].Cells[1].Value == null)
                 {

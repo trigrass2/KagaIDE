@@ -285,7 +285,7 @@ namespace KagaIDE.Module
                     break;
                 // 编译控制：插入节点
                 case NodeType.PILE__PADDING_CURSOR:
-                    currentParent.Nodes.Add(Consta.prefix_frontend + " ");
+                    currentParent.Nodes.Add(Consta.prefix_frontend + "                                               ");
                     break;
                 // 操作：变量定义
                 case NodeType.DEFINE_VARIABLE:
