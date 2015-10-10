@@ -66,6 +66,7 @@
             this.编辑ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.插入命令ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.修改命令ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.删除命令ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.工程ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.函数管理器ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -73,6 +74,7 @@
             this.宏定义ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.编译ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.编译代码ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.翻译代码ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.翻译选项ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -83,17 +85,13 @@
             this.关于KagaIDEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.button20 = new System.Windows.Forms.Button();
             this.button21 = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.button20 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -431,7 +429,7 @@
             // 
             this.关闭ToolStripMenuItem.Name = "关闭ToolStripMenuItem";
             this.关闭ToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
-            this.关闭ToolStripMenuItem.Text = "关闭程序";
+            this.关闭ToolStripMenuItem.Text = "退出";
             this.关闭ToolStripMenuItem.Click += new System.EventHandler(this.关闭ToolStripMenuItem_Click);
             // 
             // 编辑ToolStripMenuItem
@@ -449,20 +447,25 @@
             // 插入命令ToolStripMenuItem
             // 
             this.插入命令ToolStripMenuItem.Name = "插入命令ToolStripMenuItem";
-            this.插入命令ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.插入命令ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.插入命令ToolStripMenuItem.Text = "插入命令";
             this.插入命令ToolStripMenuItem.Click += new System.EventHandler(this.插入命令ToolStripMenuItem_Click);
             // 
             // 修改命令ToolStripMenuItem
             // 
             this.修改命令ToolStripMenuItem.Name = "修改命令ToolStripMenuItem";
-            this.修改命令ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.修改命令ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.修改命令ToolStripMenuItem.Text = "修改命令";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(121, 6);
             // 
             // 删除命令ToolStripMenuItem
             // 
             this.删除命令ToolStripMenuItem.Name = "删除命令ToolStripMenuItem";
-            this.删除命令ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.删除命令ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.删除命令ToolStripMenuItem.Text = "删除命令";
             // 
             // 工程ToolStripMenuItem
@@ -518,6 +521,13 @@
             this.编译代码ToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F7;
             this.编译代码ToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.编译代码ToolStripMenuItem.Text = "编译代码";
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.ShortcutKeys = System.Windows.Forms.Keys.F8;
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(174, 22);
+            this.toolStripMenuItem3.Text = "下载到设备";
             // 
             // toolStripSeparator1
             // 
@@ -599,15 +609,6 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "操作";
             // 
-            // button20
-            // 
-            this.button20.Location = new System.Drawing.Point(6, 20);
-            this.button20.Name = "button20";
-            this.button20.Size = new System.Drawing.Size(90, 31);
-            this.button20.TabIndex = 19;
-            this.button20.Text = "编译";
-            this.button20.UseVisualStyleBackColor = true;
-            // 
             // button21
             // 
             this.button21.Location = new System.Drawing.Point(104, 20);
@@ -617,34 +618,20 @@
             this.button21.Text = "下载";
             this.button21.UseVisualStyleBackColor = true;
             // 
-            // pictureBox1
+            // button20
             // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.Image = global::KagaIDE.Properties.Resources.KK;
-            this.pictureBox1.Location = new System.Drawing.Point(821, 509);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(150, 150);
-            this.pictureBox1.TabIndex = 22;
-            this.pictureBox1.TabStop = false;
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
-            // 
-            // toolStripMenuItem3
-            // 
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.ShortcutKeys = System.Windows.Forms.Keys.F8;
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(174, 22);
-            this.toolStripMenuItem3.Text = "下载到设备";
+            this.button20.Location = new System.Drawing.Point(6, 20);
+            this.button20.Name = "button20";
+            this.button20.Size = new System.Drawing.Size(90, 31);
+            this.button20.TabIndex = 19;
+            this.button20.Text = "编译";
+            this.button20.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 697);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -664,7 +651,6 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.groupBox4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -727,7 +713,6 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button button21;
         private System.Windows.Forms.Button button20;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
     }

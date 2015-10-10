@@ -349,7 +349,7 @@ namespace KagaIDE
         {
             SymbolForm sf = new SymbolForm(1);
             sf.ShowDialog(this);
-        }
 
+        }
     }
 }
