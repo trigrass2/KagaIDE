@@ -78,6 +78,12 @@
     <Compile Include="Forms\Platform.Designer.cs">
       <DependentUpon>Platform.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\SwitchForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SwitchForm.Designer.cs">
+      <DependentUpon>SwitchForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\SymbolForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,6 +138,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Platform.resx">
       <DependentUpon>Platform.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SwitchForm.resx">
+      <DependentUpon>SwitchForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SymbolForm.resx">
       <DependentUpon>SymbolForm.cs</DependentUpon>

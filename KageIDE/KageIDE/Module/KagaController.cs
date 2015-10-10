@@ -123,6 +123,20 @@ namespace KagaIDE.Module
             }
         }
 
+        // 获得开关描述向量
+        public List<string> getSwitchDescriptionVector()
+        {
+            return symbolMana.getSwitchVector();
+        }
+
+        // 用新开关描述向量更新开关表
+        public void updateSwitchDescriptionVector(List<string> nlist)
+        {
+            if (nlist != null)
+            {
+                symbolMana.setSwitchVector(nlist);
+            }
+        }
         #endregion
 
 

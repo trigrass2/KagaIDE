@@ -53,6 +53,13 @@ namespace KagaIDE.Forms
                 this.globalvarDataGridView.Rows[i].Cells[0].Value = splitItem[0];
                 this.globalvarDataGridView.Rows[i].Cells[1].Value = splitItem[1];
             }
+            // 加载开关列表
+            for (int i = 0; i < Consta.switch_max; i++)
+            {
+                this.switchDataGridView.Rows.Add();
+                this.switchDataGridView.Rows[i].Cells[0].Value = i;
+                this.switchDataGridView.Rows[i].Cells[1].Value = core.getSwitchDescriptionVector()[i];
+            }
         }
 
         private void funListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -211,6 +218,27 @@ namespace KagaIDE.Forms
             {
                 ((MainForm)this.Owner).globalvarListBox.Items.Add((string)s.Replace("@", " @ "));
             }
+        }
+
+        // 开关管理页保存
+        private void button2_Click(object sender, EventArgs e)
+        {
+            // 处理参数列表
+            List<string> argvList = new List<string>();
+            for (int i = 0; i < 100; i++)
+            {
+                if (this.switchDataGridView.Rows[i].Cells[1].Value == null)
+                {
+                    argvList.Add("");
+                }
+                else
+                {
+                    string descript = this.switchDataGridView.Rows[i].Cells[1].Value.ToString();
+                    argvList.Add(descript);
+                }
+            }
+            // 把更新提交到后台
+            core.updateSwitchDescriptionVector(argvList);
         }
     }
 }

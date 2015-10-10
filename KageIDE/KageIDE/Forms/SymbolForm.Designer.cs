@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SymbolForm));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -37,16 +38,23 @@
             this.funListBox = new System.Windows.Forms.ListBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.globalvarDataGridView = new System.Windows.Forms.DataGridView();
+            this.button1 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
+            this.globalvarDataGridView = new System.Windows.Forms.DataGridView();
             this.变量名 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.类型 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.button1 = new System.Windows.Forms.Button();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.switchDataGridView = new System.Windows.Forms.DataGridView();
+            this.开关序号 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.描述 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button2 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.globalvarDataGridView)).BeginInit();
+            this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.switchDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -56,6 +64,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.Padding = new System.Drawing.Point(0, 0);
@@ -142,6 +151,26 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "全局变量";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(172, 301);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "保存";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.SystemColors.ButtonShadow;
+            this.label3.Location = new System.Drawing.Point(57, 309);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(113, 12);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "右键选中行删除变量";
+            // 
             // globalvarDataGridView
             // 
             this.globalvarDataGridView.AllowUserToResizeColumns = false;
@@ -158,16 +187,6 @@
             this.globalvarDataGridView.TabIndex = 0;
             this.globalvarDataGridView.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.globalvarDataGridView_CellMouseClick);
             this.globalvarDataGridView.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.globalvarDataGridView_EditingControlShowing);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.label3.Location = new System.Drawing.Point(57, 309);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(113, 12);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "右键选中行删除变量";
             // 
             // 变量名
             // 
@@ -191,15 +210,58 @@
             this.类型.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.类型.Width = 110;
             // 
-            // button1
+            // tabPage3
             // 
-            this.button1.Location = new System.Drawing.Point(172, 301);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "保存";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.tabPage3.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage3.Controls.Add(this.button2);
+            this.tabPage3.Controls.Add(this.switchDataGridView);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(571, 341);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "开关管理";
+            // 
+            // switchDataGridView
+            // 
+            this.switchDataGridView.AllowUserToAddRows = false;
+            this.switchDataGridView.AllowUserToDeleteRows = false;
+            this.switchDataGridView.AllowUserToResizeRows = false;
+            this.switchDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.switchDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.开关序号,
+            this.描述});
+            this.switchDataGridView.Location = new System.Drawing.Point(8, 12);
+            this.switchDataGridView.Name = "switchDataGridView";
+            this.switchDataGridView.RowHeadersVisible = false;
+            this.switchDataGridView.RowTemplate.Height = 23;
+            this.switchDataGridView.Size = new System.Drawing.Size(552, 297);
+            this.switchDataGridView.TabIndex = 0;
+            // 
+            // 开关序号
+            // 
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.开关序号.DefaultCellStyle = dataGridViewCellStyle1;
+            this.开关序号.Frozen = true;
+            this.开关序号.HeaderText = "序号";
+            this.开关序号.Name = "开关序号";
+            this.开关序号.ReadOnly = true;
+            this.开关序号.Width = 40;
+            // 
+            // 描述
+            // 
+            this.描述.HeaderText = "描述";
+            this.描述.Name = "描述";
+            this.描述.Width = 490;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(485, 315);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 2;
+            this.button2.Text = "保存";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // SymbolForm
             // 
@@ -219,6 +281,8 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.globalvarDataGridView)).EndInit();
+            this.tabPage3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.switchDataGridView)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -238,5 +302,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn 变量名;
         private System.Windows.Forms.DataGridViewComboBoxColumn 类型;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.DataGridView switchDataGridView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 开关序号;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 描述;
+        private System.Windows.Forms.Button button2;
     }
 }

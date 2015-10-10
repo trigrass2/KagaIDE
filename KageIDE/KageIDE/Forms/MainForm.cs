@@ -363,6 +363,13 @@ namespace KagaIDE
             sf.ShowDialog(this);
         }
 
+        // 菜单->开关管理器
+        private void toolStripMenuItem4_Click(object sender, EventArgs e)
+        {
+            SymbolForm sf = new SymbolForm(2);
+            sf.ShowDialog(this);
+        }
+
         private void button22_Click(object sender, EventArgs e)
         {
             core.refreshAll();
@@ -389,5 +396,6 @@ namespace KagaIDE
             core.dash_defineVariable(passBuffer);
             passBuffer = null;
         }
+
     }
 }

@@ -198,12 +198,29 @@ namespace KagaIDE.Module
         }
 
         /// <summary>
-        /// 返回全局变量符号表
+        /// 获取全局变量符号表
         /// </summary>
         /// <returns>全局变量符号表的引用</returns>
         public KagaTable getGlobalTable()
         {
-            return tableContainer.Count > 0 ? tableContainer[0] : null;
+            return this.tableContainer.Count > 0 ? this.tableContainer[0] : null;
+        }
+
+        /// <summary>
+        /// 获取开关描述向量
+        /// </summary>
+        /// <returns>开关描述向量</returns>
+        public List<string> getSwitchVector()
+        {
+            return this.switchContainer;
+        }
+
+        /// <summary>
+        /// 更新整个开关描述向量
+        /// </summary>
+        public void setSwitchVector(List<string> nsv)
+        {
+            this.switchContainer = nsv;
         }
 
         /// <summary>
@@ -234,9 +251,14 @@ namespace KagaIDE.Module
         // 私有的构造器
         private SymbolManager()
         {
-            marcoContainer = "";
-            tableContainer = new List<KagaTable>();
-            callfunContainer = new List<FunctionCell>();
+            this.marcoContainer = "";
+            this.tableContainer = new List<KagaTable>();
+            this.callfunContainer = new List<FunctionCell>();
+            this.switchContainer = new List<string>();
+            for (int i = 0; i < 100; i++)
+            {
+                this.switchContainer.Add("");
+            }
         }
         // 宏定义语句块
         private string marcoContainer = null;

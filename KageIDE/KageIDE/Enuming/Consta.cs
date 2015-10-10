@@ -143,6 +143,8 @@ namespace KagaIDE.Enuming
         public static readonly string switch_name = "___KAGA_SWITCHES";
         // 待命名变量名
         public static readonly string const_none = "#NVAR#";
+        // 开关总量
+        public static readonly int switch_max = 100;
         #endregion
     }
 }
