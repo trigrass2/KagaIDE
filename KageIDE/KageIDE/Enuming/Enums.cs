@@ -65,4 +65,28 @@ namespace KagaIDE.Enuming
         UNSIGNED_INT,
         UNSIGNED_CHAR
     }
+
+    /// <summary>
+    /// 枚举类型：变量操作类型
+    /// </summary>
+    public enum VarOperateType
+    {
+        赋值为,
+        加上,
+        减去,
+        乘以,
+        除以,
+        取余
+    }
+
+    /// <summary>
+    /// 枚举类型：变量操作数类型
+    /// </summary>
+    public enum OperandType
+    {
+        VO_Constant,
+        VO_GlobalVar,
+        VO_DefVar,
+        VO_Random
+    }
 }

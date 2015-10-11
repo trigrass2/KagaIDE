@@ -221,8 +221,68 @@ namespace KagaIDE.Module
             return codeParentNode.isNewBlock;    
         }
 
+        // 指令：变量操作
+        public void dash_varOperator(OperandType Lt, string lop, VarOperateType vt, OperandType Rt, string rop1, string rop2 = null)
+        {
+            // 刷新前台
+            TreeView curTree = this.getActiveTreeView();
+            int insertPoint = curTree.SelectedNode.Index;
+            TreeNode np;
+            switch (Rt)
+            {
+                case OperandType.VO_Constant:
+                    np = new TreeNode(
+                        String.Format("{0} 变量操作：{1} {2} 常数{3}", Consta.prefix_frontend,
+                        lop, vt.ToString(), rop1));
+                    break;
+                case OperandType.VO_GlobalVar:
+                    np = new TreeNode(
+                        String.Format("{0} 变量操作：{1} {2} 全局变量{3}的值", Consta.prefix_frontend,
+                        lop, vt.ToString(), rop1));
+                    break;
+                case OperandType.VO_DefVar:
+                    np = new TreeNode(
+                        String.Format("{0} 变量操作：{1} {2} 局部变量{3}的值", Consta.prefix_frontend,
+                        lop, vt.ToString(), rop1));
+                    break;
+                case OperandType.VO_Random:
+                    np = new TreeNode(
+                        String.Format("{0} 变量操作：{1} {2} 随机数范围[{3},{4}]", Consta.prefix_frontend,
+                        lop, vt.ToString(), rop1, rop2));
+                    break;
+                default:
+                    throw new Exception("操作类型为空错误");
+            }
+            np.ForeColor = Consta.getColoring(NodeType.EXPRESSION);
+            curTree.SelectedNode.Parent.Nodes.Insert(insertPoint, np);
+            // 把修改提交到代码管理器
+            KagaNode codeParentNode = codeMana.getSubTree((x) =>
+                x.index == curTree.SelectedNode.Parent.Index &&
+                x.depth == curTree.SelectedNode.Parent.Level + 1);
+            KagaNode nkn = new KagaNode(
+                codeParentNode.nodeName + "__" + NodeType.EXPRESSION.ToString(),
+                NodeType.EXPRESSION,
+                codeParentNode.depth + 1,
+                insertPoint,
+                codeParentNode);
+            nkn.varOperateType = vt;
+            nkn.operand1 = lop;
+            nkn.operand2 = rop1;
+            nkn.operand3 = rop2;
+            nkn.LopType = Lt;
+            nkn.RopType = Rt;
+            codeMana.insertNode(codeParentNode.depth + 1, insertPoint, nkn);
+        }
+
         #endregion
 
+        #region 符号管理器界面相关函数
+        // 获取所有函数名字
+        public List<string> getAllFunction()
+        {
+            return this.symbolMana.getFunctionNameList();
+        }
+        #endregion
 
         #region 前台刷新相关函数 
         // 设置MainForm的引用
@@ -285,7 +345,8 @@ namespace KagaIDE.Module
                     break;
                 // 编译控制：插入节点
                 case NodeType.PILE__PADDING_CURSOR:
-                    currentParent.Nodes.Add(Consta.prefix_frontend + "                                               ");
+                    currentParent.Nodes.Add(Consta.prefix_frontend +
+                        "                                                                                            ");
                     break;
                 // 操作：变量定义
                 case NodeType.DEFINE_VARIABLE:
@@ -303,6 +364,36 @@ namespace KagaIDE.Module
                     tuseswt.ForeColor = Consta.getColoring(parseNode.type);
                     currentParent.Nodes.Add(tuseswt);
                     break;
+                // 操作：变量操作
+                case NodeType.EXPRESSION:
+                    TreeNode vexpnode;
+                    if (parseNode.RopType == OperandType.VO_GlobalVar)
+                    {
+                        vexpnode = new TreeNode(
+                        String.Format("{0} 变量操作：{1} {2} 全局变量{3}的值", Consta.prefix_frontend,
+                        parseNode.operand1, parseNode.varOperateType.ToString(), parseNode.operand2));
+                    }
+                    else if (parseNode.RopType == OperandType.VO_DefVar)
+                    {
+                        vexpnode = new TreeNode(
+                        String.Format("{0} 变量操作：{1} {2} 局部变量{3}的值", Consta.prefix_frontend,
+                        parseNode.operand1, parseNode.varOperateType.ToString(), parseNode.operand2));
+                    }
+                    else if (parseNode.RopType == OperandType.VO_Random)
+                    {
+                        vexpnode = new TreeNode(
+                        String.Format("{0} 变量操作：{1} {2} 随机数范围[{3},{4}]", Consta.prefix_frontend,
+                        parseNode.operand1, parseNode.varOperateType.ToString(), parseNode.operand2, parseNode.operand3));
+                    }
+                    else
+                    {
+                        vexpnode = new TreeNode(
+                        String.Format("{0} 变量操作：{1} {2} 常数{3}", Consta.prefix_frontend,
+                        parseNode.operand1, parseNode.varOperateType.ToString(), parseNode.operand2));
+                    }
+                    vexpnode.ForeColor = Consta.getColoring(parseNode.type);
+                    currentParent.Nodes.Add(vexpnode);
+                    break;
                 default:
                     throw new Exception("匹配树类型错误");
             }
@@ -311,17 +402,6 @@ namespace KagaIDE.Module
         private TreeNode currentParent = null;
         private TreeView treeViewPointer = null;
         #endregion
-
-
-
-        #region 符号管理器界面相关函数
-        // 获取所有函数名字
-        public List<string> getAllFunction()
-        {
-            return this.symbolMana.getFunctionNameList();
-        }
-        #endregion
-
 
 
         // 工厂方法

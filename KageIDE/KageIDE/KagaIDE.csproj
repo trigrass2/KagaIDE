@@ -90,6 +90,12 @@
     <Compile Include="Forms\SymbolForm.Designer.cs">
       <DependentUpon>SymbolForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\VariableForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\VariableForm.Designer.cs">
+      <DependentUpon>VariableForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Module\KagaController.cs" />
     <Compile Include="Struct\FunctionCell.cs" />
     <Compile Include="Enuming\Enums.cs" />
@@ -144,6 +150,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SymbolForm.resx">
       <DependentUpon>SymbolForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\VariableForm.resx">
+      <DependentUpon>VariableForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -379,6 +379,10 @@ namespace KagaIDE
         private void button1_Click(object sender, EventArgs e)
         {
             // 检查这个节点可否插入变量
+            if (((TreeView)this.tabControl1.SelectedTab.Controls.Find("codeTreeView", true)[0]).SelectedNode == null)
+            {
+                return;
+            }
             if (core.isAbleInsertDefineVar() == false)
             {
                 MessageBox.Show("这个节点不可以插入变量定义", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -401,6 +405,10 @@ namespace KagaIDE
         private void button4_Click(object sender, EventArgs e)
         {
             // 检查这个节点可否插入
+            if (((TreeView)this.tabControl1.SelectedTab.Controls.Find("codeTreeView", true)[0]).SelectedNode == null)
+            {
+                return;
+            }
             if (((TreeView)this.tabControl1.SelectedTab.Controls.Find("codeTreeView", true)[0]).SelectedNode.Level == 0)
             {
                 MessageBox.Show("这个节点不可以插入开关操作", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -409,6 +417,24 @@ namespace KagaIDE
             this.moveCursorToPoint(this, new Point(this.Size.Width / 2, this.Size.Height / 2), Cursor.Position, 0, 0);
             SwitchForm sf = new SwitchForm();
             sf.ShowDialog(this);
+        }
+
+        // 插入指令：变量操作
+        private void button2_Click(object sender, EventArgs e)
+        {
+            // 检查这个节点可否插入
+            if (((TreeView)this.tabControl1.SelectedTab.Controls.Find("codeTreeView", true)[0]).SelectedNode == null)
+            {
+                return;
+            }
+            if (((TreeView)this.tabControl1.SelectedTab.Controls.Find("codeTreeView", true)[0]).SelectedNode.Level == 0)
+            {
+                MessageBox.Show("这个节点不可以插入开关操作", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            this.moveCursorToPoint(this, new Point(this.Size.Width / 2, this.Size.Height / 2), Cursor.Position, 0, 0);
+            VariableForm vf = new VariableForm();
+            vf.ShowDialog(this);
         }
 
     }

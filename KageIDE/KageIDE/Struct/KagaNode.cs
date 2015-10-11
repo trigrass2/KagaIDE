@@ -67,6 +67,18 @@ namespace KagaIDE
         public int switchId = -1;
         // 节点开关状态
         public bool switchFlag = false;
+        // 节点变量操作类型
+        public VarOperateType varOperateType = VarOperateType.赋值为;
+        // 节点左操作数
+        public string operand1 = Consta.const_none;
+        // 节点右操作数1
+        public string operand2 = Consta.const_none;
+        // 节点右操作数2
+        public string operand3 = Consta.const_none;
+        // 节点左操作数类型
+        public OperandType LopType = OperandType.VO_GlobalVar;
+        // 节点右操作数类型
+        public OperandType RopType = OperandType.VO_Constant;
         // 节点函数调用名称
         public string calling = "___KAGA__NO__FUNCALL___";
         // 节点函数调用参数列表
