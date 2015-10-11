@@ -29,6 +29,11 @@ namespace KagaIDE.Forms
             {
 
             }
+            // 注释时
+            else if (this.Text == "注释")
+            {
+                core.dash_notation(this.codeTextBox.Text);
+            }
             // 宏定义时
             else
             {

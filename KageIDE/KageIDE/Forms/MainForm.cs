@@ -437,5 +437,12 @@ namespace KagaIDE
             vf.ShowDialog(this);
         }
 
+        // 插入指令：注释
+        private void button9_Click(object sender, EventArgs e)
+        {
+            CodeInputForm cif = new CodeInputForm("注释");
+            cif.ShowDialog(this);
+        }
+
     }
 }

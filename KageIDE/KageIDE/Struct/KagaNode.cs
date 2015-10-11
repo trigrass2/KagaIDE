@@ -79,6 +79,8 @@ namespace KagaIDE
         public OperandType LopType = OperandType.VO_GlobalVar;
         // 节点右操作数类型
         public OperandType RopType = OperandType.VO_Constant;
+        // 注释内容
+        public string notation = Consta.const_none;
         // 节点函数调用名称
         public string calling = "___KAGA__NO__FUNCALL___";
         // 节点函数调用参数列表

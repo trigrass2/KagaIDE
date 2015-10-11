@@ -274,6 +274,29 @@ namespace KagaIDE.Module
             codeMana.insertNode(codeParentNode.depth + 1, insertPoint, nkn);
         }
 
+        // 指令：插入注释
+        public void dash_notation(string nota)
+        {
+            // 刷新前台
+            TreeView curTree = this.getActiveTreeView();
+            int insertPoint = curTree.SelectedNode.Index;
+            TreeNode np = new TreeNode(String.Format("{0} 注释：{1}", Consta.prefix_frontend, nota));
+            np.ForeColor = Consta.getColoring(NodeType.NOTE);
+            curTree.SelectedNode.Parent.Nodes.Insert(insertPoint, np);
+            // 把修改提交到代码管理器
+            KagaNode codeParentNode = codeMana.getSubTree((x) =>
+                x.index == curTree.SelectedNode.Parent.Index &&
+                x.depth == curTree.SelectedNode.Parent.Level + 1);
+            KagaNode nkn = new KagaNode(
+                codeParentNode.nodeName + "__" + NodeType.NOTE.ToString(),
+                NodeType.NOTE,
+                codeParentNode.depth + 1,
+                insertPoint,
+                codeParentNode);
+            nkn.notation = nota;
+            codeMana.insertNode(codeParentNode.depth + 1, insertPoint, nkn);
+        }
+
         #endregion
 
         #region 符号管理器界面相关函数
@@ -393,6 +416,13 @@ namespace KagaIDE.Module
                     }
                     vexpnode.ForeColor = Consta.getColoring(parseNode.type);
                     currentParent.Nodes.Add(vexpnode);
+                    break;
+                // 操作：注释
+                case NodeType.NOTE:
+                    TreeNode notanode = new TreeNode(
+                        String.Format("{0} 注释：{1}", Consta.prefix_frontend, parseNode.notation));
+                    notanode.ForeColor = Consta.getColoring(parseNode.type);
+                    currentParent.Nodes.Add(notanode);
                     break;
                 default:
                     throw new Exception("匹配树类型错误");
