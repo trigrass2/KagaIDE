@@ -170,7 +170,6 @@ namespace KagaIDE
         {
             CodeInputForm cif = new CodeInputForm("代码片段");
             cif.ShowDialog(this);
-
         }
 
         // 宏定义按钮

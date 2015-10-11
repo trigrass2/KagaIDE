@@ -27,7 +27,7 @@ namespace KagaIDE.Forms
             // 代码片段时
             if (this.Text == "代码片段")
             {
-
+                core.dash_codeblock(this.codeTextBox.Text);
             }
             // 注释时
             else if (this.Text == "注释")

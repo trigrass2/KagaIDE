@@ -280,8 +280,11 @@ namespace KagaIDE.Module
             // 刷新前台
             TreeView curTree = this.getActiveTreeView();
             int insertPoint = curTree.SelectedNode.Index;
-            TreeNode np = new TreeNode(String.Format("{0} 注释：{1}", Consta.prefix_frontend, nota));
+            TreeNode np = new TreeNode(String.Format("{0} 注释：{1} {2}",
+                Consta.prefix_frontend, nota.Split('\n')[0],
+                nota.Split('\n').Length > 1 ? "..." : ""));
             np.ForeColor = Consta.getColoring(NodeType.NOTE);
+            np.ToolTipText = nota;
             curTree.SelectedNode.Parent.Nodes.Insert(insertPoint, np);
             // 把修改提交到代码管理器
             KagaNode codeParentNode = codeMana.getSubTree((x) =>
@@ -297,6 +300,31 @@ namespace KagaIDE.Module
             codeMana.insertNode(codeParentNode.depth + 1, insertPoint, nkn);
         }
 
+        // 指令：插入代码片段
+        public void dash_codeblock(string myCode)
+        {
+            // 刷新前台
+            TreeView curTree = this.getActiveTreeView();
+            int insertPoint = curTree.SelectedNode.Index;
+            TreeNode np = new TreeNode(String.Format("{0} 代码片段：{1} {2}",
+                Consta.prefix_frontend, myCode.Split('\n')[0], 
+                myCode.Split('\n').Length > 1 ? "..." : ""));
+            np.ToolTipText = myCode;
+            np.ForeColor = Consta.getColoring(NodeType.CODEBLOCK);
+            curTree.SelectedNode.Parent.Nodes.Insert(insertPoint, np);
+            // 把修改提交到代码管理器
+            KagaNode codeParentNode = codeMana.getSubTree((x) =>
+                x.index == curTree.SelectedNode.Parent.Index &&
+                x.depth == curTree.SelectedNode.Parent.Level + 1);
+            KagaNode nkn = new KagaNode(
+                codeParentNode.nodeName + "__" + NodeType.CODEBLOCK.ToString(),
+                NodeType.CODEBLOCK,
+                codeParentNode.depth + 1,
+                insertPoint,
+                codeParentNode);
+            nkn.myCode = myCode;
+            codeMana.insertNode(codeParentNode.depth + 1, insertPoint, nkn);
+        }
         #endregion
 
         #region 符号管理器界面相关函数
@@ -420,9 +448,20 @@ namespace KagaIDE.Module
                 // 操作：注释
                 case NodeType.NOTE:
                     TreeNode notanode = new TreeNode(
-                        String.Format("{0} 注释：{1}", Consta.prefix_frontend, parseNode.notation));
+                        String.Format("{0} 注释：{1} {2}", Consta.prefix_frontend,
+                        parseNode.notation.Split('\n')[0], parseNode.notation.Split('\n').Length > 1 ? "..." : ""));
+                    notanode.ToolTipText = parseNode.notation;
                     notanode.ForeColor = Consta.getColoring(parseNode.type);
                     currentParent.Nodes.Add(notanode);
+                    break;
+                // 操作：代码片段
+                case NodeType.CODEBLOCK:
+                    TreeNode ncodeblock = new TreeNode(
+                        String.Format("{0} 代码片段：{1} {2}", Consta.prefix_frontend, 
+                        parseNode.myCode.Split('\n')[0], parseNode.myCode.Split('\n').Length > 1 ? "..." : ""));
+                    ncodeblock.ToolTipText = parseNode.myCode;
+                    ncodeblock.ForeColor = Consta.getColoring(parseNode.type);
+                    currentParent.Nodes.Add(ncodeblock);
                     break;
                 default:
                     throw new Exception("匹配树类型错误");
