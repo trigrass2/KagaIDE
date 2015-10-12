@@ -40,13 +40,31 @@ namespace KagaIDE.Module
         }
 
         /// <summary>
+        /// 获得指定函数的子树根节点
+        /// </summary>
+        /// <param name="callname">函数名称</param>
+        /// <returns>函数子树的根节点</returns>
+        public KagaNode getFunRoot(string callname)
+        {
+            KagaNode rootNode = this.parseTree;
+            foreach (KagaNode kn in rootNode.children)
+            {
+                if (kn.nodeName == callname)
+                {
+                    return kn;
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
         /// 获得满足指定条件的广度优先遍历得到的第一个根节点的子树
         /// </summary>
         /// <param name="match">匹配条件</param>
         /// <returns>满足条件的子树根节点</returns>
-        public KagaNode getSubTree(Predicate<KagaNode> match)
+        public KagaNode getSubTree(Predicate<KagaNode> match, KagaNode startNode)
         {
-            List<KagaNode> res = this.BFS(match, this.parseTree, null, true);
+            List<KagaNode> res = this.BFS(match, startNode, null, true);
             return res != null ? res[0] : null;
         }        
 
@@ -92,8 +110,9 @@ namespace KagaIDE.Module
             {
                 return false;
             }
-            // 首先找到父亲节点
-            KagaNode father = this.getSubTree((t) => t.depth == dep - 1);
+            // 首先找到自己和双亲
+            KagaNode selfNode = this.getSubTree((t) => t.depth == dep && t.index == bre, this.parseTree);
+            KagaNode father = selfNode.parent;
             if (father == null || father.children.Count < bre)
             {
                 return false;

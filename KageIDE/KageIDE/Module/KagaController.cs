@@ -26,7 +26,23 @@ namespace KagaIDE.Module
                 string[] splitItem = s.Split('@');
                 signArgs.Add(new KagaVar(splitItem[0], Consta.parseCTypeToVarType(splitItem[1])));
             }
-            return this.symbolMana.addFunction(new FunctionCell(fcname, signArgs, signRetType));
+            // 提交给符号管理器
+            FunctionCell nfc = new FunctionCell(fcname, signArgs, signRetType);
+            bool flag = this.symbolMana.addFunction(nfc);
+            if (flag == false)
+            {
+                return false;
+            }
+            // 提交给代码管理器
+            KagaNode rootNode = codeMana.getRoot();
+            // 为根节点追加一个fun函数节点
+            KagaNode funNode = new KagaNode(fcname, NodeType.PILE__BLOCK__FUNCTION, 1, rootNode.children.Count, rootNode);
+            funNode.funBinding = nfc;
+            rootNode.children.Add(funNode);
+            // 为fun函数节点追加代码块光标节点、代码块右边界
+            funNode.children.Add(new KagaNode(fcname + "__PADDING_CURSOR", NodeType.PILE__PADDING_CURSOR, 2, 0, funNode));
+            funNode.children.Add(new KagaNode(fcname + "__BRIGHT_BRUCKET", NodeType.PILE__BRIGHT_BRUCKET, 2, 1, funNode));
+            return true;
         }
 
         // 删除一个函数
@@ -141,6 +157,22 @@ namespace KagaIDE.Module
 
 
         #region 主窗口指令操作函数
+        // 获得操作节点
+        public KagaNode getOpNode()
+        {
+            TreeView curTree = this.getActiveTreeView();
+            KagaNode codeFunNode = codeMana.getFunRoot(this.mainFormPointer.tabControl1.SelectedTab.Text);
+            KagaNode codeParentNode = codeMana.getSubTree((x) =>
+                x.index == curTree.SelectedNode.Parent.Index &&
+                x.depth == curTree.SelectedNode.Parent.Level + 1, codeFunNode);
+            // 函数根节点
+            if (curTree.SelectedNode.Parent.Level == 0)
+            {
+                return codeFunNode;
+            }
+            return codeParentNode;
+        }
+        
         // 获得宏定义
         public string getMarcos()
         {
@@ -165,9 +197,7 @@ namespace KagaIDE.Module
             np.ForeColor = Consta.getColoring(NodeType.DEFINE_VARIABLE);
             curTree.SelectedNode.Parent.Nodes.Insert(insertPoint, np);
             // 把修改提交到代码管理器
-            KagaNode codeParentNode = codeMana.getSubTree((x) =>
-                x.index == curTree.SelectedNode.Parent.Index &&
-                x.depth == curTree.SelectedNode.Parent.Level + 1);
+            KagaNode codeParentNode = this.getOpNode();
             KagaNode nkn = new KagaNode(
                 codeParentNode.nodeName + "__" + NodeType.DEFINE_VARIABLE.ToString(),
                 NodeType.DEFINE_VARIABLE,
@@ -193,9 +223,7 @@ namespace KagaIDE.Module
             np.ForeColor = Consta.getColoring(NodeType.USING_SWITCHES);
             curTree.SelectedNode.Parent.Nodes.Insert(insertPoint, np);
             // 把修改提交到代码管理器
-            KagaNode codeParentNode = codeMana.getSubTree((x) =>
-                x.index == curTree.SelectedNode.Parent.Index &&
-                x.depth == curTree.SelectedNode.Parent.Level + 1);
+            KagaNode codeParentNode = this.getOpNode();
             KagaNode nkn = new KagaNode(
                 codeParentNode.nodeName + "__" + NodeType.USING_SWITCHES.ToString(),
                 NodeType.USING_SWITCHES,
@@ -215,10 +243,8 @@ namespace KagaIDE.Module
             {
                 return false;
             }
-            KagaNode codeParentNode = codeMana.getSubTree((x) =>
-                x.index == curTree.SelectedNode.Parent.Index &&
-                x.depth == curTree.SelectedNode.Parent.Level + 1);
-            return codeParentNode.isNewBlock;    
+            KagaNode codeParentNode = this.getOpNode();
+            return codeParentNode.isNewBlock;
         }
 
         // 指令：变量操作
@@ -256,9 +282,7 @@ namespace KagaIDE.Module
             np.ForeColor = Consta.getColoring(NodeType.EXPRESSION);
             curTree.SelectedNode.Parent.Nodes.Insert(insertPoint, np);
             // 把修改提交到代码管理器
-            KagaNode codeParentNode = codeMana.getSubTree((x) =>
-                x.index == curTree.SelectedNode.Parent.Index &&
-                x.depth == curTree.SelectedNode.Parent.Level + 1);
+            KagaNode codeParentNode = this.getOpNode();
             KagaNode nkn = new KagaNode(
                 codeParentNode.nodeName + "__" + NodeType.EXPRESSION.ToString(),
                 NodeType.EXPRESSION,
@@ -287,9 +311,7 @@ namespace KagaIDE.Module
             np.ToolTipText = nota;
             curTree.SelectedNode.Parent.Nodes.Insert(insertPoint, np);
             // 把修改提交到代码管理器
-            KagaNode codeParentNode = codeMana.getSubTree((x) =>
-                x.index == curTree.SelectedNode.Parent.Index &&
-                x.depth == curTree.SelectedNode.Parent.Level + 1);
+            KagaNode codeParentNode = this.getOpNode();
             KagaNode nkn = new KagaNode(
                 codeParentNode.nodeName + "__" + NodeType.NOTE.ToString(),
                 NodeType.NOTE,
@@ -313,9 +335,7 @@ namespace KagaIDE.Module
             np.ForeColor = Consta.getColoring(NodeType.CODEBLOCK);
             curTree.SelectedNode.Parent.Nodes.Insert(insertPoint, np);
             // 把修改提交到代码管理器
-            KagaNode codeParentNode = codeMana.getSubTree((x) =>
-                x.index == curTree.SelectedNode.Parent.Index &&
-                x.depth == curTree.SelectedNode.Parent.Level + 1);
+            KagaNode codeParentNode = this.getOpNode();
             KagaNode nkn = new KagaNode(
                 codeParentNode.nodeName + "__" + NodeType.CODEBLOCK.ToString(),
                 NodeType.CODEBLOCK,
@@ -358,8 +378,7 @@ namespace KagaIDE.Module
             {
                 // 取得函数在代码树上的根节点
                 string tabFunName = p.Text;
-                KagaNode funNode = codeMana.getSubTree(
-                    (x) => x.type == NodeType.PILE__BLOCK__FUNCTION && x.nodeName == tabFunName);
+                KagaNode funNode = codeMana.getFunRoot(tabFunName);
                 // 清空当前tab页
                 Control[] controls = p.Controls.Find("codeTreeView", true);
                 if (controls.Length < 1)
@@ -374,9 +393,9 @@ namespace KagaIDE.Module
                     startNode: funNode, 
                     func: (x) => this.drawTreeContext(x), 
                     unique: false);
+                // 展开所有节点
+                treeViewPointer.ExpandAll();
             }
-            // 展开所有节点
-            treeViewPointer.ExpandAll();
         }
 
         // 窗体绘制函数
