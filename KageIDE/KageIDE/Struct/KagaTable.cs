@@ -34,6 +34,7 @@ namespace KagaIDE.Struct
         /// <returns>编译模式时符号签名字符串向量</returns>
         public List<string> getParseTable()
         {
+            this.prefix = String.Format("{0}_{1}_{2}", Consta.prefix_var, this.depth, this.belong.index);
             List<string> parList = new List<string>();
             foreach (KagaVar s in symbols)
             {

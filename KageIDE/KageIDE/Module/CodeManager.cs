@@ -176,6 +176,10 @@ namespace KagaIDE.Module
             {
                 father.children[i].index = i;
                 father.children[i].depth = father.depth + 1;
+                if (father.children[i].isNewBlock == true)
+                {
+                    father.children[i].symbolTable.depth = father.depth + 1;
+                }
             }
             return father;
         }
