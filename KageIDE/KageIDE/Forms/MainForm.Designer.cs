@@ -199,6 +199,7 @@
             this.button5.TabIndex = 8;
             this.button5.Text = "条件语句";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button6
             // 

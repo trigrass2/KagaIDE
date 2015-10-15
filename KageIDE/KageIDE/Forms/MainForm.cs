@@ -443,5 +443,12 @@ namespace KagaIDE
             cif.ShowDialog(this);
         }
 
+        // 插入指令：条件语句
+        private void button5_Click(object sender, EventArgs e)
+        {
+            ConditionForm cf = new ConditionForm();
+            cf.ShowDialog(this);
+        }
+
     }
 }
