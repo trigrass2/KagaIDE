@@ -49,8 +49,8 @@
             this.radioButton9 = new System.Windows.Forms.RadioButton();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.radioButton12 = new System.Windows.Forms.RadioButton();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -109,6 +109,7 @@
             this.radioButton1.TabStop = true;
             this.radioButton1.Text = "全局变量";
             this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // groupBox2
             // 
@@ -249,6 +250,7 @@
             this.radioButton11.TabStop = true;
             this.radioButton11.Text = "局部变量";
             this.radioButton11.UseVisualStyleBackColor = true;
+            this.radioButton11.CheckedChanged += new System.EventHandler(this.radioButton11_CheckedChanged);
             // 
             // radioButton10
             // 
@@ -260,6 +262,7 @@
             this.radioButton10.TabStop = true;
             this.radioButton10.Text = "全局变量";
             this.radioButton10.UseVisualStyleBackColor = true;
+            this.radioButton10.CheckedChanged += new System.EventHandler(this.radioButton10_CheckedChanged);
             // 
             // radioButton9
             // 
@@ -271,6 +274,7 @@
             this.radioButton9.TabStop = true;
             this.radioButton9.Text = "常数";
             this.radioButton9.UseVisualStyleBackColor = true;
+            this.radioButton9.CheckedChanged += new System.EventHandler(this.radioButton9_CheckedChanged);
             // 
             // checkBox1
             // 
@@ -284,7 +288,7 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.radioButton12);
+            this.groupBox4.Controls.Add(this.checkBox2);
             this.groupBox4.Controls.Add(this.textBox2);
             this.groupBox4.Location = new System.Drawing.Point(12, 267);
             this.groupBox4.Name = "groupBox4";
@@ -293,23 +297,23 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "高级";
             // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(16, 23);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(84, 16);
+            this.checkBox2.TabIndex = 6;
+            this.checkBox2.Text = "条件表达式";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
+            // 
             // textBox2
             // 
             this.textBox2.Location = new System.Drawing.Point(122, 21);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(175, 21);
             this.textBox2.TabIndex = 0;
-            // 
-            // radioButton12
-            // 
-            this.radioButton12.AutoSize = true;
-            this.radioButton12.Location = new System.Drawing.Point(16, 22);
-            this.radioButton12.Name = "radioButton12";
-            this.radioButton12.Size = new System.Drawing.Size(83, 16);
-            this.radioButton12.TabIndex = 5;
-            this.radioButton12.TabStop = true;
-            this.radioButton12.Text = "条件表达式";
-            this.radioButton12.UseVisualStyleBackColor = true;
             // 
             // button1
             // 
@@ -338,6 +342,7 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "条件语句";
+            this.Load += new System.EventHandler(this.ConditionForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -375,9 +380,9 @@
         private System.Windows.Forms.RadioButton radioButton9;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.RadioButton radioButton12;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.CheckBox checkBox2;
 
 
     }
