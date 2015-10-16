@@ -89,4 +89,17 @@ namespace KagaIDE.Enuming
         VO_DefVar,
         VO_Random
     }
+
+    /// <summary>
+    /// 枚举类型：条件语句操作符
+    /// </summary>
+    public enum CondOperatorType
+    {
+        等于,
+        不等于,
+        大于,
+        小于,
+        大于等于,
+        小于等于
+    }
 }

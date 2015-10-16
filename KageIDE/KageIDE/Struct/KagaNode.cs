@@ -51,10 +51,14 @@ namespace KagaIDE
         // 节点类型
         public NodeType type = NodeType.NOP;
 
+        // 节点条件表达式标记
+        public bool isConditionEx = false;
+        // 节点含有分歧语句标记
+        public bool isContainElse = false;
         // 节点条件表达式
-        public string condition = "___KAGA__NO__CONDITION___";
+        public string conditionEx = Consta.const_none;
         // 节点定义变量名
-        public string defineVarName = "___KAGA__NO__VARNAME___";
+        public string defineVarName = Consta.const_none;
         // 节点定义变量类型
         public VarType defineVarType = VarType.VOID;
         // 节点For指令开始位置
@@ -84,9 +88,9 @@ namespace KagaIDE
         // 代码块
         public string myCode = Consta.const_none;
         // 节点函数调用名称
-        public string calling = "___KAGA__NO__FUNCALL___";
+        public string calling = Consta.const_none;
         // 节点函数调用参数列表
-        public string callingParams = "___KAGA__NO__PARAS____";
+        public string callingParams = Consta.const_none;
 
         // 函数绑定
         public FunctionCell funBinding = null;
