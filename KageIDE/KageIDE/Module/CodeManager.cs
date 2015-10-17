@@ -74,7 +74,6 @@ namespace KagaIDE.Module
         /// <param name="dep">插入深度</param>
         /// <param name="bre">插入广度</param>
         /// <param name="obj">待插入节点</param>
-        /// <param name="parent">双亲节点</param>
         /// <returns>插入是否成功</returns>
         public bool insertNode(int dep, int bre, KagaNode obj)
         {
@@ -95,6 +94,22 @@ namespace KagaIDE.Module
             // 更新子树信息
             this.update(obj.parent, false);
             return true;
+        }
+
+        /// <summary>
+        /// 在指定的深度和广度处插入一个节点，并生成一个语句块
+        /// </summary>
+        /// <param name="dep">插入深度</param>
+        /// <param name="bre">插入广度</param>
+        /// <param name="obj">待插入节点</param>
+        /// <returns>插入是否成功</returns>
+        public bool insertBlockNode(int dep, int bre, KagaNode obj)
+        {
+            // 生成它的孩子节点，追加代码块光标节点、代码块右边界
+            obj.children.Add(new KagaNode(obj.nodeName + "__PADDING_CURSOR", NodeType.PILE__PADDING_CURSOR, dep + 1, 0, obj));
+            obj.children.Add(new KagaNode(obj.nodeName + "__BRIGHT_BRUCKET", NodeType.PILE__BRIGHT_BRUCKET, dep + 1, 1, obj));
+            // 插入到代码树
+            return this.insertNode(dep, bre, obj);
         }
 
         /// <summary>

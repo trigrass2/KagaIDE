@@ -71,6 +71,8 @@ namespace KagaIDE
         public int switchId = -1;
         // 节点开关状态
         public bool switchFlag = false;
+        // 节点条件判断类型
+        public CondOperatorType condOperateType = CondOperatorType.等于;
         // 节点变量操作类型
         public VarOperateType varOperateType = VarOperateType.赋值为;
         // 节点左操作数

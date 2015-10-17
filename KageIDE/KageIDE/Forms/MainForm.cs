@@ -439,6 +439,16 @@ namespace KagaIDE
         // 插入指令：注释
         private void button9_Click(object sender, EventArgs e)
         {
+            // 检查这个节点可否插入
+            if (((TreeView)this.tabControl1.SelectedTab.Controls.Find("codeTreeView", true)[0]).SelectedNode == null)
+            {
+                return;
+            }
+            if (((TreeView)this.tabControl1.SelectedTab.Controls.Find("codeTreeView", true)[0]).SelectedNode.Level == 0)
+            {
+                MessageBox.Show("这个节点不可以插入注释", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             CodeInputForm cif = new CodeInputForm("注释");
             cif.ShowDialog(this);
         }
@@ -446,6 +456,16 @@ namespace KagaIDE
         // 插入指令：条件语句
         private void button5_Click(object sender, EventArgs e)
         {
+            // 检查这个节点可否插入
+            if (((TreeView)this.tabControl1.SelectedTab.Controls.Find("codeTreeView", true)[0]).SelectedNode == null)
+            {
+                return;
+            }
+            if (((TreeView)this.tabControl1.SelectedTab.Controls.Find("codeTreeView", true)[0]).SelectedNode.Level == 0)
+            {
+                MessageBox.Show("这个节点不可以插入条件语句", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             ConditionForm cf = new ConditionForm();
             cf.ShowDialog(this);
         }

@@ -298,6 +298,107 @@ namespace KagaIDE.Module
             codeMana.insertNode(codeParentNode.depth + 1, insertPoint, nkn);
         }
 
+        // 指令：条件操作
+        public void dash_condition(
+            bool isCondEx, string condEx, bool containElse,
+            OperandType Lt, string lop, CondOperatorType condt, OperandType Rt, string rop)
+        {
+            // 刷新前台
+            TreeView curTree = this.getActiveTreeView();
+            int insertPoint = curTree.SelectedNode.Index;
+            StringBuilder sb = new StringBuilder();
+            sb.Append(Consta.prefix_frontCond + " 当");
+            if (isCondEx)
+            {
+                sb.Append("表达式：" + condEx + " 为真");
+            }
+            else
+            {
+                switch (Lt)
+                {
+                    case OperandType.VO_GlobalVar:
+                        sb.Append("全局变量");
+                        break;
+                    case OperandType.VO_DefVar:
+                        sb.Append("局部变量");
+                        break;
+                    case OperandType.VO_Switch:
+                        sb.Append("开关");
+                        break;
+                    default:
+                        break;
+                }
+                sb.Append(lop);
+                sb.Append(" " + condt.ToString() + " ");
+                switch (Rt)
+                {
+                    case OperandType.VO_Constant:
+                        sb.Append("常数");
+                        break;
+                    case OperandType.VO_GlobalVar:
+                        sb.Append("全局变量");
+                        break;
+                    case OperandType.VO_DefVar:
+                        sb.Append("局部变量");
+                        break;
+                    case OperandType.VO_Switch:
+                        break;
+                    default:
+                        break;
+                }
+            }
+            sb.Append(rop);
+            sb.Append(" 时：");
+            TreeNode fp = new TreeNode(String.Format("{0} 条件分支", Consta.prefix_frontend));
+            TreeNode np = new TreeNode(sb.ToString());
+            np.ForeColor = Consta.getColoring(NodeType.BLOCK__IF);
+            // padding节点要追加给np
+            np.Nodes.Add(Consta.prefix_frontend +
+                        "                                                                                            ");
+            fp.Nodes.Add(np);
+            // 如果有分支
+            if (containElse)
+            {
+                TreeNode ep = new TreeNode(Consta.prefix_frontCond + " 除此以外的情况下：");
+                ep.Nodes.Add(Consta.prefix_frontend +
+                        "                                                                                            ");
+                fp.Nodes.Add(ep);
+            }
+            curTree.SelectedNode.Parent.Nodes.Insert(insertPoint, fp);
+            // 把修改提交到代码管理器
+            KagaNode codeParentNode = this.getOpNode();
+            KagaNode nkn = new KagaNode(
+                codeParentNode.nodeName + "__" + NodeType.BLOCK__IF.ToString(),
+                NodeType.BLOCK__IF,
+                codeParentNode.depth + 1,
+                insertPoint,
+                codeParentNode);
+            // 如果是条件语句
+            nkn.isConditionEx = isCondEx;
+            nkn.isContainElse = containElse;
+            if (isCondEx)
+            {
+                nkn.conditionEx = condEx;
+            }
+            else
+            {
+                nkn.operand1 = lop;
+                nkn.operand2 = rop;
+                nkn.LopType = Lt;
+                nkn.RopType = Rt;
+                nkn.condOperateType = condt;
+            }
+            // 判断是否需要插入分支语句
+            if (containElse)
+            {
+
+            }
+            else
+            {
+                codeMana.insertNode(codeParentNode.depth + 1, insertPoint, nkn);
+            }
+        }
+
         // 指令：插入注释
         public void dash_notation(string nota)
         {

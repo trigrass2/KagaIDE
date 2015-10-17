@@ -31,8 +31,6 @@ namespace KagaIDE.Enuming
         CODEBLOCK,
         // 条件语句
         BLOCK__IF,
-        // 分支语句
-        BLOCK__IF_ELSE,
         // 条件循环
         BLOCK__WHILE,
         // 后置条件循环
@@ -87,7 +85,8 @@ namespace KagaIDE.Enuming
         VO_Constant,
         VO_GlobalVar,
         VO_DefVar,
-        VO_Random
+        VO_Random,
+        VO_Switch
     }
 
     /// <summary>
