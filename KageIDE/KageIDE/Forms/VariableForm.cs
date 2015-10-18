@@ -51,6 +51,8 @@ namespace KagaIDE.Forms
                 this.comboBox1.SelectedIndex = 0;
                 this.comboBox2.SelectedIndex = 0;
             }
+            // 放置焦点
+            this.numericUpDown1.Focus();
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)

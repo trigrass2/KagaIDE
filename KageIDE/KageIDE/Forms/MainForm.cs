@@ -539,6 +539,19 @@ namespace KagaIDE
             clf.ShowDialog(this);
         }
 
+        // 插入指令：次数循环
+        private void button8_Click(object sender, EventArgs e)
+        {
+            // 检查这个节点可否插入
+            if (this.isAbleInsert() == false)
+            {
+                return;
+            }
+            this.moveCursorToPoint(this, new Point(this.Size.Width / 2, this.Size.Height / 2), Cursor.Position, 0, 0);
+            ForLoopForm flf = new ForLoopForm();
+            flf.ShowDialog(this);
+        }
+
         // 插入指令：中断循环
         private void button19_Click(object sender, EventArgs e)
         {

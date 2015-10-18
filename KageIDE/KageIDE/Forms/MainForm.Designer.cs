@@ -228,8 +228,9 @@
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(90, 31);
             this.button8.TabIndex = 11;
-            this.button8.Text = "边界循环";
+            this.button8.Text = "次数循环";
             this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // button9
             // 
