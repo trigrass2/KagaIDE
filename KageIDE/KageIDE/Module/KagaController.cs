@@ -13,7 +13,6 @@ namespace KagaIDE.Module
     /// <summary>
     /// 程序前后台交互总控制器
     /// </summary>
-    [Serializable]
     public class KagaController
     {
         #region 文件操作相关函数
@@ -532,6 +531,26 @@ namespace KagaIDE.Module
             codeMana.insertNode(codeParentNode.depth + 1, insertPoint, nkn);
         }
 
+        // 指令：中断循环
+        public void dash_break()
+        {
+            // 刷新前台
+            TreeView curTree = this.getActiveTreeView();
+            int insertPoint = curTree.SelectedNode.Index;
+            TreeNode np = new TreeNode(Consta.prefix_frontend + " 中断本次循环");
+            np.ForeColor = Consta.getColoring(NodeType.BREAK);
+            curTree.SelectedNode.Parent.Nodes.Insert(insertPoint, np);
+            // 把修改提交到后台
+            KagaNode codeParentNode = this.getOpNodeParent(1);
+            KagaNode nkn = new KagaNode(
+                codeParentNode.anodeName + "___" + NodeType.BREAK.ToString(),
+                NodeType.BREAK,
+                codeParentNode.depth + 1,
+                insertPoint,
+                codeParentNode);
+            codeMana.insertNode(codeParentNode.depth + 1, insertPoint, nkn);
+        }
+
         // 指令：插入注释
         public void dash_notation(string nota)
         {
@@ -811,6 +830,12 @@ namespace KagaIDE.Module
                     }
                     vexpnode.ForeColor = Consta.getColoring(parseNode.atype);
                     currentParent.Nodes.Add(vexpnode);
+                    break;
+                // 操作：中断循环
+                case NodeType.BREAK:
+                    TreeNode breakNode = new TreeNode(Consta.prefix_frontend + " 中断本次循环");
+                    breakNode.ForeColor = Consta.getColoring(parseNode.atype);
+                    currentParent.Nodes.Add(breakNode);
                     break;
                 // 操作：注释
                 case NodeType.NOTE:

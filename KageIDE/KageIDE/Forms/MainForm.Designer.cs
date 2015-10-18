@@ -82,6 +82,8 @@
             this.视图ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.函数窗体ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.全局变量窗体ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.刷新ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.关于KagaIDEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
@@ -89,8 +91,6 @@
             this.button21 = new System.Windows.Forms.Button();
             this.button20 = new System.Windows.Forms.Button();
             this.button22 = new System.Windows.Forms.Button();
-            this.刷新ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -345,6 +345,7 @@
             this.button19.TabIndex = 18;
             this.button19.Text = "中断循环";
             this.button19.UseVisualStyleBackColor = true;
+            this.button19.Click += new System.EventHandler(this.button19_Click);
             // 
             // groupBox3
             // 
@@ -600,6 +601,18 @@
             this.全局变量窗体ToolStripMenuItem.Text = "全局变量窗体";
             this.全局变量窗体ToolStripMenuItem.Click += new System.EventHandler(this.全局变量窗体ToolStripMenuItem_Click);
             // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(166, 6);
+            // 
+            // 刷新ToolStripMenuItem
+            // 
+            this.刷新ToolStripMenuItem.Name = "刷新ToolStripMenuItem";
+            this.刷新ToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.刷新ToolStripMenuItem.Text = "刷新";
+            this.刷新ToolStripMenuItem.Click += new System.EventHandler(this.刷新ToolStripMenuItem_Click);
+            // 
             // 关于ToolStripMenuItem
             // 
             this.关于ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -660,18 +673,6 @@
             this.button22.Text = "button22";
             this.button22.UseVisualStyleBackColor = true;
             this.button22.Click += new System.EventHandler(this.button22_Click);
-            // 
-            // 刷新ToolStripMenuItem
-            // 
-            this.刷新ToolStripMenuItem.Name = "刷新ToolStripMenuItem";
-            this.刷新ToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.刷新ToolStripMenuItem.Text = "刷新";
-            this.刷新ToolStripMenuItem.Click += new System.EventHandler(this.刷新ToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(166, 6);
             // 
             // MainForm
             // 

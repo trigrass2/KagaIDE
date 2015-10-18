@@ -48,7 +48,6 @@ namespace KagaIDE.Forms
             {
                 this.comboBox1.Enabled = true;
                 this.condLoopType = CondLoopType.CLT_SWITCH;
-                this.operand = (string)this.comboBox1.Items[this.comboBox1.SelectedIndex];
             }
             else
             {
@@ -62,7 +61,6 @@ namespace KagaIDE.Forms
             {
                 this.textBox1.Enabled = true;
                 this.condLoopType = CondLoopType.CLT_EXPRESSION;
-                this.operand = this.textBox1.Text;
             }
             else
             {
@@ -73,6 +71,14 @@ namespace KagaIDE.Forms
         // 确定
         private void button1_Click(object sender, EventArgs e)
         {
+            if (condLoopType == CondLoopType.CLT_SWITCH)
+            {
+                this.operand = (string)this.comboBox1.Items[this.comboBox1.SelectedIndex];
+            }
+            else if (condLoopType == CondLoopType.CLT_EXPRESSION)
+            {
+                this.operand = this.textBox1.Text;
+            }
             core.dash_condLoop(this.condLoopType, operand, this.checkBox1.Checked);
             this.Close();
         }
