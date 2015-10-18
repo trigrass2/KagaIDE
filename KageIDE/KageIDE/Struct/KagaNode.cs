@@ -23,8 +23,8 @@ namespace KagaIDE
         public KagaNode(string nname, NodeType nt, int nodeDepth, int nodeIndex, KagaNode paraParent) 
         {
             // 初始化节点信息
-            this.type = nt;
-            this.nodeName = nname;
+            this.atype = nt;
+            this.anodeName = nname;
             this.depth = nodeDepth;
             this.parent = paraParent;
             this.children = new List<KagaNode>();
@@ -47,9 +47,9 @@ namespace KagaIDE
         public string errorCode = "___KAGA__NO__ERC___";
 
         // 节点名字
-        public string nodeName = "___KAGA__NO__NAME___";
+        public string anodeName = "___KAGA__NO__NAME___";
         // 节点类型
-        public NodeType type = NodeType.NOP;
+        public NodeType atype = NodeType.NOP;
 
         // 节点条件表达式标记
         public bool isConditionEx = false;

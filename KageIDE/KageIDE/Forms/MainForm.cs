@@ -168,6 +168,7 @@ namespace KagaIDE
         // 代码片段按钮
         private void button14_Click(object sender, EventArgs e)
         {
+            this.moveCursorToPoint(this, new Point(this.Size.Width / 2, this.Size.Height / 2), Cursor.Position, 170, 150);
             CodeInputForm cif = new CodeInputForm("代码片段");
             cif.ShowDialog(this);
         }
@@ -449,6 +450,7 @@ namespace KagaIDE
                 MessageBox.Show("这个节点不可以插入注释", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            this.moveCursorToPoint(this, new Point(this.Size.Width / 2, this.Size.Height / 2), Cursor.Position, 170, 150);
             CodeInputForm cif = new CodeInputForm("注释");
             cif.ShowDialog(this);
         }
@@ -466,6 +468,7 @@ namespace KagaIDE
                 MessageBox.Show("这个节点不可以插入条件语句", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            this.moveCursorToPoint(this, new Point(this.Size.Width / 2, this.Size.Height / 2), Cursor.Position, 0, 0);
             ConditionForm cf = new ConditionForm();
             cf.ShowDialog(this);
         }

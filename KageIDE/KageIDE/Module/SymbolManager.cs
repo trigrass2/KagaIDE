@@ -255,7 +255,7 @@ namespace KagaIDE.Module
             this.tableContainer = new List<KagaTable>();
             this.callfunContainer = new List<FunctionCell>();
             this.switchContainer = new List<string>();
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < Consta.switch_max; i++)
             {
                 this.switchContainer.Add("");
             }

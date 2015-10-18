@@ -40,8 +40,8 @@ namespace KagaIDE.Module
             funNode.funBinding = nfc;
             rootNode.children.Add(funNode);
             // 为fun函数节点追加代码块光标节点、代码块右边界
-            funNode.children.Add(new KagaNode(fcname + "__PADDING_CURSOR", NodeType.PILE__PADDING_CURSOR, 2, 0, funNode));
-            funNode.children.Add(new KagaNode(fcname + "__BRIGHT_BRUCKET", NodeType.PILE__BRIGHT_BRUCKET, 2, 1, funNode));
+            funNode.children.Add(new KagaNode(fcname + "___PADDING_CURSOR", NodeType.PILE__PADDING_CURSOR, 2, 0, funNode));
+            funNode.children.Add(new KagaNode(fcname + "___BRIGHT_BRUCKET", NodeType.PILE__BRIGHT_BRUCKET, 2, 1, funNode));
             return true;
         }
 
@@ -199,7 +199,7 @@ namespace KagaIDE.Module
             // 把修改提交到代码管理器
             KagaNode codeParentNode = this.getOpNode();
             KagaNode nkn = new KagaNode(
-                codeParentNode.nodeName + "__" + NodeType.DEFINE_VARIABLE.ToString(),
+                codeParentNode.anodeName + "___" + NodeType.DEFINE_VARIABLE.ToString(),
                 NodeType.DEFINE_VARIABLE,
                 codeParentNode.depth + 1,
                 insertPoint,
@@ -225,7 +225,7 @@ namespace KagaIDE.Module
             // 把修改提交到代码管理器
             KagaNode codeParentNode = this.getOpNode();
             KagaNode nkn = new KagaNode(
-                codeParentNode.nodeName + "__" + NodeType.USING_SWITCHES.ToString(),
+                codeParentNode.anodeName + "___" + NodeType.USING_SWITCHES.ToString(),
                 NodeType.USING_SWITCHES,
                 codeParentNode.depth + 1,
                 insertPoint,
@@ -284,7 +284,7 @@ namespace KagaIDE.Module
             // 把修改提交到代码管理器
             KagaNode codeParentNode = this.getOpNode();
             KagaNode nkn = new KagaNode(
-                codeParentNode.nodeName + "__" + NodeType.EXPRESSION.ToString(),
+                codeParentNode.anodeName + "___" + NodeType.EXPRESSION.ToString(),
                 NodeType.EXPRESSION,
                 codeParentNode.depth + 1,
                 insertPoint,
@@ -346,57 +346,78 @@ namespace KagaIDE.Module
                     default:
                         break;
                 }
+                sb.Append(rop);
             }
-            sb.Append(rop);
-            sb.Append(" 时：");
+            sb.Append("时：");
             TreeNode fp = new TreeNode(String.Format("{0} 条件分支", Consta.prefix_frontend));
+            fp.ForeColor = Consta.getColoring(NodeType.PILE__IF);
             TreeNode np = new TreeNode(sb.ToString());
-            np.ForeColor = Consta.getColoring(NodeType.BLOCK__IF);
+            np.ForeColor = Consta.getColoring(NodeType.BLOCK__IF_TRUE);
             // padding节点要追加给np
             np.Nodes.Add(Consta.prefix_frontend +
-                        "                                                                                            ");
+                        "                                            ");
             fp.Nodes.Add(np);
             // 如果有分支
             if (containElse)
             {
                 TreeNode ep = new TreeNode(Consta.prefix_frontCond + " 除此以外的情况下：");
                 ep.Nodes.Add(Consta.prefix_frontend +
-                        "                                                                                            ");
+                        "                                            ");
+                ep.ForeColor = Consta.getColoring(NodeType.BLOCK__IF_TRUE);
                 fp.Nodes.Add(ep);
             }
             curTree.SelectedNode.Parent.Nodes.Insert(insertPoint, fp);
+            curTree.ExpandAll();
             // 把修改提交到代码管理器
             KagaNode codeParentNode = this.getOpNode();
             KagaNode nkn = new KagaNode(
-                codeParentNode.nodeName + "__" + NodeType.BLOCK__IF.ToString(),
-                NodeType.BLOCK__IF,
+                codeParentNode.anodeName + "___" + NodeType.PILE__IF.ToString(),
+                NodeType.PILE__IF,
                 codeParentNode.depth + 1,
                 insertPoint,
                 codeParentNode);
-            // 如果是条件语句
-            nkn.isConditionEx = isCondEx;
-            nkn.isContainElse = containElse;
-            if (isCondEx)
+            // 判断是否需要插入分支语句
+            KagaNode trueNode = new KagaNode(
+                nkn.anodeName + "___" + NodeType.BLOCK__IF_TRUE.ToString(),
+                NodeType.BLOCK__IF_TRUE, nkn.depth + 1, 0, nkn);
+            trueNode.isConditionEx = isCondEx;
+            trueNode.isContainElse = containElse;
+            if (isCondEx == true)
             {
-                nkn.conditionEx = condEx;
+                trueNode.conditionEx = condEx;
             }
             else
             {
-                nkn.operand1 = lop;
-                nkn.operand2 = rop;
-                nkn.LopType = Lt;
-                nkn.RopType = Rt;
-                nkn.condOperateType = condt;
+                trueNode.operand1 = lop;
+                trueNode.operand2 = rop;
+                trueNode.LopType = Lt;
+                trueNode.RopType = Rt;
+                trueNode.condOperateType = condt;
             }
-            // 判断是否需要插入分支语句
+            // 为true节点追加代码块光标节点、代码块右边界
+            trueNode.children.Add(new KagaNode(trueNode.anodeName + "___PADDING_CURSOR",
+                NodeType.PILE__PADDING_CURSOR, trueNode.depth, 0, trueNode));
+            trueNode.children.Add(new KagaNode(trueNode.anodeName + "___BRIGHT_BRUCKET",
+                NodeType.PILE__BRIGHT_BRUCKET, trueNode.depth, 1, trueNode));
+            nkn.children.Add(trueNode);
+            // 如果有分支
             if (containElse)
             {
-
+                KagaNode falseNode = new KagaNode(
+                    nkn.anodeName + "___" + NodeType.BLOCK__IF_FALSE.ToString(),
+                    NodeType.BLOCK__IF_FALSE, nkn.depth + 1, 1, nkn);
+                // 为false节点追加代码块光标节点、代码块右边界
+                falseNode.children.Add(new KagaNode(falseNode.anodeName + "___PADDING_CURSOR",
+                    NodeType.PILE__PADDING_CURSOR, falseNode.depth, 0, falseNode));
+                falseNode.children.Add(new KagaNode(falseNode.anodeName + "___BRIGHT_BRUCKET",
+                    NodeType.PILE__BRIGHT_BRUCKET, falseNode.depth, 1, falseNode));
+                nkn.children.Add(falseNode);
             }
-            else
-            {
-                codeMana.insertNode(codeParentNode.depth + 1, insertPoint, nkn);
-            }
+            KagaNode borderNode = new KagaNode(
+                nkn.anodeName + "___" + NodeType.PILE__ENDIF.ToString(),
+                NodeType.PILE__ENDIF, nkn.depth + 1, 2, nkn);
+            nkn.children.Add(borderNode);
+            codeMana.insertNode(codeParentNode.depth + 1, insertPoint, nkn);
         }
 
         // 指令：插入注释
@@ -414,7 +435,7 @@ namespace KagaIDE.Module
             // 把修改提交到代码管理器
             KagaNode codeParentNode = this.getOpNode();
             KagaNode nkn = new KagaNode(
-                codeParentNode.nodeName + "__" + NodeType.NOTE.ToString(),
+                codeParentNode.anodeName + "___" + NodeType.NOTE.ToString(),
                 NodeType.NOTE,
                 codeParentNode.depth + 1,
                 insertPoint,
@@ -438,7 +459,7 @@ namespace KagaIDE.Module
             // 把修改提交到代码管理器
             KagaNode codeParentNode = this.getOpNode();
             KagaNode nkn = new KagaNode(
-                codeParentNode.nodeName + "__" + NodeType.CODEBLOCK.ToString(),
+                codeParentNode.anodeName + "___" + NodeType.CODEBLOCK.ToString(),
                 NodeType.CODEBLOCK,
                 codeParentNode.depth + 1,
                 insertPoint,
@@ -502,14 +523,8 @@ namespace KagaIDE.Module
         // 窗体绘制函数
         private KagaNode drawTreeContext(KagaNode parseNode)
         {
-            switch (parseNode.type)
+            switch (parseNode.atype)
             {
-                // 代码块：函数签名
-                case NodeType.PILE__BLOCK__FUNCTION:
-                    currentParent = this.treeViewPointer.Nodes.Add(
-                        String.Format("{0} {1}", Consta.prefix_frontend, parseNode.funBinding.getSign()));
-                    currentParent.ForeColor = Consta.getColoring(parseNode.type);
-                    break;
                 // 编译控制：右边界
                 case NodeType.PILE__BRIGHT_BRUCKET:
                     currentParent = currentParent.Parent;
@@ -517,13 +532,82 @@ namespace KagaIDE.Module
                 // 编译控制：插入节点
                 case NodeType.PILE__PADDING_CURSOR:
                     currentParent.Nodes.Add(Consta.prefix_frontend +
-                        "                                                                                            ");
+                        "                                            ");
+                    break;
+                // 编译控制：条件分支
+                case NodeType.PILE__IF:
+                    currentParent = currentParent.Nodes.Add(
+                        String.Format("{0} 条件分支", Consta.prefix_frontend));
+                    currentParent.ForeColor = Consta.getColoring(parseNode.atype);
+                    break;
+                // 编译控制：条件分支结束
+                case NodeType.PILE__ENDIF:
+                    currentParent = currentParent.Parent;
+                    break;
+                // 代码块：函数签名
+                case NodeType.PILE__BLOCK__FUNCTION:
+                    currentParent = this.treeViewPointer.Nodes.Add(
+                        String.Format("{0} {1}", Consta.prefix_frontCond, parseNode.funBinding.getSign()));
+                    currentParent.ForeColor = Consta.getColoring(parseNode.atype);
+                    break;
+                // 代码块：条件真分支
+                case NodeType.BLOCK__IF_TRUE:
+                    StringBuilder sb = new StringBuilder();
+                    sb.Append(Consta.prefix_frontCond + " 当");
+                    if (parseNode.isConditionEx)
+                    {
+                        sb.Append("表达式：" + parseNode.conditionEx + " 为真");
+                    }
+                    else
+                    {
+                        switch (parseNode.LopType)
+                        {
+                            case OperandType.VO_GlobalVar:
+                                sb.Append("全局变量");
+                                break;
+                            case OperandType.VO_DefVar:
+                                sb.Append("局部变量");
+                                break;
+                            case OperandType.VO_Switch:
+                                sb.Append("开关");
+                                break;
+                            default:
+                                break;
+                        }
+                        sb.Append(parseNode.operand1);
+                        sb.Append(" " + parseNode.condOperateType.ToString() + " ");
+                        switch (parseNode.RopType)
+                        {
+                            case OperandType.VO_Constant:
+                                sb.Append("常数");
+                                break;
+                            case OperandType.VO_GlobalVar:
+                                sb.Append("全局变量");
+                                break;
+                            case OperandType.VO_DefVar:
+                                sb.Append("局部变量");
+                                break;
+                            case OperandType.VO_Switch:
+                                break;
+                            default:
+                                break;
+                        }
+                        sb.Append(parseNode.operand2);
+                    }
+                    sb.Append("时：");
+                    currentParent = currentParent.Nodes.Add(sb.ToString());
+                    currentParent.ForeColor = Consta.getColoring(parseNode.atype);
+                    break;
+                // 代码块：条件假分支
+                case NodeType.BLOCK__IF_FALSE:
+                    currentParent = currentParent.Nodes.Add(Consta.prefix_frontCond + " 除此以外的情况下：");
+                    currentParent.ForeColor = Consta.getColoring(parseNode.atype);
                     break;
                 // 操作：变量定义
                 case NodeType.DEFINE_VARIABLE:
                     TreeNode tdefvar = new TreeNode(String.Format("{0} 变量定义：{1} ({2})", Consta.prefix_frontend,
                         parseNode.defineVarName, Consta.parseVarTypeToCType(parseNode.defineVarType)));
-                    tdefvar.ForeColor = Consta.getColoring(parseNode.type);
+                    tdefvar.ForeColor = Consta.getColoring(parseNode.atype);
                     currentParent.Nodes.Add(tdefvar);
                     break;
                 // 操作：开关操作
@@ -532,7 +616,7 @@ namespace KagaIDE.Module
                         String.Format("{0} 开关操作：[{1}:{2}] 状态设置为 {3}", Consta.prefix_frontend,
                         parseNode.switchId.ToString(), symbolMana.getSwitchVector()[parseNode.switchId],
                         parseNode.switchFlag ? "打开" : "关闭"));
-                    tuseswt.ForeColor = Consta.getColoring(parseNode.type);
+                    tuseswt.ForeColor = Consta.getColoring(parseNode.atype);
                     currentParent.Nodes.Add(tuseswt);
                     break;
                 // 操作：变量操作
@@ -562,7 +646,7 @@ namespace KagaIDE.Module
                         String.Format("{0} 变量操作：{1} {2} 常数{3}", Consta.prefix_frontend,
                         parseNode.operand1, parseNode.varOperateType.ToString(), parseNode.operand2));
                     }
-                    vexpnode.ForeColor = Consta.getColoring(parseNode.type);
+                    vexpnode.ForeColor = Consta.getColoring(parseNode.atype);
                     currentParent.Nodes.Add(vexpnode);
                     break;
                 // 操作：注释
@@ -571,7 +655,7 @@ namespace KagaIDE.Module
                         String.Format("{0} 注释：{1} {2}", Consta.prefix_frontend,
                         parseNode.notation.Split('\n')[0], parseNode.notation.Split('\n').Length > 1 ? "..." : ""));
                     notanode.ToolTipText = parseNode.notation;
-                    notanode.ForeColor = Consta.getColoring(parseNode.type);
+                    notanode.ForeColor = Consta.getColoring(parseNode.atype);
                     currentParent.Nodes.Add(notanode);
                     break;
                 // 操作：代码片段
@@ -580,7 +664,7 @@ namespace KagaIDE.Module
                         String.Format("{0} 代码片段：{1} {2}", Consta.prefix_frontend, 
                         parseNode.myCode.Split('\n')[0], parseNode.myCode.Split('\n').Length > 1 ? "..." : ""));
                     ncodeblock.ToolTipText = parseNode.myCode;
-                    ncodeblock.ForeColor = Consta.getColoring(parseNode.type);
+                    ncodeblock.ForeColor = Consta.getColoring(parseNode.atype);
                     currentParent.Nodes.Add(ncodeblock);
                     break;
                 default:

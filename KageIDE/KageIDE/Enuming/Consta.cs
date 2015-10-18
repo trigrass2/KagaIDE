@@ -78,9 +78,9 @@ namespace KagaIDE.Enuming
                 case NodeType.PILE__IF:
                     return Color.Blue;
                 case NodeType.BLOCK__IF_TRUE:
-                    return Color.LightGray;
+                    return Color.Gray;
                 case NodeType.BLOCK__IF_FALSE:
-                    return Color.LightGray;
+                    return Color.Gray;
                 case NodeType.BLOCK__DO_WHILE:
                     return Color.Blue;
                 case NodeType.BLOCK__WHILE:

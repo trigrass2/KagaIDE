@@ -41,6 +41,8 @@ namespace KagaIDE.Enuming
         BLOCK__FOR,
         // 编译控制：条件语句
         PILE__IF,
+        // 编译控制：条件边界
+        PILE__ENDIF,
         // 编译控制：枚举边界
         PILE__PROCESS_BORDER_DO_NOT_USE,
         // 编译控制：根节点

@@ -24,8 +24,8 @@ namespace KagaIDE.Module
             mainFunNode.funBinding = mainFunCell;
             this.parseTree.children.Add(mainFunNode);
             // 为main函数节点追加代码块光标节点、代码块右边界
-            mainFunNode.children.Add(new KagaNode("main__PADDING_CURSOR", NodeType.PILE__PADDING_CURSOR, 2, 0, mainFunNode));
-            mainFunNode.children.Add(new KagaNode("main__BRIGHT_BRUCKET", NodeType.PILE__BRIGHT_BRUCKET, 2, 1, mainFunNode));
+            mainFunNode.children.Add(new KagaNode("main___PADDING_CURSOR", NodeType.PILE__PADDING_CURSOR, 2, 0, mainFunNode));
+            mainFunNode.children.Add(new KagaNode("main___BRIGHT_BRUCKET", NodeType.PILE__BRIGHT_BRUCKET, 2, 1, mainFunNode));
             // 追加main函数到符号管理器
             symbolMana.addFunction(mainFunCell);
         }
@@ -49,7 +49,7 @@ namespace KagaIDE.Module
             KagaNode rootNode = this.parseTree;
             foreach (KagaNode kn in rootNode.children)
             {
-                if (kn.nodeName == callname)
+                if (kn.anodeName == callname)
                 {
                     return kn;
                 }
@@ -106,8 +106,8 @@ namespace KagaIDE.Module
         public bool insertBlockNode(int dep, int bre, KagaNode obj)
         {
             // 生成它的孩子节点，追加代码块光标节点、代码块右边界
-            obj.children.Add(new KagaNode(obj.nodeName + "__PADDING_CURSOR", NodeType.PILE__PADDING_CURSOR, dep + 1, 0, obj));
-            obj.children.Add(new KagaNode(obj.nodeName + "__BRIGHT_BRUCKET", NodeType.PILE__BRIGHT_BRUCKET, dep + 1, 1, obj));
+            obj.children.Add(new KagaNode(obj.anodeName + "___PADDING_CURSOR", NodeType.PILE__PADDING_CURSOR, dep + 1, 0, obj));
+            obj.children.Add(new KagaNode(obj.anodeName + "___BRIGHT_BRUCKET", NodeType.PILE__BRIGHT_BRUCKET, dep + 1, 1, obj));
             // 插入到代码树
             return this.insertNode(dep, bre, obj);
         }
