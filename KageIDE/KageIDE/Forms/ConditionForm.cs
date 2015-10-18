@@ -65,6 +65,7 @@ namespace KagaIDE.Forms
             {
                 this.comboBox3.Items.Add(String.Format("{0}:{1}", i.ToString(), swList[i]));
             }
+            this.comboBox3.SelectedIndex = 0;
         }
 
         // 条件表达式

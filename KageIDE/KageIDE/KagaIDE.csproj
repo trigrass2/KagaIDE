@@ -78,6 +78,12 @@
     <Compile Include="Forms\ConditionForm.Designer.cs">
       <DependentUpon>ConditionForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\CondLoopForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CondLoopForm.Designer.cs">
+      <DependentUpon>CondLoopForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Platform.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -141,6 +147,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ConditionForm.resx">
       <DependentUpon>ConditionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CondLoopForm.resx">
+      <DependentUpon>CondLoopForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FunctionForm.resx">
       <DependentUpon>FunctionForm.cs</DependentUpon>

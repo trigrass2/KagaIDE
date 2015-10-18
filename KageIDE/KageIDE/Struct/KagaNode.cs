@@ -57,6 +57,10 @@ namespace KagaIDE
         public bool isContainElse = false;
         // 节点条件表达式
         public string conditionEx = Consta.const_none;
+        // 节点条件循环类型
+        public CondLoopType condLoopType = CondLoopType.CLT_FOREVER;
+        // 节点循环条件是否后置
+        public bool isCondPostCheck = false;
         // 节点定义变量名
         public string defineVarName = Consta.const_none;
         // 节点定义变量类型

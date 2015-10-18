@@ -81,8 +81,6 @@ namespace KagaIDE.Enuming
                     return Color.Gray;
                 case NodeType.BLOCK__IF_FALSE:
                     return Color.Gray;
-                case NodeType.BLOCK__DO_WHILE:
-                    return Color.Blue;
                 case NodeType.BLOCK__WHILE:
                     return Color.Blue;
                 case NodeType.BLOCK__FOR:

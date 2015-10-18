@@ -471,6 +471,67 @@ namespace KagaIDE.Module
             codeMana.insertNode(codeParentNode.depth + 1, insertPoint, nkn);
         }
 
+        // 指令：条件循环
+        public void dash_condLoop(CondLoopType clt, string operand, bool dowhileFlag)
+        {
+            // 刷新前台
+            TreeView curTree = this.getActiveTreeView();
+            int insertPoint = curTree.SelectedNode.Index;
+            StringBuilder sb = new StringBuilder();
+            if (dowhileFlag == true)
+            {
+                sb.Append(Consta.prefix_frontend + " 循环后：");
+            }
+            else
+            {
+                sb.Append(Consta.prefix_frontend + " 循环：");
+            }
+            switch (clt)
+            {
+                case CondLoopType.CLT_EXPRESSION:
+                    sb.Append("表达式 " + operand + " 为真时");
+                    break;
+                case CondLoopType.CLT_SWITCH:
+                    sb.Append("开关 " + operand + " 状态为打开时");
+                    break;
+                default:
+                    sb.Append("永远");
+                    break;
+            }
+            TreeNode np = new TreeNode(sb.ToString());
+            // padding节点要追加给np
+            np.Nodes.Add(Consta.prefix_frontend +
+                        "                                            ");
+            np.ForeColor = Consta.getColoring(NodeType.BLOCK__WHILE);
+            np.ExpandAll();
+            curTree.SelectedNode.Parent.Nodes.Insert(insertPoint, np);
+            // 把修改提交给后台
+            KagaNode codeParentNode = this.getOpNodeParent(1);
+            KagaNode nkn = new KagaNode(
+                codeParentNode.anodeName + "___" + NodeType.BLOCK__WHILE.ToString(),
+                NodeType.BLOCK__WHILE,
+                codeParentNode.depth + 1,
+                insertPoint,
+                codeParentNode);
+            nkn.condLoopType = clt;
+            if (clt == CondLoopType.CLT_SWITCH)
+            {
+                nkn.conditionEx = operand.Split(':')[0];
+            }
+            else
+            {
+                nkn.conditionEx = operand;
+            }
+            nkn.isCondPostCheck = dowhileFlag;
+            // 为循环节点追加代码块光标节点、代码块右边界
+            nkn.children.Add(new KagaNode(nkn.anodeName + "___PADDING_CURSOR",
+                NodeType.PILE__PADDING_CURSOR, nkn.depth, 0, nkn));
+            nkn.children.Add(new KagaNode(nkn.anodeName + "___BRIGHT_BRUCKET",
+                NodeType.PILE__BRIGHT_BRUCKET, nkn.depth, 1, nkn));
+            // 把修改提交到代码管理器
+            codeMana.insertNode(codeParentNode.depth + 1, insertPoint, nkn);
+        }
+
         // 指令：插入注释
         public void dash_notation(string nota)
         {
@@ -675,6 +736,34 @@ namespace KagaIDE.Module
                 // 代码块：条件假分支
                 case NodeType.BLOCK__IF_FALSE:
                     currentParent = currentParent.Nodes.Add(Consta.prefix_frontCond + " 除此以外的情况下：");
+                    currentParent.ForeColor = Consta.getColoring(parseNode.atype);
+                    break;
+                // 代码块：条件循环
+                case NodeType.BLOCK__WHILE:
+                    StringBuilder sbw = new StringBuilder();
+                    if (parseNode.isCondPostCheck == true)
+                    {
+                        sbw.Append(Consta.prefix_frontend + " 循环后：");
+                    }
+                    else
+                    {
+                        sbw.Append(Consta.prefix_frontend + " 循环：");
+                    }
+                    switch (parseNode.condLoopType)
+                    {
+                        case CondLoopType.CLT_EXPRESSION:
+                            sbw.Append("表达式 " + parseNode.conditionEx + " 为真时");
+                            break;
+                        case CondLoopType.CLT_SWITCH:
+                            sbw.Append("开关 " + parseNode.conditionEx + ":" +
+                                this.getSwitchDescriptionVector()[Convert.ToInt32(parseNode.conditionEx)] + " 状态为打开时");
+                            break;
+                        default:
+                            sbw.Append("永远");
+                            break;
+                    }
+                    // padding节点要追加给np
+                    currentParent = currentParent.Nodes.Add(sbw.ToString());
                     currentParent.ForeColor = Consta.getColoring(parseNode.atype);
                     break;
                 // 操作：变量定义

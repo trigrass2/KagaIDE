@@ -35,8 +35,6 @@ namespace KagaIDE.Enuming
         BLOCK__IF_FALSE,
         // 条件循环
         BLOCK__WHILE,
-        // 后置条件循环
-        BLOCK__DO_WHILE,
         // 边界循环
         BLOCK__FOR,
         // 编译控制：条件语句
@@ -106,5 +104,15 @@ namespace KagaIDE.Enuming
         小于,
         大于等于,
         小于等于
+    }
+
+    /// <summary>
+    /// 枚举类型：条件循环类型
+    /// </summary>
+    public enum CondLoopType
+    {
+        CLT_FOREVER,
+        CLT_SWITCH,
+        CLT_EXPRESSION
     }
 }
