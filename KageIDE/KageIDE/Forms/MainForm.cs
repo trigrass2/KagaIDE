@@ -146,6 +146,21 @@ namespace KagaIDE
             return false;
         }
 
+        private bool isAbleInsert()
+        {
+            // 检查这个节点可否插入变量
+            if (((TreeView)this.tabControl1.SelectedTab.Controls.Find("codeTreeView", true)[0]).SelectedNode == null)
+            {
+                return false;
+            }
+            if (core.isAbleInsertDefineVar() == false)
+            {
+                MessageBox.Show("这个节点不可以插入指令", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            return true;
+        }
+
         // 双击函数列表时
         private void functionListBox_MouseDoubleClick(object sender, MouseEventArgs e)
         {
@@ -379,13 +394,8 @@ namespace KagaIDE
         private void button1_Click(object sender, EventArgs e)
         {
             // 检查这个节点可否插入变量
-            if (((TreeView)this.tabControl1.SelectedTab.Controls.Find("codeTreeView", true)[0]).SelectedNode == null)
+            if (this.isAbleInsert() == false)
             {
-                return;
-            }
-            if (core.isAbleInsertDefineVar() == false)
-            {
-                MessageBox.Show("这个节点不可以插入变量定义", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             this.moveCursorToPoint(this, new Point(this.Size.Width / 2, this.Size.Height / 2), Cursor.Position, 0, 0);
@@ -405,13 +415,8 @@ namespace KagaIDE
         private void button4_Click(object sender, EventArgs e)
         {
             // 检查这个节点可否插入
-            if (((TreeView)this.tabControl1.SelectedTab.Controls.Find("codeTreeView", true)[0]).SelectedNode == null)
+            if (this.isAbleInsert() == false)
             {
-                return;
-            }
-            if (((TreeView)this.tabControl1.SelectedTab.Controls.Find("codeTreeView", true)[0]).SelectedNode.Level == 0)
-            {
-                MessageBox.Show("这个节点不可以插入开关操作", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             this.moveCursorToPoint(this, new Point(this.Size.Width / 2, this.Size.Height / 2), Cursor.Position, 0, 0);
@@ -423,13 +428,8 @@ namespace KagaIDE
         private void button2_Click(object sender, EventArgs e)
         {
             // 检查这个节点可否插入
-            if (((TreeView)this.tabControl1.SelectedTab.Controls.Find("codeTreeView", true)[0]).SelectedNode == null)
+            if (this.isAbleInsert() == false)
             {
-                return;
-            }
-            if (((TreeView)this.tabControl1.SelectedTab.Controls.Find("codeTreeView", true)[0]).SelectedNode.Level == 0)
-            {
-                MessageBox.Show("这个节点不可以插入开关操作", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             this.moveCursorToPoint(this, new Point(this.Size.Width / 2, this.Size.Height / 2), Cursor.Position, 0, 0);
@@ -441,13 +441,8 @@ namespace KagaIDE
         private void button9_Click(object sender, EventArgs e)
         {
             // 检查这个节点可否插入
-            if (((TreeView)this.tabControl1.SelectedTab.Controls.Find("codeTreeView", true)[0]).SelectedNode == null)
+            if (this.isAbleInsert() == false)
             {
-                return;
-            }
-            if (((TreeView)this.tabControl1.SelectedTab.Controls.Find("codeTreeView", true)[0]).SelectedNode.Level == 0)
-            {
-                MessageBox.Show("这个节点不可以插入注释", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             this.moveCursorToPoint(this, new Point(this.Size.Width / 2, this.Size.Height / 2), Cursor.Position, 170, 150);
@@ -459,13 +454,8 @@ namespace KagaIDE
         private void button5_Click(object sender, EventArgs e)
         {
             // 检查这个节点可否插入
-            if (((TreeView)this.tabControl1.SelectedTab.Controls.Find("codeTreeView", true)[0]).SelectedNode == null)
+            if (this.isAbleInsert() == false)
             {
-                return;
-            }
-            if (((TreeView)this.tabControl1.SelectedTab.Controls.Find("codeTreeView", true)[0]).SelectedNode.Level == 0)
-            {
-                MessageBox.Show("这个节点不可以插入条件语句", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             this.moveCursorToPoint(this, new Point(this.Size.Width / 2, this.Size.Height / 2), Cursor.Position, 0, 0);

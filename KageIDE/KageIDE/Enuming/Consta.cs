@@ -46,11 +46,11 @@ namespace KagaIDE.Enuming
         /// 测试一个字符串是否满足一个正则式
         /// </summary>
         /// <param name="parStr">待校验字符串</param>
-        /// <param name="regex">正则表达式</param>
+        /// <param name="regEx">正则表达式</param>
         /// <returns>正则式真值</returns>
-        public static bool IsMatchRegEx(string parStr, string regex)
+        public static bool IsMatchRegEx(string parStr, string regEx)
         {
-            Regex myRegex = new Regex(regex);
+            Regex myRegex = new Regex(regEx);
             return myRegex.IsMatch(parStr);
         }
 
