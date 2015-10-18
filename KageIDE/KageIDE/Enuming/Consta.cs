@@ -75,10 +75,12 @@ namespace KagaIDE.Enuming
             {
                 case NodeType.PILE__BLOCK__FUNCTION:
                     return Color.Purple;
-                case NodeType.BLOCK__IF:
+                case NodeType.PILE__IF:
                     return Color.Blue;
-                case NodeType.BLOCK__IF_ELSE:
-                    return Color.Blue;
+                case NodeType.BLOCK__IF_TRUE:
+                    return Color.LightGray;
+                case NodeType.BLOCK__IF_FALSE:
+                    return Color.LightGray;
                 case NodeType.BLOCK__DO_WHILE:
                     return Color.Blue;
                 case NodeType.BLOCK__WHILE:
@@ -192,7 +194,7 @@ namespace KagaIDE.Enuming
         // 自定义开关数组名
         public static readonly string switch_name = "___KAGA_SWITCHES";
         // 待命名变量名
-        public static readonly string const_none = "#NVAR#";
+        public static readonly string const_none = "#UUZ#";
         // 开关总量
         public static readonly int switch_max = 64;
         #endregion

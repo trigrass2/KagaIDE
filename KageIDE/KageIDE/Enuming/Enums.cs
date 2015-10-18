@@ -29,14 +29,18 @@ namespace KagaIDE.Enuming
         RUNONCE,
         // 代码片段
         CODEBLOCK,
-        // 条件语句
-        BLOCK__IF,
+        // 条件真分支
+        BLOCK__IF_TRUE,
+        // 条件假分支
+        BLOCK__IF_FALSE,
         // 条件循环
         BLOCK__WHILE,
         // 后置条件循环
         BLOCK__DO_WHILE,
         // 边界循环
         BLOCK__FOR,
+        // 编译控制：条件语句
+        PILE__IF,
         // 编译控制：枚举边界
         PILE__PROCESS_BORDER_DO_NOT_USE,
         // 编译控制：根节点
