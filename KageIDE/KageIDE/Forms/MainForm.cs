@@ -23,12 +23,13 @@ namespace KagaIDE
         public MainForm()
         {
             InitializeComponent();
-            core.setMainForm(this);
         }
 
         // 加载窗体时发生
         private void MainForm_Load(object sender, EventArgs e)
         {
+            // 设置后台的前端引用
+            core.setMainForm(this);
             // 添加main函数
             this.addTabCard("main");
             // 放置焦点
@@ -462,6 +463,64 @@ namespace KagaIDE
             ConditionForm cf = new ConditionForm();
             cf.ShowDialog(this);
         }
+
+        // 菜单->保存
+        private void 保存ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            SaveFileDialog saveDia = new SaveFileDialog();
+            saveDia.Filter = "(*.kgproj)|*.kgproj";
+            saveDia.AddExtension = true;
+            saveDia.RestoreDirectory = true;
+            if (saveDia.ShowDialog() == DialogResult.OK)
+            {
+                core.menuSave(saveDia.FileName);
+            }
+        }
+
+        // 菜单->打开
+        private void 打开ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog loadDia = new OpenFileDialog();
+            loadDia.Filter = "(*.kgproj)|*.kgproj";
+            loadDia.RestoreDirectory = true;
+            loadDia.Multiselect = false;
+            if (loadDia.ShowDialog() == DialogResult.OK)
+            {
+                if (core.menuLoad(loadDia.FileName) == false)
+                {
+                    MessageBox.Show("读取文件出错", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                core.refreshAll();
+            }
+        }
+
+        // 菜单->新建
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            // 提示
+            DialogResult dr = MessageBox.Show("真的要新建吗？"
+                + Environment.NewLine + "所有未保存的文件将丢失！", "警告",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+            if (dr == System.Windows.Forms.DialogResult.No)
+            {
+                return;
+            }
+            // 初始化后台
+            core.Init();
+            // 初始化前台
+            core.setMainForm(this);
+            this.globalvarListBox.Items.Clear();
+            this.functionListBox.Items.Clear();
+            this.tabControl1.TabPages.Clear();
+            this.addTabCard("main");
+            this.functionListBox.Items.Add("main");
+            this.tabControl1.Focus();
+            core.refreshAll();
+        }
+
+
 
     }
 }

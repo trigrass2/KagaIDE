@@ -231,6 +231,9 @@ namespace KagaIDE.Module
         {
             switch (flag)
             {
+                case 0:
+                    synObject = null;
+                    break;
                 case 1:
                     this.tableContainer.Clear();
                     break;
@@ -246,6 +249,16 @@ namespace KagaIDE.Module
                     this.marcoContainer = "";
                     break;
             }
+        }
+
+        /// <summary>
+        /// 重新指定唯一单例的内存位置
+        /// 用于存取文件时
+        /// </summary>
+        /// <param name="newAlloc">新的单例引用</param>
+        public static void setSynObj(SymbolManager newAlloc)
+        {
+            synObject = newAlloc;
         }
 
         // 私有的构造器

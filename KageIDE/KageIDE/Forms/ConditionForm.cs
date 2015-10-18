@@ -230,7 +230,7 @@ namespace KagaIDE.Forms
                     lop = this.textBox1.Text;
                     break;
                 case OperandType.VO_Switch:
-                    lop = (string)this.comboBox3.Items[this.comboBox3.SelectedIndex];
+                    lop = ((string)this.comboBox3.Items[this.comboBox3.SelectedIndex]).Split(':')[0];
                     break;
                 default:
                     lop = null;

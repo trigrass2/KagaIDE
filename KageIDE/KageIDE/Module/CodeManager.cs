@@ -61,12 +61,24 @@ namespace KagaIDE.Module
         /// 获得满足指定条件的广度优先遍历得到的第一个根节点的子树
         /// </summary>
         /// <param name="match">匹配条件</param>
+        /// <param name="startNode">开始搜索的节点</param>
         /// <returns>满足条件的子树根节点</returns>
         public KagaNode getSubTree(Predicate<KagaNode> match, KagaNode startNode)
         {
             List<KagaNode> res = this.BFS(match, startNode, null, true);
             return res != null ? res[0] : null;
-        }        
+        }
+
+        /// <summary>
+        /// 获得指定节点下满足指定条件的第一个直接子节点
+        /// </summary>
+        /// <param name="match">匹配条件</param>
+        /// <param name="startNode">开始搜索的节点</param>
+        /// <returns>满足条件的第一个节点</returns>
+        public KagaNode getChild(Predicate<KagaNode> match, KagaNode startNode)
+        {
+            return startNode.children.Find(match);
+        }
 
         /// <summary>
         /// 在指定的深度和广度处插入一个节点
@@ -325,6 +337,34 @@ namespace KagaIDE.Module
             }
             // 没有匹配项就返回null
             return resultContainer.Count > 0 ? resultContainer : null; 
+        }
+
+        /// <summary>
+        /// 烧毁整棵代码树
+        /// </summary>
+        public void clear()
+        {
+            synObject = null;
+        }
+
+        /// <summary>
+        /// 获取符号管理器引用
+        /// 用于存取文件时
+        /// </summary>
+        /// <returns>符号管理器的唯一实例</returns>
+        public SymbolManager getSymbolRef()
+        {
+            return this.symbolMana;
+        }
+
+        /// <summary>
+        /// 重新指定唯一单例的内存位置
+        /// 用于存取文件时
+        /// </summary>
+        /// <param name="newAlloc">新的单例引用</param>
+        public static void setSynObj(CodeManager newAlloc)
+        {
+            synObject = newAlloc;
         }
 
         /// <summary>

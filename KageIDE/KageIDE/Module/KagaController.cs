@@ -13,8 +13,29 @@ namespace KagaIDE.Module
     /// <summary>
     /// 程序前后台交互总控制器
     /// </summary>
+    [Serializable]
     public class KagaController
     {
+        #region 文件操作相关函数
+        // 保存文件
+        public bool menuSave(string savePath)
+        {
+            return fileMana.save(savePath);
+        }
+
+        // 读取文件
+        public bool menuLoad(string loadPath)
+        {
+            CodeManager ncmana = fileMana.load(loadPath);
+            if (ncmana == null)
+            {
+                return false;
+            }
+            this.setLoadMana(ncmana, ncmana.getSymbolRef());
+            return true;
+        }
+        #endregion
+
         #region 函数管理器函数
         // 增加一个函数
         public bool addFunction(string fcname, List<string> args, string retType)
@@ -88,7 +109,6 @@ namespace KagaIDE.Module
         }
         #endregion
 
-
         #region 全局变量操作函数
         // 增加一个全局变量
         public bool addGlobalVar(string varname, string cvartype)
@@ -155,22 +175,53 @@ namespace KagaIDE.Module
         }
         #endregion
 
+        #region 符号管理器界面相关函数
+        // 获取所有函数名字
+        public List<string> getAllFunction()
+        {
+            return this.symbolMana.getFunctionNameList();
+        }
+        #endregion
 
         #region 主窗口指令操作函数
-        // 获得操作节点
-        public KagaNode getOpNode()
+        // 递归查找操作节点
+        private KagaNode recursiveFindInsertOpNode(int offset)
         {
             TreeView curTree = this.getActiveTreeView();
-            KagaNode codeFunNode = codeMana.getFunRoot(this.mainFormPointer.tabControl1.SelectedTab.Text);
-            KagaNode codeParentNode = codeMana.getSubTree((x) =>
-                x.index == curTree.SelectedNode.Parent.Index &&
-                x.depth == curTree.SelectedNode.Parent.Level + 1, codeFunNode);
-            // 函数根节点
-            if (curTree.SelectedNode.Parent.Level == 0)
+            TreeNode curNode = curTree.SelectedNode;
+            KagaNode codefindNode = codeMana.getFunRoot(this.mainFormPointer.tabControl1.SelectedTab.Text);
+            // 从内到外把前端节点相对位置压栈
+            Stack<KeyValuePair<int, int>> findStack = new Stack<KeyValuePair<int, int>>();
+            while (curNode.Parent != null)
             {
-                return codeFunNode;
+                findStack.Push(new KeyValuePair<int, int>(curNode.Index - offset, curNode.Level + 1));
+                curNode = curNode.Parent;
+                offset = 0;
             }
-            return codeParentNode;
+            // 从外到内出栈，搜索代码树上的节点
+            while (findStack.Count != 0)
+            {
+                KeyValuePair<int, int> kvp = findStack.Pop();
+                codefindNode = codeMana.getChild((x) => x.index == kvp.Key && x.depth == kvp.Value, codefindNode);
+            }
+            return codefindNode;
+        }
+
+        // 获得操作节点
+        public KagaNode getOpNodeParent(int offset)
+        {
+            //TreeView curTree = this.getActiveTreeView();
+            //KagaNode codeFunNode = codeMana.getFunRoot(this.mainFormPointer.tabControl1.SelectedTab.Text);
+            //KagaNode codeParentNode = codeMana.getSubTree((x) =>
+            //    x.index == curTree.SelectedNode.Parent.Index &&
+            //    x.depth == curTree.SelectedNode.Parent.Level + 1, codeFunNode);
+            //// 函数根节点
+            //if (curTree.SelectedNode.Parent.Level == 0)
+            //{
+            //    return codeFunNode;
+            //}
+            //return codeParentNode;
+            return this.recursiveFindInsertOpNode(offset).parent;
         }
         
         // 获得宏定义
@@ -197,7 +248,7 @@ namespace KagaIDE.Module
             np.ForeColor = Consta.getColoring(NodeType.DEFINE_VARIABLE);
             curTree.SelectedNode.Parent.Nodes.Insert(insertPoint, np);
             // 把修改提交到代码管理器
-            KagaNode codeParentNode = this.getOpNode();
+            KagaNode codeParentNode = this.getOpNodeParent(1);
             KagaNode nkn = new KagaNode(
                 codeParentNode.anodeName + "___" + NodeType.DEFINE_VARIABLE.ToString(),
                 NodeType.DEFINE_VARIABLE,
@@ -223,7 +274,7 @@ namespace KagaIDE.Module
             np.ForeColor = Consta.getColoring(NodeType.USING_SWITCHES);
             curTree.SelectedNode.Parent.Nodes.Insert(insertPoint, np);
             // 把修改提交到代码管理器
-            KagaNode codeParentNode = this.getOpNode();
+            KagaNode codeParentNode = this.getOpNodeParent(1);
             KagaNode nkn = new KagaNode(
                 codeParentNode.anodeName + "___" + NodeType.USING_SWITCHES.ToString(),
                 NodeType.USING_SWITCHES,
@@ -243,7 +294,7 @@ namespace KagaIDE.Module
             {
                 return false;
             }
-            KagaNode codeParentNode = this.getOpNode();
+            KagaNode codeParentNode = this.getOpNodeParent(0);
             return codeParentNode.isNewBlock;
         }
 
@@ -282,7 +333,7 @@ namespace KagaIDE.Module
             np.ForeColor = Consta.getColoring(NodeType.EXPRESSION);
             curTree.SelectedNode.Parent.Nodes.Insert(insertPoint, np);
             // 把修改提交到代码管理器
-            KagaNode codeParentNode = this.getOpNode();
+            KagaNode codeParentNode = this.getOpNodeParent(1);
             KagaNode nkn = new KagaNode(
                 codeParentNode.anodeName + "___" + NodeType.EXPRESSION.ToString(),
                 NodeType.EXPRESSION,
@@ -369,7 +420,7 @@ namespace KagaIDE.Module
             curTree.SelectedNode.Parent.Nodes.Insert(insertPoint, fp);
             curTree.ExpandAll();
             // 把修改提交到代码管理器
-            KagaNode codeParentNode = this.getOpNode();
+            KagaNode codeParentNode = this.getOpNodeParent(1);
             KagaNode nkn = new KagaNode(
                 codeParentNode.anodeName + "___" + NodeType.PILE__IF.ToString(),
                 NodeType.PILE__IF,
@@ -433,7 +484,7 @@ namespace KagaIDE.Module
             np.ToolTipText = nota;
             curTree.SelectedNode.Parent.Nodes.Insert(insertPoint, np);
             // 把修改提交到代码管理器
-            KagaNode codeParentNode = this.getOpNode();
+            KagaNode codeParentNode = this.getOpNodeParent(1);
             KagaNode nkn = new KagaNode(
                 codeParentNode.anodeName + "___" + NodeType.NOTE.ToString(),
                 NodeType.NOTE,
@@ -457,7 +508,7 @@ namespace KagaIDE.Module
             np.ForeColor = Consta.getColoring(NodeType.CODEBLOCK);
             curTree.SelectedNode.Parent.Nodes.Insert(insertPoint, np);
             // 把修改提交到代码管理器
-            KagaNode codeParentNode = this.getOpNode();
+            KagaNode codeParentNode = this.getOpNodeParent(1);
             KagaNode nkn = new KagaNode(
                 codeParentNode.anodeName + "___" + NodeType.CODEBLOCK.ToString(),
                 NodeType.CODEBLOCK,
@@ -466,14 +517,6 @@ namespace KagaIDE.Module
                 codeParentNode);
             nkn.myCode = myCode;
             codeMana.insertNode(codeParentNode.depth + 1, insertPoint, nkn);
-        }
-        #endregion
-
-        #region 符号管理器界面相关函数
-        // 获取所有函数名字
-        public List<string> getAllFunction()
-        {
-            return this.symbolMana.getFunctionNameList();
         }
         #endregion
 
@@ -495,6 +538,33 @@ namespace KagaIDE.Module
         // 更新编辑器内容
         public void refreshAll()
         {
+            // 更新函数列表
+            this.mainFormPointer.functionListBox.Items.Clear();
+            foreach (string s in this.getAllFunction())
+            {
+                this.mainFormPointer.functionListBox.Items.Add(s);
+            }
+            // 更新全局变量
+            this.mainFormPointer.globalvarListBox.Items.Clear();
+            foreach (string s in this.getGlobalVar())
+            {
+                this.mainFormPointer.globalvarListBox.Items.Add(s.Replace("@", " @ "));
+            }
+            // 刷新Tab页
+            foreach (string s in this.getAllFunction())
+            {
+                if (this.mainFormPointer.tabControl1.TabPages.ContainsKey(s) == false)
+                {
+                    this.mainFormPointer.addTabCard(s);
+                }
+            }
+            foreach (TabPage tp in this.mainFormPointer.tabControl1.TabPages)
+            {
+                if (this.getAllFunction().Contains(tp.Name) == false)
+                {
+                    this.mainFormPointer.closeTabCard(tp.Name);
+                }
+            }
             // 遍历所有Tab
             foreach (TabPage p in this.mainFormPointer.tabControl1.TabPages)
             {
@@ -575,6 +645,10 @@ namespace KagaIDE.Module
                                 break;
                         }
                         sb.Append(parseNode.operand1);
+                        if (parseNode.LopType == OperandType.VO_Switch)
+                        {
+                            sb.Append(":" + this.getSwitchDescriptionVector()[Convert.ToInt32(parseNode.operand1)]);
+                        }
                         sb.Append(" " + parseNode.condOperateType.ToString() + " ");
                         switch (parseNode.RopType)
                         {
@@ -676,7 +750,25 @@ namespace KagaIDE.Module
         private TreeView treeViewPointer = null;
         #endregion
 
+        // 初始化整个控制器
+        public void Init()
+        {
+            this.symbolMana.clear();
+            this.codeMana.clear();
+            this.symbolMana = SymbolManager.getInstance();
+            this.codeMana = CodeManager.getInstance();
+        }
+        // 读取恢复唯一实例
+        public void setLoadMana(CodeManager cmana, SymbolManager smana)
+        {
+            // 重置单例
+            SymbolManager.setSynObj(smana);
+            CodeManager.setSynObj(cmana);
+            // 刷新引用
+            this.symbolMana = SymbolManager.getInstance();
+            this.codeMana = CodeManager.getInstance();
 
+        }
         // 工厂方法
         public static KagaController getInstance()
         {

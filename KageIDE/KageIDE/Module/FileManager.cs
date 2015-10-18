@@ -26,18 +26,29 @@ namespace KagaIDE.Module
         /// 保存一个项目
         /// </summary>
         /// <param name="filePath">文件路径</param>
-        public void save(string filePath)
+        /// <returns>操作成功与否</returns>
+        public bool save(string filePath)
         {
-
+            bool sflag = true;
+            try
+            {
+                this.serialization(CodeManager.getInstance(), filePath);
+            }
+            catch
+            {
+                sflag = false;
+            }
+            return sflag;
         }
 
         /// <summary>
         /// 加载一个项目
         /// </summary>
         /// <param name="filePath">文件路径</param>
-        public void load(string filePath)
+        /// <returns>读取的代码管理器</returns>
+        public CodeManager load(string filePath)
         {
-            
+            return (CodeManager)this.unserialization(filePath);
         }
 
         /// <summary>
@@ -45,16 +56,25 @@ namespace KagaIDE.Module
         /// </summary>
         /// <param name="instance">类的实例</param>
         /// <param name="savePath">保存路径</param>
-        private void serialization(object instance, string savePath)
+        /// <returns>操作成功与否</returns>
+        private bool serialization(object instance, string savePath)
         {
-            Stream s = File.Open(savePath, FileMode.Create);
-            if (s == null)
+            try
             {
-                throw new IOException();
+                Stream myStream = File.Open(savePath, FileMode.Create);
+                if (myStream == null)
+                {
+                    throw new IOException();
+                }
+                BinaryFormatter bf = new BinaryFormatter();
+                bf.Serialize(myStream, instance);
+                myStream.Close();
             }
-            BinaryFormatter bf = new BinaryFormatter();
-            bf.Serialize(s, instance);
-            s.Close();
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return true;
         }
 
         /// <summary>
@@ -62,16 +82,24 @@ namespace KagaIDE.Module
         /// </summary>
         /// <param name="loadPath">二进制文件路径</param>
         /// <returns>类的实例</returns>
-        private object serialization(string loadPath)
+        private object unserialization(string loadPath)
         {
-            Stream s = File.Open(loadPath, FileMode.Open);
-            if (s == null)
+            try
             {
-                throw new IOException();
+                Stream s = File.Open(loadPath, FileMode.Open);
+                if (s == null)
+                {
+                    throw new IOException();
+                }
+                BinaryFormatter bf = new BinaryFormatter();
+                object ob = bf.Deserialize(s);
+                s.Close();
+                return ob;
             }
-            BinaryFormatter bf = new BinaryFormatter();
-            s.Close();
-            return bf.Deserialize(s);
+            catch
+            {
+                return null;
+            }
         }
 
         /// <summary>
