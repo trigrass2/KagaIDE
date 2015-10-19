@@ -374,13 +374,18 @@
             0,
             0});
             this.numericUpDown4.Minimum = new decimal(new int[] {
-            2100000000,
+            1,
             0,
             0,
-            -2147483648});
+            0});
             this.numericUpDown4.Name = "numericUpDown4";
             this.numericUpDown4.Size = new System.Drawing.Size(117, 21);
             this.numericUpDown4.TabIndex = 5;
+            this.numericUpDown4.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // label2
             // 

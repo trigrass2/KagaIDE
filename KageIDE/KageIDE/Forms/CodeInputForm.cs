@@ -20,6 +20,7 @@ namespace KagaIDE.Forms
             InitializeComponent();
             this.Text = name;
             this.codeTextBox.Text = preText;
+            this.label1.Visible = name == "宏定义";
         }
 
         private void button2_Click(object sender, EventArgs e)

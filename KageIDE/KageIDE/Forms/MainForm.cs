@@ -192,6 +192,7 @@ namespace KagaIDE
         // 宏定义按钮
         private void button3_Click(object sender, EventArgs e)
         {
+            this.moveCursorToPoint(this, new Point(this.Size.Width / 2, this.Size.Height / 2), Cursor.Position, 170, 150);
             CodeInputForm cif = new CodeInputForm("宏定义", core.getMarcos());
             cif.ShowDialog(this);
         }

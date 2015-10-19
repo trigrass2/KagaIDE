@@ -30,6 +30,7 @@
         {
             this.codeTextBox = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // codeTextBox
@@ -54,11 +55,22 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.DarkGray;
+            this.label1.Location = new System.Drawing.Point(12, 363);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(347, 12);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "宏定义将会被追加在所有生成代码的最前方，include语句的后面";
+            // 
             // CodeInputForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(543, 394);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.codeTextBox);
             this.MinimizeBox = false;
@@ -75,5 +87,6 @@
 
         private System.Windows.Forms.TextBox codeTextBox;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label label1;
     }
 }
