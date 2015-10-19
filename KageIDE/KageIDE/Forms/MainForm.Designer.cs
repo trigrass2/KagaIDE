@@ -209,7 +209,7 @@
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(90, 31);
             this.button6.TabIndex = 9;
-            this.button6.Text = "备用按钮";
+            this.button6.Text = "备用1";
             this.button6.UseVisualStyleBackColor = true;
             // 
             // button7
@@ -268,6 +268,7 @@
             this.button12.TabIndex = 15;
             this.button12.Text = "函数退出";
             this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
             // button13
             // 
@@ -275,7 +276,7 @@
             this.button13.Name = "button13";
             this.button13.Size = new System.Drawing.Size(90, 31);
             this.button13.TabIndex = 16;
-            this.button13.Text = "单次执行";
+            this.button13.Text = "备用2";
             this.button13.UseVisualStyleBackColor = true;
             // 
             // button14
@@ -462,26 +463,27 @@
             // 插入命令ToolStripMenuItem
             // 
             this.插入命令ToolStripMenuItem.Name = "插入命令ToolStripMenuItem";
-            this.插入命令ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.插入命令ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.插入命令ToolStripMenuItem.Text = "插入命令";
             this.插入命令ToolStripMenuItem.Click += new System.EventHandler(this.插入命令ToolStripMenuItem_Click);
             // 
             // 修改命令ToolStripMenuItem
             // 
             this.修改命令ToolStripMenuItem.Name = "修改命令ToolStripMenuItem";
-            this.修改命令ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.修改命令ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.修改命令ToolStripMenuItem.Text = "修改命令";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(121, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
             // 
             // 删除命令ToolStripMenuItem
             // 
             this.删除命令ToolStripMenuItem.Name = "删除命令ToolStripMenuItem";
-            this.删除命令ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.删除命令ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.删除命令ToolStripMenuItem.Text = "删除命令";
+            this.删除命令ToolStripMenuItem.Click += new System.EventHandler(this.删除命令ToolStripMenuItem_Click);
             // 
             // 工程ToolStripMenuItem
             // 
@@ -610,6 +612,7 @@
             // 刷新ToolStripMenuItem
             // 
             this.刷新ToolStripMenuItem.Name = "刷新ToolStripMenuItem";
+            this.刷新ToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F11;
             this.刷新ToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
             this.刷新ToolStripMenuItem.Text = "刷新";
             this.刷新ToolStripMenuItem.Click += new System.EventHandler(this.刷新ToolStripMenuItem_Click);

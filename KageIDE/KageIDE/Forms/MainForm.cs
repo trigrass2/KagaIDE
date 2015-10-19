@@ -564,5 +564,23 @@ namespace KagaIDE
             core.dash_break();
         }
 
+        // 菜单->删除
+        private void 删除命令ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        // 插入指令：函数退出
+        private void button12_Click(object sender, EventArgs e)
+        {
+            // 检查这个节点可否插入
+            if (this.isAbleInsert() == false)
+            {
+                return;
+            }
+            FunRetForm frf = new FunRetForm(this.tabControl1.SelectedTab.Text);
+            frf.ShowDialog(this);
+        }
+
     }
 }
