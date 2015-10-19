@@ -115,4 +115,14 @@ namespace KagaIDE.Enuming
         CLT_SWITCH,
         CLT_EXPRESSION
     }
+
+    /// <summary>
+    /// 枚举类型：次数循环类型
+    /// </summary>
+    public enum ForLoopType
+    {
+        FLT_CONSTANT,
+        FLT_GLOBAL,
+        FLT_DEFVAR
+    }
 }

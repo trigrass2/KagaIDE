@@ -71,6 +71,12 @@ namespace KagaIDE
         public string forEndIter = "-1";
         // 节点For指令步长
         public string forStep = "1";
+        // 节点For指令开始类型
+        public ForLoopType forBeginType = ForLoopType.FLT_CONSTANT;
+        // 节点For指令终止类型
+        public ForLoopType forEndType = ForLoopType.FLT_CONSTANT;
+        // 节点For指令步长类型
+        public ForLoopType forStepType = ForLoopType.FLT_CONSTANT;
         // 节点开关序号
         public int switchId = -1;
         // 节点开关状态

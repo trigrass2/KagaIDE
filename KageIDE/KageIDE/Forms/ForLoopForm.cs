@@ -13,9 +13,6 @@ namespace KagaIDE.Forms
 {
     public partial class ForLoopForm : Form
     {
-        // 后台实例
-        private KagaController core = KagaController.getInstance();
-
         public ForLoopForm()
         {
             InitializeComponent();
@@ -59,48 +56,116 @@ namespace KagaIDE.Forms
         private void radioButton9_CheckedChanged(object sender, EventArgs e)
         {
             this.numericUpDown1.Enabled = this.radioButton9.Checked;
+            this.fltBegin = ForLoopType.FLT_CONSTANT;
         }
 
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
         {
             this.numericUpDown2.Enabled = this.radioButton3.Checked;
+            this.fltStep = ForLoopType.FLT_CONSTANT;
         }
 
         private void radioButton6_CheckedChanged(object sender, EventArgs e)
         {
             this.numericUpDown3.Enabled = this.radioButton6.Checked;
+            this.fltEnd = ForLoopType.FLT_CONSTANT;
         }
 
         private void radioButton10_CheckedChanged(object sender, EventArgs e)
         {
             this.comboBox2.Enabled = this.radioButton10.Checked;
+            this.fltBegin = ForLoopType.FLT_GLOBAL;
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
             this.comboBox1.Enabled = this.radioButton2.Checked;
+            this.fltStep = ForLoopType.FLT_GLOBAL;
         }
 
         private void radioButton5_CheckedChanged(object sender, EventArgs e)
         {
             this.comboBox3.Enabled = this.radioButton5.Checked;
+            this.fltEnd = ForLoopType.FLT_GLOBAL;
         }
 
         private void radioButton11_CheckedChanged(object sender, EventArgs e)
         {
             this.textBox3.Enabled = this.radioButton11.Checked;
+            this.fltBegin = ForLoopType.FLT_DEFVAR;
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             this.textBox1.Enabled = this.radioButton1.Checked;
+            this.fltStep = ForLoopType.FLT_DEFVAR;
         }
 
         private void radioButton4_CheckedChanged(object sender, EventArgs e)
         {
             this.textBox2.Enabled = this.radioButton4.Checked;
+            this.fltEnd = ForLoopType.FLT_DEFVAR;
         }
 
+        // 确定
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // 处理参数
+            string op1, op2, op3;
+            switch (fltBegin)
+            {
+                case ForLoopType.FLT_CONSTANT:
+                    op1 = Convert.ToString(this.numericUpDown1.Value);
+                    break;
+                case ForLoopType.FLT_GLOBAL:
+                    op1 = (string)this.comboBox2.Items[this.comboBox2.SelectedIndex];
+                    break;
+                case ForLoopType.FLT_DEFVAR:
+                    op1 = this.textBox3.Text;
+                    break;
+                default:
+                    op1 = "";
+                    break;
+            }
+            switch (fltStep)
+            {
+                case ForLoopType.FLT_CONSTANT:
+                    op2 = Convert.ToString(this.numericUpDown2.Value);
+                    break;
+                case ForLoopType.FLT_GLOBAL:
+                    op2 = (string)this.comboBox1.Items[this.comboBox1.SelectedIndex];
+                    break;
+                case ForLoopType.FLT_DEFVAR:
+                    op2 = this.textBox1.Text;
+                    break;
+                default:
+                    op2 = "";
+                    break;
+            }
+            switch (fltEnd)
+            {
+                case ForLoopType.FLT_CONSTANT:
+                    op3 = Convert.ToString(this.numericUpDown3.Value);
+                    break;
+                case ForLoopType.FLT_GLOBAL:
+                    op3 = (string)this.comboBox3.Items[this.comboBox3.SelectedIndex];
+                    break;
+                case ForLoopType.FLT_DEFVAR:
+                    op3 = this.textBox2.Text;
+                    break;
+                default:
+                    op3 = "";
+                    break;
+            }
+            // 把数据传递给后台
+            core.dash_forLoop(fltBegin, op1, fltEnd, op3, fltStep, op2);
+            // 关闭
+            this.Close();
+        }
 
+        private ForLoopType fltBegin = ForLoopType.FLT_CONSTANT;
+        private ForLoopType fltStep = ForLoopType.FLT_CONSTANT;
+        private ForLoopType fltEnd = ForLoopType.FLT_CONSTANT;
+        private KagaController core = KagaController.getInstance();
     }
 }
