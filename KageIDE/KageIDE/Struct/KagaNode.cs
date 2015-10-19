@@ -105,6 +105,10 @@ namespace KagaIDE
         public string calling = Consta.const_none;
         // 节点函数调用参数列表
         public string callingParams = Consta.const_none;
+        // 节点函数返回选择类型
+        public OperandType funretType = OperandType.VO_VOID;
+        // 节点函数返回引用值
+        public string funretOperand = Consta.const_none;
         // 节点附加值
         public string tag = Consta.const_none;
 

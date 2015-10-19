@@ -90,7 +90,8 @@ namespace KagaIDE.Enuming
         VO_GlobalVar,
         VO_DefVar,
         VO_Random,
-        VO_Switch
+        VO_Switch,
+        VO_VOID
     }
 
     /// <summary>

@@ -45,6 +45,20 @@ namespace KagaIDE.Forms
                 this.textBox2.Enabled = true;
                 this.textBox1.Enabled = this.comboBox1.Enabled = false;
             }
+            // 加载全局变量表
+            List<string> globalVarList = core.getGlobalVar();
+            if (globalVarList.Count == 0)
+            {
+                this.radioButton4.Enabled = false;
+            }
+            else
+            {
+                foreach (string s in globalVarList)
+                {
+                    this.comboBox1.Items.Add(s);
+                }
+                this.comboBox1.SelectedIndex = 0;
+            }
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
@@ -60,6 +74,30 @@ namespace KagaIDE.Forms
         private void radioButton4_CheckedChanged(object sender, EventArgs e)
         {
             this.comboBox1.Enabled = this.radioButton4.Checked;
+        }
+
+        // 确定
+        private void button1_Click(object sender, EventArgs e)
+        {
+            OperandType opt = OperandType.VO_VOID;
+            string opr = null;
+            if (this.radioButton2.Checked)
+            {
+                opt = OperandType.VO_Constant;
+                opr = this.textBox2.Text;
+            }
+            else if (this.radioButton3.Checked)
+            {
+                opt = OperandType.VO_DefVar;
+                opr = this.textBox1.Text;
+            }
+            else if (this.radioButton4.Checked)
+            {
+                opt = OperandType.VO_GlobalVar;
+                opr = (string)this.comboBox1.Items[this.comboBox1.SelectedIndex];
+            }
+            core.dash_return(opt, opr);
+            this.Close();
         }
     }
 }

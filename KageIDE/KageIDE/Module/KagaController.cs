@@ -606,6 +606,45 @@ namespace KagaIDE.Module
             codeMana.insertNode(codeParentNode.depth + 1, insertPoint, nkn);
         }
 
+        // 指令：函数退出
+        public void dash_return(OperandType opType, string operand)
+        {
+            // 刷新前台
+            TreeView curTree = this.getActiveTreeView();
+            int insertPoint = curTree.SelectedNode.Index;
+            StringBuilder sbfr = new StringBuilder();
+            switch (opType)
+            {
+                case OperandType.VO_Constant:
+                    sbfr.Append(" 退出当前函数，返回值：常数" + operand);
+                    break;
+                case OperandType.VO_DefVar:
+                    sbfr.Append(" 退出当前函数，返回值：局部变量" + operand);
+                    break;
+                case OperandType.VO_GlobalVar:
+                    sbfr.Append(" 退出当前函数，返回值：全局变量" + operand);
+                    break;
+                case OperandType.VO_VOID:
+                default:
+                    sbfr.Append(" 退出当前函数");
+                    break;
+            }
+            TreeNode np = new TreeNode(Consta.prefix_frontend + sbfr.ToString());
+            np.ForeColor = Consta.getColoring(NodeType.RETURN);
+            curTree.SelectedNode.Parent.Nodes.Insert(insertPoint, np);
+            // 提交修改到代码管理器
+            KagaNode codeParentNode = this.getOpNodeParent(1);
+            KagaNode nkn = new KagaNode(
+                codeParentNode.anodeName + "___" + NodeType.RETURN.ToString(),
+                NodeType.RETURN,
+                codeParentNode.depth + 1,
+                insertPoint,
+                codeParentNode);
+            nkn.funretOperand = operand;
+            nkn.funretType = opType;
+            codeMana.insertNode(codeParentNode.depth + 1, insertPoint, nkn);
+        }
+
         // 指令：中断循环
         public void dash_break()
         {
@@ -957,6 +996,29 @@ namespace KagaIDE.Module
                     }
                     vexpnode.ForeColor = Consta.getColoring(parseNode.atype);
                     currentParent.Nodes.Add(vexpnode);
+                    break;
+                // 操作：函数退出
+                case NodeType.RETURN:
+                    StringBuilder sbfr = new StringBuilder();
+                    switch (parseNode.funretType)
+                    {
+                        case OperandType.VO_Constant:
+                            sbfr.Append(" 退出当前函数，返回值：常数" + parseNode.funretOperand);
+                            break;
+                        case OperandType.VO_DefVar:
+                            sbfr.Append(" 退出当前函数，返回值：局部变量" + parseNode.funretOperand);
+                            break;
+                        case OperandType.VO_GlobalVar:
+                            sbfr.Append(" 退出当前函数，返回值：全局变量" + parseNode.funretOperand);
+                            break;
+                        case OperandType.VO_VOID:
+                        default:
+                            sbfr.Append(" 退出当前函数");
+                            break;
+                    }
+                    TreeNode returnNode = new TreeNode(Consta.prefix_frontend + sbfr.ToString());
+                    returnNode.ForeColor = Consta.getColoring(parseNode.atype);
+                    currentParent.Nodes.Add(returnNode);
                     break;
                 // 操作：中断循环
                 case NodeType.BREAK:
