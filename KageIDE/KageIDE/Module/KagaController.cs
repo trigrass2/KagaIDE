@@ -521,50 +521,59 @@ namespace KagaIDE.Module
         }
 
         // 指令：次数循环
-        public void dash_forLoop(ForLoopType tbegin, string obegin, ForLoopType tend, string oend, ForLoopType tstep, string ostep)
+        public void dash_forLoop(bool simFlag, ForLoopType tbegin, string obegin, ForLoopType tend, string oend, ForLoopType tstep, string ostep)
         {
             // 刷新前台
             TreeView curTree = this.getActiveTreeView();
             int insertPoint = curTree.SelectedNode.Index;
             StringBuilder sb = new StringBuilder();
-            sb.Append(Consta.prefix_frontend + " 循环：从");
-            switch (tbegin)
+            // 简单模式时
+            if (simFlag == true)
             {
-                case ForLoopType.FLT_CONSTANT:
-                    sb.Append("常数" + obegin);
-                    break;
-                case ForLoopType.FLT_GLOBAL:
-                    sb.Append("全局变量" + obegin);
-                    break;
-                default:
-                    sb.Append("变量" + obegin);
-                    break;
+                sb.Append(Consta.prefix_frontend + " 循环：反复 " + oend + " 次");
             }
-            sb.Append(" 到");
-            switch (tend)
+            // 高级模式时
+            else
             {
-                case ForLoopType.FLT_CONSTANT:
-                    sb.Append("常数" + oend);
-                    break;
-                case ForLoopType.FLT_GLOBAL:
-                    sb.Append("全局变量" + oend);
-                    break;
-                default:
-                    sb.Append("变量" + oend);
-                    break;
-            }
-            sb.Append("，每次递增 ");
-            switch (tstep)
-            {
-                case ForLoopType.FLT_CONSTANT:
-                    sb.Append("常数" + ostep);
-                    break;
-                case ForLoopType.FLT_GLOBAL:
-                    sb.Append("全局变量" + ostep);
-                    break;
-                default:
-                    sb.Append("变量" + ostep);
-                    break;
+                sb.Append(Consta.prefix_frontend + " 循环：从");
+                switch (tbegin)
+                {
+                    case ForLoopType.FLT_CONSTANT:
+                        sb.Append("常数" + obegin);
+                        break;
+                    case ForLoopType.FLT_GLOBAL:
+                        sb.Append("全局变量" + obegin);
+                        break;
+                    default:
+                        sb.Append("变量" + obegin);
+                        break;
+                }
+                sb.Append(" 到");
+                switch (tend)
+                {
+                    case ForLoopType.FLT_CONSTANT:
+                        sb.Append("常数" + oend);
+                        break;
+                    case ForLoopType.FLT_GLOBAL:
+                        sb.Append("全局变量" + oend);
+                        break;
+                    default:
+                        sb.Append("变量" + oend);
+                        break;
+                }
+                sb.Append("，每次递增 ");
+                switch (tstep)
+                {
+                    case ForLoopType.FLT_CONSTANT:
+                        sb.Append("常数" + ostep);
+                        break;
+                    case ForLoopType.FLT_GLOBAL:
+                        sb.Append("全局变量" + ostep);
+                        break;
+                    default:
+                        sb.Append("变量" + ostep);
+                        break;
+                }
             }
             TreeNode np = new TreeNode(sb.ToString());
             // padding节点要追加给np
@@ -587,6 +596,7 @@ namespace KagaIDE.Module
             nkn.forBeginIter = obegin;
             nkn.forEndIter = oend;
             nkn.forStep = ostep;
+            nkn.isSimpleFor = simFlag;
             // 为循环节点追加代码块光标节点、代码块右边界
             nkn.children.Add(new KagaNode(nkn.anodeName + "___PADDING_CURSOR",
                 NodeType.PILE__PADDING_CURSOR, nkn.depth, 0, nkn));
@@ -853,44 +863,51 @@ namespace KagaIDE.Module
                 // 代码块：次数循环
                 case NodeType.BLOCK__FOR:
                     StringBuilder sbf = new StringBuilder();
-                    sbf.Append(Consta.prefix_frontend + " 循环：从");
-                    switch (parseNode.forBeginType)
+                    if (parseNode.isSimpleFor)
                     {
-                        case ForLoopType.FLT_CONSTANT:
-                            sbf.Append("常数" + parseNode.forBeginIter);
-                            break;
-                        case ForLoopType.FLT_GLOBAL:
-                            sbf.Append("全局变量" + parseNode.forBeginIter);
-                            break;
-                        default:
-                            sbf.Append("变量" + parseNode.forBeginIter);
-                            break;
+                        sbf.Append(Consta.prefix_frontend + " 循环：反复 " + parseNode.forEndIter + " 次");
                     }
-                    sbf.Append(" 到");
-                    switch (parseNode.forEndType)
+                    else 
                     {
-                        case ForLoopType.FLT_CONSTANT:
-                            sbf.Append("常数" + parseNode.forEndIter);
-                            break;
-                        case ForLoopType.FLT_GLOBAL:
-                            sbf.Append("全局变量" + parseNode.forEndIter);
-                            break;
-                        default:
-                            sbf.Append("变量" + parseNode.forEndIter);
-                            break;
-                    }
-                    sbf.Append("，每次递增 ");
-                    switch (parseNode.forStepType)
-                    {
-                        case ForLoopType.FLT_CONSTANT:
-                            sbf.Append("常数" + parseNode.forStep);
-                            break;
-                        case ForLoopType.FLT_GLOBAL:
-                            sbf.Append("全局变量" + parseNode.forStep);
-                            break;
-                        default:
-                            sbf.Append("变量" + parseNode.forStep);
-                            break;
+                        sbf.Append(Consta.prefix_frontend + " 循环：从");
+                        switch (parseNode.forBeginType)
+                        {
+                            case ForLoopType.FLT_CONSTANT:
+                                sbf.Append("常数" + parseNode.forBeginIter);
+                                break;
+                            case ForLoopType.FLT_GLOBAL:
+                                sbf.Append("全局变量" + parseNode.forBeginIter);
+                                break;
+                            default:
+                                sbf.Append("变量" + parseNode.forBeginIter);
+                                break;
+                        }
+                        sbf.Append(" 到");
+                        switch (parseNode.forEndType)
+                        {
+                            case ForLoopType.FLT_CONSTANT:
+                                sbf.Append("常数" + parseNode.forEndIter);
+                                break;
+                            case ForLoopType.FLT_GLOBAL:
+                                sbf.Append("全局变量" + parseNode.forEndIter);
+                                break;
+                            default:
+                                sbf.Append("变量" + parseNode.forEndIter);
+                                break;
+                        }
+                        sbf.Append("，每次递增 ");
+                        switch (parseNode.forStepType)
+                        {
+                            case ForLoopType.FLT_CONSTANT:
+                                sbf.Append("常数" + parseNode.forStep);
+                                break;
+                            case ForLoopType.FLT_GLOBAL:
+                                sbf.Append("全局变量" + parseNode.forStep);
+                                break;
+                            default:
+                                sbf.Append("变量" + parseNode.forStep);
+                                break;
+                        }
                     }
                     currentParent = currentParent.Nodes.Add(sbf.ToString());
                     currentParent.ForeColor = Consta.getColoring(parseNode.atype);

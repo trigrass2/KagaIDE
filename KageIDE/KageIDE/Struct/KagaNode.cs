@@ -77,6 +77,8 @@ namespace KagaIDE
         public ForLoopType forEndType = ForLoopType.FLT_CONSTANT;
         // 节点For指令步长类型
         public ForLoopType forStepType = ForLoopType.FLT_CONSTANT;
+        // 节点For简单循环标记
+        public bool isSimpleFor = true;
         // 节点开关序号
         public int switchId = -1;
         // 节点开关状态
