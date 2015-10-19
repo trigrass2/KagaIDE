@@ -94,7 +94,7 @@ namespace KagaIDE.Enuming
                 case NodeType.USING_SWITCHES:
                     return Color.Red;
                 case NodeType.RETURN:
-                    return Color.Orange;
+                    return Color.Violet;
                 case NodeType.NOTE:
                     return Color.Green;
                 case NodeType.CODEBLOCK:

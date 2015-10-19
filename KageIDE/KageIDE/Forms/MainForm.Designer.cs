@@ -259,6 +259,7 @@
             this.button11.TabIndex = 14;
             this.button11.Text = "函数调用";
             this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
             // button12
             // 

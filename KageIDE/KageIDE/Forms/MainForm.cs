@@ -582,5 +582,17 @@ namespace KagaIDE
             frf.ShowDialog(this);
         }
 
+        // 插入指令：函数调用
+        private void button11_Click(object sender, EventArgs e)
+        {
+            // 检查这个节点可否插入
+            if (this.isAbleInsert() == false)
+            {
+                return;
+            }
+            FunCallForm fcf = new FunCallForm();
+            fcf.ShowDialog(this);
+        }
+
     }
 }

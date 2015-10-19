@@ -122,6 +122,15 @@ namespace KagaIDE.Module
         }
 
         /// <summary>
+        /// 获取函数符号容器
+        /// </summary>
+        /// <returns>函数符号向量</returns>
+        public List<FunctionCell> getFuncCellVector()
+        {
+            return this.callfunContainer;
+        }
+
+        /// <summary>
         /// 获得编译时函数签名列表
         /// </summary>
         /// <returns>所有函数编译时签名符串的列表</returns>

@@ -35,7 +35,7 @@ namespace KagaIDE.Module
         }
         #endregion
 
-        #region 函数管理器函数
+        #region 函数管理相关函数
         // 增加一个函数
         public bool addFunction(string fcname, List<string> args, string retType)
         {
@@ -689,6 +689,29 @@ namespace KagaIDE.Module
             codeMana.insertNode(codeParentNode.depth + 1, insertPoint, nkn);
         }
 
+        // 指令：函数调用
+        public void dash_funcall(string fcname, string argPairs)
+        {
+            // 刷新前台
+            TreeView curTree = this.getActiveTreeView();
+            int insertPoint = curTree.SelectedNode.Index;
+            TreeNode np = new TreeNode(Consta.prefix_frontend + " 函数：" + fcname);
+            np.ToolTipText = argPairs.Replace(":", ": ").Replace("//", Environment.NewLine);
+            np.ForeColor = Consta.getColoring(NodeType.CALL);
+            curTree.SelectedNode.Parent.Nodes.Insert(insertPoint, np);
+            // 提交给代码管理器
+            KagaNode codeParentNode = this.getOpNodeParent(1);
+            KagaNode nkn = new KagaNode(
+                codeParentNode.anodeName + "___" + NodeType.CALL.ToString(),
+                NodeType.CALL,
+                codeParentNode.depth + 1,
+                insertPoint,
+                codeParentNode);
+            nkn.calling = fcname;
+            nkn.callingParams = argPairs;
+            codeMana.insertNode(codeParentNode.depth + 1, insertPoint, nkn);
+        }
+
         // 指令：插入代码片段
         public void dash_codeblock(string myCode)
         {
@@ -996,6 +1019,13 @@ namespace KagaIDE.Module
                     }
                     vexpnode.ForeColor = Consta.getColoring(parseNode.atype);
                     currentParent.Nodes.Add(vexpnode);
+                    break;
+                // 操作：函数调用
+                case NodeType.CALL:
+                    TreeNode ncall = new TreeNode(Consta.prefix_frontend + " 函数：" + parseNode.calling);
+                    ncall.ToolTipText = parseNode.callingParams.Replace(":", ": ").Replace("//", Environment.NewLine);
+                    ncall.ForeColor = Consta.getColoring(parseNode.atype);
+                    currentParent.Nodes.Add(ncall);
                     break;
                 // 操作：函数退出
                 case NodeType.RETURN:

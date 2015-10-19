@@ -50,7 +50,8 @@ namespace KagaIDE.Enuming
         // 编译控制：代码块右边界
         PILE__BRIGHT_BRUCKET,
         // 编译控制：待插入光标
-        PILE__PADDING_CURSOR
+        PILE__PADDING_CURSOR,
+        CALLING
     }
 
     /// <summary>
