@@ -399,7 +399,7 @@ namespace KagaIDE.Module
             // 如果有分支
             if (containElse)
             {
-                TreeNode ep = new TreeNode(Consta.prefix_frontCond + " 除此以外的情况下：");
+                TreeNode ep = new TreeNode(Consta.prefix_frontCond + " 除此以外的情况：");
                 ep.Nodes.Add(Consta.prefix_frontend +
                         "                                            ");
                 ep.ForeColor = Consta.getColoring(NodeType.BLOCK__IF_TRUE);
@@ -891,7 +891,7 @@ namespace KagaIDE.Module
                     break;
                 // 代码块：条件假分支
                 case NodeType.BLOCK__IF_FALSE:
-                    currentParent = currentParent.Nodes.Add(Consta.prefix_frontCond + " 除此以外的情况下：");
+                    currentParent = currentParent.Nodes.Add(Consta.prefix_frontCond + " 除此以外的情况：");
                     currentParent.ForeColor = Consta.getColoring(parseNode.atype);
                     break;
                 // 代码块：条件循环
@@ -1100,7 +1100,6 @@ namespace KagaIDE.Module
             // 刷新引用
             this.symbolMana = SymbolManager.getInstance();
             this.codeMana = CodeManager.getInstance();
-
         }
         // 工厂方法
         public static KagaController getInstance()
@@ -1110,7 +1109,7 @@ namespace KagaIDE.Module
         // 私有构造器
         private KagaController()
         {
-            sematicer = PileParser.getInstance();
+            pileMana = PileParser.getInstance();
             symbolMana = SymbolManager.getInstance();
             codeMana = CodeManager.getInstance();
             fileMana = FileManager.getInstance();
@@ -1118,7 +1117,7 @@ namespace KagaIDE.Module
         // 唯一实例
         private static KagaController synObject = null;
         // 语法匹配器
-        private PileParser sematicer = null;
+        private PileParser pileMana = null;
         // 代码管理器
         private CodeManager codeMana = null;
         // 符号管理器

@@ -193,6 +193,8 @@ namespace KagaIDE.Enuming
         public static readonly string switch_name = "___KAGA_SWITCHES";
         // 待命名变量名
         public static readonly string const_none = "#UUZ#";
+        // 翻译语句结尾符号
+        public static readonly string pile_statend = ";";
         // 开关总量
         public static readonly int switch_max = 64;
         #endregion
