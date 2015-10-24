@@ -31,8 +31,17 @@ namespace KagaIDE.Module
                 return false;
             }
             this.setLoadMana(ncmana, ncmana.getSymbolRef());
+            pileMana.refreshRef();
             return true;
         }
+        #endregion
+
+        #region 编译相关的函数
+        public void dash()
+        {
+            pileMana.startDash();
+        }
+
         #endregion
 
         #region 函数管理相关函数

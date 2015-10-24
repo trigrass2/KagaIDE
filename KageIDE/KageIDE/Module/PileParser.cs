@@ -35,7 +35,7 @@ namespace KagaIDE.Module
             {
                 codeBuilder.Append(fc.getSign(containLeftBrucket: false) + Consta.pile_statend);
             }
-            codeBuilder.Append("// ____KAGA_FUNCDECLARATION_DEAL_ABOVE" + Environment.NewLine + Environment.NewLine);
+            codeBuilder.Append(Environment.NewLine + "// ____KAGA_FUNCDECLARATION_DEAL_ABOVE" + Environment.NewLine + Environment.NewLine);
             // 第三阶段：递归下降翻译代码树
             this.pileBuilder = new StringBuilder();
             codeMana.DFS(
@@ -43,6 +43,8 @@ namespace KagaIDE.Module
                 startNode: codeMana.getRoot(),
                 func: (x) => pile(x),
                 unique: false);
+            string ss = pileBuilder.ToString();
+            codeBuilder.Append(ss);
             codeBuilder.Append("// ____KAGA_PILE_DEAL_ABOVE" + Environment.NewLine + Environment.NewLine);
             // 第四阶段：收尾并固化
             codeBuilder.Append("// ____KAGA_EOF" + Environment.NewLine + Environment.NewLine);
@@ -52,10 +54,29 @@ namespace KagaIDE.Module
         // 代码翻译方法
         private KagaNode pile(KagaNode dashNode)
         {
-            // 处理缩进
-            for (int i = 0; i < this.indentCount; i++)
+            // 跳跃掉不需要处理的节点
+            if (dashNode.atype == NodeType.PILE__BLOCK__ROOT
+                || dashNode.atype == NodeType.PILE__IF
+                || dashNode.atype == NodeType.PILE__ENDIF
+                || dashNode.atype == NodeType.NOP
+                || dashNode.atype == NodeType.PILE__PADDING_CURSOR)
             {
-                pileBuilder.Append(" ");
+                return dashNode;
+            }
+            // 处理缩进
+            if (dashNode.atype != NodeType.PILE__BRIGHT_BRUCKET)
+            {
+                for (int i = 0; i < this.indentCount; i++)
+                {
+                    pileBuilder.Append(" ");
+                }
+            }
+            else
+            {
+                for (int i = 0; i < this.indentCount - 2; i++)
+                {
+                    pileBuilder.Append(" ");
+                }
             }
             // 翻译
             switch (dashNode.atype)
@@ -66,11 +87,11 @@ namespace KagaIDE.Module
                     pileBuilder.Append(dashNode.funBinding.getSign(containLeftBrucket: true));
                     pileBuilder.Append(Environment.NewLine);
                     // 作用域局部变量
-                    foreach (string fvar in dashNode.symbolTable.getParseTable())
-                    {
-                        pileBuilder.Append(fvar + Consta.pile_statend + Environment.NewLine);
-                    }
-                    pileBuilder.Append("// __KgFuncSignOver" + Environment.NewLine);
+                    //foreach (string fvar in dashNode.symbolTable.getParseTable())
+                    //{
+                    //    pileBuilder.Append(fvar + Consta.pile_statend + Environment.NewLine);
+                    //}
+                    //pileBuilder.Append("// __KgFuncSignOver" + Environment.NewLine);
                     // 进
                     indWait();
                     break;
@@ -122,10 +143,9 @@ namespace KagaIDE.Module
                                 pileBuilder.Append(dashNode.operand2 == "关闭" ? "0" : "1");
                                 break;
                             default:
-                                pileBuilder.Append(dashNode.operand1);
+                                pileBuilder.Append(dashNode.operand2);
                                 break;
                         }
-                        pileBuilder.Append(dashNode.operand2);
                     }
                     pileBuilder.Append(") {" + Environment.NewLine);
                     // 进
@@ -133,7 +153,7 @@ namespace KagaIDE.Module
                     break;
                 // 语句块：条件假分支
                 case NodeType.BLOCK__IF_FALSE:
-                    pileBuilder.Append("else {");
+                    pileBuilder.Append("else {" + Environment.NewLine);
                     // 进
                     indWait();
                     break;
@@ -141,7 +161,8 @@ namespace KagaIDE.Module
                 case NodeType.BLOCK__WHILE:
                     if (dashNode.isCondPostCheck == true)
                     {
-                        pileBuilder.Append("do {");
+                        pileBuilder.Append("do {" + Environment.NewLine);
+                        // 这里 while-end 有问题
                     }
                     else
                     {
@@ -160,7 +181,7 @@ namespace KagaIDE.Module
                                 pileBuilder.Append("true");
                                 break;
                         }
-                        pileBuilder.Append(") {");
+                        pileBuilder.Append(") {" + Environment.NewLine);
                     }
                     // 进
                     indWait();
@@ -173,20 +194,47 @@ namespace KagaIDE.Module
                     pileBuilder.Append(dashNode.forEndIter);
                     pileBuilder.Append("; __KAGA_FOR_ITER += ");
                     pileBuilder.Append(dashNode.forStep);
-                    pileBuilder.Append(") {");
+                    pileBuilder.Append(") {" + Environment.NewLine);
                     // 进
                     indWait();
                     break;
                 // 指令：注释
                 case NodeType.NOTE:
                     pileBuilder.Append("/*" + Environment.NewLine);
-                    pileBuilder.Append(dashNode.notation);
+                    //pileBuilder.Append(dashNode.notation + Environment.NewLine);
+                    string[] notationCollection = dashNode.notation.Split('\n');
+                    foreach (string ncs in notationCollection)
+                    {
+                        for (int i = 0; i < this.indentCount; i++)
+                        {
+                            pileBuilder.Append(" ");
+                        }
+                        pileBuilder.Append(ncs);
+                    }
+                    pileBuilder.Append(Environment.NewLine);
+                    for (int i = 0; i < this.indentCount; i++)
+                    {
+                        pileBuilder.Append(" ");
+                    }
                     pileBuilder.Append("*/" + Environment.NewLine);
                     break;
                 // 指令：代码片段
                 case NodeType.CODEBLOCK:
                     pileBuilder.Append("// __CODEBLOCK_BEGIN_" + Environment.NewLine);
-                    pileBuilder.Append(dashNode.myCode);
+                    string[] myCodeCollection = dashNode.myCode.Split('\n');
+                    foreach (string mcs in myCodeCollection)
+                    {
+                        for (int i = 0; i < this.indentCount; i++)
+                        {
+                            pileBuilder.Append(" ");
+                        }
+                        pileBuilder.Append(mcs);
+                    }
+                    pileBuilder.Append(Environment.NewLine);
+                    for (int i = 0; i < this.indentCount; i++)
+                    {
+                        pileBuilder.Append(" ");
+                    }
                     pileBuilder.Append("// __CODEBLOCK_END_" + Environment.NewLine);
                     break;
                 // 指令：中断循环
@@ -261,7 +309,7 @@ namespace KagaIDE.Module
                     // 缩
                     indSignal();
                     // 右括
-                    pileBuilder.Append("}");
+                    pileBuilder.Append("}" + Environment.NewLine);
                     break;
                 // 编译控制：插入节点
                 case NodeType.PILE__PADDING_CURSOR:
@@ -299,12 +347,20 @@ namespace KagaIDE.Module
         }
 
         /// <summary>
+        /// 刷新引用
+        /// </summary>
+        public void refreshRef()
+        {
+            this.symbolMana = SymbolManager.getInstance();
+            this.codeMana = CodeManager.getInstance();
+        }
+
+        /// <summary>
         /// 私有构造器
         /// </summary>
         private PileParser()
         {
-            this.symbolMana = SymbolManager.getInstance();
-            this.codeMana = CodeManager.getInstance();
+            this.refreshRef();
         }
 
         // 符号管理器

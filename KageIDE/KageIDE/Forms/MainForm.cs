@@ -594,5 +594,11 @@ namespace KagaIDE
             fcf.ShowDialog(this);
         }
 
+        // 编译按钮
+        private void button20_Click(object sender, EventArgs e)
+        {
+            core.dash();
+        }
+
     }
 }
