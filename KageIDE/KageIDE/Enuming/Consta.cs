@@ -195,6 +195,8 @@ namespace KagaIDE.Enuming
         public static readonly string const_none = "#UUZ#";
         // 翻译语句结尾符号
         public static readonly string pile_statend = ";";
+        // 翻译缩进单位量
+        public static readonly int pile_indent = 2;
         // 开关总量
         public static readonly int switch_max = 64;
         #endregion

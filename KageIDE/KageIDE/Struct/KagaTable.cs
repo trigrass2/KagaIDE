@@ -38,7 +38,8 @@ namespace KagaIDE.Struct
             List<string> parList = new List<string>();
             foreach (KagaVar s in symbols)
             {
-                parList.Add(String.Format("{0} {1}_{2}", s.vartype, this.prefix, s.varname));
+                //parList.Add(String.Format("{0} {1}_{2}", s.vartype, this.prefix, s.varname));
+                parList.Add(String.Format("{0} {1}", s.vartype, s.varname));
             }
             return parList;
         }
