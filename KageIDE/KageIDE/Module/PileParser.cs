@@ -51,7 +51,11 @@ namespace KagaIDE.Module
             string test = codeBuilder.ToString();
         }
 
-        // 代码翻译方法
+        /// <summary>
+        /// 控制代码演绎的方法
+        /// </summary>
+        /// <param name="dashNode">待处理节点</param>
+        /// <returns>返回参数自身</returns>
         private KagaNode pile(KagaNode dashNode)
         {
             // 跳跃掉不需要处理的节点
@@ -86,12 +90,6 @@ namespace KagaIDE.Module
                     // 头部
                     pileBuilder.Append(dashNode.funBinding.getSign(containLeftBrucket: true));
                     pileBuilder.Append(Environment.NewLine);
-                    // 作用域局部变量
-                    //foreach (string fvar in dashNode.symbolTable.getParseTable())
-                    //{
-                    //    pileBuilder.Append(fvar + Consta.pile_statend + Environment.NewLine);
-                    //}
-                    //pileBuilder.Append("// __KgFuncSignOver" + Environment.NewLine);
                     // 进
                     indWait();
                     break;
@@ -201,7 +199,6 @@ namespace KagaIDE.Module
                 // 指令：注释
                 case NodeType.NOTE:
                     pileBuilder.Append("/*" + Environment.NewLine);
-                    //pileBuilder.Append(dashNode.notation + Environment.NewLine);
                     string[] notationCollection = dashNode.notation.Split('\n');
                     foreach (string ncs in notationCollection)
                     {
@@ -324,11 +321,19 @@ namespace KagaIDE.Module
             return dashNode;
         }
 
+        /// <summary>
+        /// 缩进控制：退位
+        /// </summary>
+        /// <param name="offset">偏移几个单位</param>
         private void indSignal(int offset = 1)
         {
             this.indentCount -= offset * Consta.pile_indent;
         }
 
+        /// <summary>
+        /// 缩进控制：进位
+        /// </summary>
+        /// <param name="offset">偏移几个单位</param>
         private void indWait(int offset = 1)
         {
             this.indentCount += offset * Consta.pile_indent;
