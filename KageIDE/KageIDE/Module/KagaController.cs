@@ -233,6 +233,14 @@ namespace KagaIDE.Module
             symbolMana.setMarcoContainer(newMarcos);
         }
 
+        // 删除节点操作
+        public void deleteCodeNode()
+        {
+            KagaNode pendingNode = this.recursiveFindOpNode(0);
+            codeMana.deleteNode(pendingNode);
+            refreshAll();
+        }
+
         // 操作：定义变量
         public void dash_defineVariable(string arg)
         {

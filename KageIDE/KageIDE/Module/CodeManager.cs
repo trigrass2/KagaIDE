@@ -127,27 +127,21 @@ namespace KagaIDE.Module
         /// <summary>
         /// 把指定的深度和广度处的节点移除掉，并销毁掉它的符号表
         /// </summary>
-        /// <param name="dep">待删除节点的深度</param>
-        /// <param name="bre">待删除节点的广度</param>
+        /// <param name="dnode">待删除节点</param>
         /// <returns>删除是否成功</returns>
-        public bool deleteNode(int dep, int bre)
+        public bool deleteNode(KagaNode dnode)
         {
-            // 删除深度必须大于0
-            if (dep < 1)
+            // 找到双亲
+            KagaNode pNode = dnode.parent;
+            if (pNode == null)
             {
                 return false;
             }
-            // 首先找到自己和双亲
-            KagaNode selfNode = this.getSubTree((t) => t.depth == dep && t.index == bre, this.parseTree);
-            KagaNode father = selfNode.parent;
-            if (father == null || father.children.Count < bre)
-            {
-                return false;
-            }
-            // 移除自己
-            father.children.RemoveAt(bre);
+            // 移除自己和子代的符号表
+            this.update(dnode, true);
+            pNode.children.Remove(dnode);
             // 更新姐妹和姐妹后代的信息
-            this.update(father, true);
+            this.updateChildrenInfo(pNode);
             return true;
         }
         
@@ -188,7 +182,7 @@ namespace KagaIDE.Module
                     }
                 },
                 unique: false,
-                startNode: this.parseTree
+                startNode: subTreeRoot
             );
         }
 

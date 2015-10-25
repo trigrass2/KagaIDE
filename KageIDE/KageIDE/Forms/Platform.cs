@@ -51,5 +51,11 @@ namespace KagaIDE.Forms
             this.parentForm.moveCursorToInsertPlane();
         }
 
+        // 右键删除时
+        private void 删除ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.parentForm.删除命令ToolStripMenuItem_Click(this.parentForm, null);
+        }
+
     }
 }

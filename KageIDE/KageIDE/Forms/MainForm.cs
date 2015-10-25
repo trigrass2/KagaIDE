@@ -565,9 +565,9 @@ namespace KagaIDE
         }
 
         // 菜单->删除
-        private void 删除命令ToolStripMenuItem_Click(object sender, EventArgs e)
+        public void 删除命令ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            core.deleteCodeNode();
         }
 
         // 插入指令：函数退出
