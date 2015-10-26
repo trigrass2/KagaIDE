@@ -567,7 +567,10 @@ namespace KagaIDE
         // 菜单->删除
         public void 删除命令ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            core.deleteCodeNode();
+            if (core.deleteCodeNode() == false)
+            {
+                MessageBox.Show("这个节点不能直接删除", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         // 插入指令：函数退出

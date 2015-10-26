@@ -234,11 +234,22 @@ namespace KagaIDE.Module
         }
 
         // 删除节点操作
-        public void deleteCodeNode()
+        public bool deleteCodeNode()
         {
+            TreeView curTree = this.getActiveTreeView();
+            TreeNode curNode = curTree.SelectedNode;
+            if (curNode.Text[0] == ':')
+            {
+                return false;
+            }
             KagaNode pendingNode = this.recursiveFindOpNode(0);
+            if (pendingNode.atype == NodeType.PILE__PADDING_CURSOR)
+            {
+                return false;
+            }
             codeMana.deleteNode(pendingNode);
             refreshAll();
+            return true;
         }
 
         // 操作：定义变量
