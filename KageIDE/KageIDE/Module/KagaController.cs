@@ -16,13 +16,21 @@ namespace KagaIDE.Module
     public class KagaController
     {
         #region 文件操作相关函数
-        // 保存文件
+        /// <summary>
+        /// 保存文件
+        /// </summary>
+        /// <param name="savePath">带保存文件名的路径</param>
+        /// <returns>操作成功与否</returns>
         public bool menuSave(string savePath)
         {
             return fileMana.save(savePath);
         }
 
-        // 读取文件
+        /// <summary>
+        /// 读取文件
+        /// </summary>
+        /// <param name="loadPath">读取文件的路径</param>
+        /// <returns>操作成功与否</returns>
         public bool menuLoad(string loadPath)
         {
             CodeManager ncmana = fileMana.load(loadPath);
@@ -30,7 +38,7 @@ namespace KagaIDE.Module
             {
                 return false;
             }
-            this.setLoadMana(ncmana, ncmana.getSymbolRef());
+            this.setMana(ncmana, ncmana.getSymbolRef());
             pileMana.refreshRef();
             return true;
         }
@@ -45,7 +53,13 @@ namespace KagaIDE.Module
         #endregion
 
         #region 函数管理相关函数
-        // 增加一个函数
+        /// <summary>
+        /// 增加一个函数
+        /// </summary>
+        /// <param name="fcname">函数名</param>
+        /// <param name="args">参数列表，以"name@type"形式的字符串表示</param>
+        /// <param name="retType">返回类型</param>
+        /// <returns>操作成功与否</returns>
         public bool addFunction(string fcname, List<string> args, string retType)
         {
             VarType signRetType = Consta.parseCTypeToVarType(retType);
@@ -74,13 +88,21 @@ namespace KagaIDE.Module
             return true;
         }
 
-        // 删除一个函数
+        /// <summary>
+        /// 删除一个函数
+        /// </summary>
+        /// <param name="fcname">函数名</param>
         public void deleteFunction(string fcname)
         {
             this.symbolMana.deleteFunction(fcname);
         }
 
-        // 获取一个函数的信息
+        /// <summary>
+        /// 获取一个函数的信息
+        /// </summary>
+        /// <param name="fcname">函数名</param>
+        /// <param name="args">（传出）参数列表，以"name@type"形式的字符串表示</param>
+        /// <param name="retType">（传出）返回类型</param>
         public void getFunction(string fcname, out List<string> args, out string retType)
         {
             FunctionCell fc = symbolMana.getFunction(fcname);
@@ -103,7 +125,14 @@ namespace KagaIDE.Module
             }
         }
 
-        // 编辑一个函数
+        /// <summary>
+        /// 编辑一个函数
+        /// </summary>
+        /// <param name="fcname">函数名</param>
+        /// <param name="newname">新函数名</param>
+        /// <param name="args">参数列表，以"name@type"形式的字符串表示</param>
+        /// <param name="retType">返回类型</param>
+        /// <returns>操作成功与否</returns>
         public bool editFunction(string fcname, string newname, List<string> args, string retType)
         {
             List<KagaVar> argsList = new List<KagaVar>();
@@ -115,10 +144,24 @@ namespace KagaIDE.Module
             FunctionCell nfc = new FunctionCell(newname, argsList, Consta.parseCTypeToVarType(retType));
             return symbolMana.editFunction(fcname, nfc);
         }
+
+        /// <summary>
+        /// 获取所有函数名字
+        /// </summary>
+        /// <returns></returns>
+        public List<string> getAllFunction()
+        {
+            return this.symbolMana.getFunctionNameList();
+        }
         #endregion
 
         #region 全局变量操作函数
-        // 增加一个全局变量
+        /// <summary>
+        /// 增加一个全局变量
+        /// </summary>
+        /// <param name="varname">变量名</param>
+        /// <param name="cvartype">变量类型</param>
+        /// <returns>操作成功与否</returns>
         public bool addGlobalVar(string varname, string cvartype)
         {
             // 获取全局符号表，并查找符号是否已存在
@@ -132,7 +175,10 @@ namespace KagaIDE.Module
             return true;
         }
 
-        // 删除一个全局变量
+        /// <summary>
+        /// 删除一个全局变量
+        /// </summary>
+        /// <param name="varname">待删除的变量名</param>
         public void deleteGlobalVar(string varname)
         {
             // 获取全局符号表
@@ -141,7 +187,10 @@ namespace KagaIDE.Module
             globalTable.symbols.RemoveAll((x) => x.varname == varname);
         }
 
-        // 取得全局变量表
+        /// <summary>
+        /// 取得全局变量表
+        /// </summary>
+        /// <returns>一个字符串向量，每个以"name@type"的命名</returns>
         public List<string> getGlobalVar()
         {
             // 获取全局符号表
@@ -155,7 +204,10 @@ namespace KagaIDE.Module
             return globalVector;
         }
 
-        // 重置一份新的全局变量表
+        /// <summary>
+        /// 重置一份新的全局变量表
+        /// </summary>
+        /// <param name="newlist">准备替换掉原全局变量表的字符串向量，每个元素以"name@type"格式命名</param>
         public void setNewGlobalVar(List<string> newlist)
         {
             KagaTable gt = symbolMana.getGlobalTable();
@@ -167,13 +219,19 @@ namespace KagaIDE.Module
             }
         }
 
-        // 获得开关描述向量
+        /// <summary>
+        /// 获得开关描述向量
+        /// </summary>
+        /// <returns>一个向量，每个元素是对应下标的开关的描述文本</returns>
         public List<string> getSwitchDescriptionVector()
         {
             return symbolMana.getSwitchVector();
         }
 
-        // 用新开关描述向量更新开关表
+        /// <summary>
+        /// 用新开关描述向量更新开关表
+        /// </summary>
+        /// <param name="nlist">准备替换掉原开关描述向量的新向量</param>
         public void updateSwitchDescriptionVector(List<string> nlist)
         {
             if (nlist != null)
@@ -183,16 +241,12 @@ namespace KagaIDE.Module
         }
         #endregion
 
-        #region 符号管理器界面相关函数
-        // 获取所有函数名字
-        public List<string> getAllFunction()
-        {
-            return this.symbolMana.getFunctionNameList();
-        }
-        #endregion
-
         #region 主窗口指令操作函数
-        // 递归查找操作节点
+        /// <summary>
+        /// 递归查找当前前端选中节点所对应的后台代码树节点
+        /// </summary>
+        /// <param name="offset">偏移量：指示后台代码树节点的index值应该减去多少</param>
+        /// <returns>前台激活节点在后台代码树上的对应节点</returns>
         private KagaNode recursiveFindOpNode(int offset)
         {
             TreeView curTree = this.getActiveTreeView();
@@ -215,25 +269,53 @@ namespace KagaIDE.Module
             return codefindNode;
         }
 
-        // 获得操作节点
+        /// <summary>
+        /// 获得当前前端操作节点所对应后台代码树上节点的双亲节点
+        /// </summary>
+        /// <param name="offset">偏移量：指示后台代码树节点的index值应该减去多少</param>
+        /// <returns>前台激活节点在后台代码树上对应节点的双亲节点</returns>
         public KagaNode getOpNodeParent(int offset)
         {
             return this.recursiveFindOpNode(offset).parent;
         }
-        
-        // 获得宏定义
+
+        /// <summary>
+        /// 检查一个节点是否可以插入变量定义
+        /// </summary>
+        /// <returns>是否可以插入变量定义语句</returns>
+        public bool isAbleInsertDefineVar()
+        {
+            TreeView curTree = this.getActiveTreeView();
+            if (curTree.SelectedNode.Parent == null)
+            {
+                return false;
+            }
+            KagaNode codeParentNode = this.getOpNodeParent(0);
+            return codeParentNode.isNewBlock;
+        }
+
+        /// <summary>
+        /// 获得宏定义
+        /// </summary>
+        /// <returns>宏定义的字符串</returns>
         public string getMarcos()
         {
             return symbolMana.getMarcoContainer();
         }
 
-        // 设置宏定义
+        /// <summary>
+        /// 设置宏定义
+        /// </summary>
+        /// <param name="newMarcos">待设置的包含新的宏定义的字符串</param>
         public void setMarcos(string newMarcos)
         {
             symbolMana.setMarcoContainer(newMarcos);
         }
 
-        // 删除节点操作
+        /// <summary>
+        /// 删除节点操作
+        /// </summary>
+        /// <returns>操作成功与否</returns>
         public bool deleteCodeNode()
         {
             TreeView curTree = this.getActiveTreeView();
@@ -252,7 +334,10 @@ namespace KagaIDE.Module
             return true;
         }
 
-        // 操作：定义变量
+        /// <summary>
+        /// 操作：定义变量 
+        /// </summary>
+        /// <param name="arg">定义的变量：以"name@type"格式传递</param>
         public void dash_defineVariable(string arg)
         {
             string[] splitItem = arg.Split('@');
@@ -278,7 +363,11 @@ namespace KagaIDE.Module
             codeParentNode.symbolTable.symbols.Add(new KagaVar(splitItem[0], Consta.parseCTypeToVarType(splitItem[1])));
         }
 
-        // 操作：开关操作
+        /// <summary>
+        /// 操作：开关操作
+        /// </summary>
+        /// <param name="sid">开关号</param>
+        /// <param name="state">开关要设置成的状态</param>
         public void dash_switchOperate(int sid, bool state)
         {
             // 刷新前台
@@ -301,20 +390,16 @@ namespace KagaIDE.Module
             nkn.switchId = sid;
             codeMana.insertNode(codeParentNode.depth + 1, insertPoint, nkn);
         }
-
-        // 检查一个节点是否可以插入变量
-        public bool isAbleInsertDefineVar()
-        {
-            TreeView curTree = this.getActiveTreeView();
-            if (curTree.SelectedNode.Parent == null)
-            {
-                return false;
-            }
-            KagaNode codeParentNode = this.getOpNodeParent(0);
-            return codeParentNode.isNewBlock;
-        }
-
-        // 指令：变量操作
+        
+        /// <summary>
+        /// 指令：变量操作
+        /// </summary>
+        /// <param name="Lt">左操作数类型</param>
+        /// <param name="lop">左操作数</param>
+        /// <param name="vt">操作符类型</param>
+        /// <param name="Rt">右操作数类型</param>
+        /// <param name="rop1">右操作数1</param>
+        /// <param name="rop2">右操作数2</param>
         public void dash_varOperator(OperandType Lt, string lop, VarOperateType vt, OperandType Rt, string rop1, string rop2 = null)
         {
             // 刷新前台
@@ -365,7 +450,17 @@ namespace KagaIDE.Module
             codeMana.insertNode(codeParentNode.depth + 1, insertPoint, nkn);
         }
 
-        // 指令：条件操作
+        /// <summary>
+        /// 指令：条件分支
+        /// </summary>
+        /// <param name="isCondEx">是否自带表达式</param>
+        /// <param name="condEx">表达式</param>
+        /// <param name="containElse">是否有分支</param>
+        /// <param name="Lt">左操作数类型</param>
+        /// <param name="lop">左操作数</param>
+        /// <param name="condt">比较符号类型</param>
+        /// <param name="Rt">右操作数类型</param>
+        /// <param name="rop">右操作数</param>
         public void dash_condition(
             bool isCondEx, string condEx, bool containElse,
             OperandType Lt, string lop, CondOperatorType condt, OperandType Rt, string rop)
@@ -487,7 +582,12 @@ namespace KagaIDE.Module
             codeMana.insertNode(codeParentNode.depth + 1, insertPoint, nkn);
         }
 
-        // 指令：条件循环
+        /// <summary>
+        /// 指令：条件循环
+        /// </summary>
+        /// <param name="clt">条件循环的类型</param>
+        /// <param name="operand">操作数</param>
+        /// <param name="dowhileFlag">是否为do-while类型的循环</param>
         public void dash_condLoop(CondLoopType clt, string operand, bool dowhileFlag)
         {
             // 刷新前台
@@ -548,8 +648,18 @@ namespace KagaIDE.Module
             codeMana.insertNode(codeParentNode.depth + 1, insertPoint, nkn);
         }
 
-        // 指令：次数循环
-        public void dash_forLoop(bool simFlag, ForLoopType tbegin, string obegin, ForLoopType tend, string oend, ForLoopType tstep, string ostep)
+        /// <summary>
+        /// 指令：次数循环
+        /// </summary>
+        /// <param name="simFlag">是否为简单次数循环</param>
+        /// <param name="tbegin">开始边界类型</param>
+        /// <param name="obegin">开始边界值</param>
+        /// <param name="tend">结束边界类型</param>
+        /// <param name="oend">结束边界值</param>
+        /// <param name="tstep">步长类型</param>
+        /// <param name="ostep">步长值</param>
+        public void dash_forLoop(bool simFlag, ForLoopType tbegin, string obegin,
+            ForLoopType tend, string oend, ForLoopType tstep, string ostep)
         {
             // 刷新前台
             TreeView curTree = this.getActiveTreeView();
@@ -634,7 +744,11 @@ namespace KagaIDE.Module
             codeMana.insertNode(codeParentNode.depth + 1, insertPoint, nkn);
         }
 
-        // 指令：函数退出
+        /// <summary>
+        /// 指令：函数退出
+        /// </summary>
+        /// <param name="opType">函数返回类型</param>
+        /// <param name="operand">函数返回值</param>
         public void dash_return(OperandType opType, string operand)
         {
             // 刷新前台
@@ -673,7 +787,9 @@ namespace KagaIDE.Module
             codeMana.insertNode(codeParentNode.depth + 1, insertPoint, nkn);
         }
 
-        // 指令：中断循环
+        /// <summary>
+        /// 指令：中断循环
+        /// </summary>
         public void dash_break()
         {
             // 刷新前台
@@ -693,7 +809,10 @@ namespace KagaIDE.Module
             codeMana.insertNode(codeParentNode.depth + 1, insertPoint, nkn);
         }
 
-        // 指令：插入注释
+        /// <summary>
+        /// 指令：插入注释
+        /// </summary>
+        /// <param name="nota">注释字符串</param>
         public void dash_notation(string nota)
         {
             // 刷新前台
@@ -717,7 +836,11 @@ namespace KagaIDE.Module
             codeMana.insertNode(codeParentNode.depth + 1, insertPoint, nkn);
         }
 
-        // 指令：函数调用
+        /// <summary>
+        /// 指令：函数调用
+        /// </summary>
+        /// <param name="fcname">被调用的函数名称</param>
+        /// <param name="argPairs">参数列表字符串：以"arg1:operand1//arg2:operand2..."的格式传递</param>
         public void dash_funcall(string fcname, string argPairs)
         {
             // 刷新前台
@@ -740,7 +863,10 @@ namespace KagaIDE.Module
             codeMana.insertNode(codeParentNode.depth + 1, insertPoint, nkn);
         }
 
-        // 指令：插入代码片段
+        /// <summary>
+        /// 指令：插入代码片段
+        /// </summary>
+        /// <param name="myCode">代码片段字符串</param>
         public void dash_codeblock(string myCode)
         {
             // 刷新前台
@@ -766,13 +892,19 @@ namespace KagaIDE.Module
         #endregion
 
         #region 前台刷新相关函数 
-        // 设置MainForm的引用
+        /// <summary>
+        /// 设置MainForm的引用
+        /// </summary>
+        /// <param name="mainRef">主窗体实例</param>
         public void setMainForm(MainForm mainRef)
         {
             this.mainFormPointer = mainRef;
         }
 
-        // 获取当前活跃的TabPage里的编辑器
+        /// <summary>
+        /// 获取当前活跃的TabPage里的编辑器
+        /// </summary>
+        /// <returns>活跃标签页里的TreeView实例</returns>
         public TreeView getActiveTreeView()
         {
             TabPage p = this.mainFormPointer.tabControl1.SelectedTab;
@@ -780,7 +912,9 @@ namespace KagaIDE.Module
             return controlItem != null ? (TreeView)controlItem[0] : null;
         }
 
-        // 更新编辑器内容
+        /// <summary>
+        /// 把前端的信息更新为目前后台的状态
+        /// </summary>
         public void refreshAll()
         {
             // 更新函数列表
@@ -835,7 +969,11 @@ namespace KagaIDE.Module
             }
         }
 
-        // 窗体绘制函数
+        /// <summary>
+        /// 可视化代码树的绘制函数
+        /// </summary>
+        /// <param name="parseNode">当前处理的节点</param>
+        /// <returns></returns>
         private KagaNode drawTreeContext(KagaNode parseNode)
         {
             switch (parseNode.atype)
@@ -1107,11 +1245,16 @@ namespace KagaIDE.Module
             }
             return parseNode;
         }
+
+        // 当前处理节点的双亲节点
         private TreeNode currentParent = null;
+        // 活跃前端代码树指针
         private TreeView treeViewPointer = null;
         #endregion
 
-        // 初始化整个控制器
+        /// <summary>
+        /// 初始化整个控制器，并重新取得符号管理器和代码管理器的引用
+        /// </summary>
         public void Init()
         {
             this.symbolMana.clear();
@@ -1119,8 +1262,13 @@ namespace KagaIDE.Module
             this.symbolMana = SymbolManager.getInstance();
             this.codeMana = CodeManager.getInstance();
         }
-        // 读取恢复唯一实例
-        public void setLoadMana(CodeManager cmana, SymbolManager smana)
+        
+        /// <summary>
+        /// 将代码管理器和符号管理器的引用重置
+        /// </summary>
+        /// <param name="cmana">代码管理器实例</param>
+        /// <param name="smana">符号管理器实例</param>
+        public void setMana(CodeManager cmana, SymbolManager smana)
         {
             // 重置单例
             SymbolManager.setSynObj(smana);
@@ -1129,12 +1277,19 @@ namespace KagaIDE.Module
             this.symbolMana = SymbolManager.getInstance();
             this.codeMana = CodeManager.getInstance();
         }
-        // 工厂方法
+
+        /// <summary>
+        /// 工厂方法：获得唯一实例
+        /// </summary>
+        /// <returns>返回控制器的唯一实例</returns>
         public static KagaController getInstance()
         {
             return synObject == null ? synObject = new KagaController() : synObject;
         }
-        // 私有构造器
+
+        /// <summary>
+        /// 私有的构造器
+        /// </summary>
         private KagaController()
         {
             pileMana = PileParser.getInstance();
